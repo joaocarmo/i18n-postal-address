@@ -4,7 +4,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: 'i18npa.js',
-    library: 'i18npa',
+    library: 'PostalAddress',
     libraryTarget: 'umd',
     globalObject: 'typeof self !== \'undefined\' ? self : this'
   }
