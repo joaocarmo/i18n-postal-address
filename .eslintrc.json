@@ -15,9 +15,9 @@
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
         "array-callback-return": "error",
-        "array-element-newline": "error",
+        "array-element-newline": ["error", "consistent"],
         "arrow-body-style": "error",
-        "arrow-parens": "error",
+        "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
         "arrow-spacing": "error",
         "block-scoped-var": "error",
         "block-spacing": "error",
@@ -29,7 +29,7 @@
             "always"
         ],
         "class-methods-use-this": "off",
-        "comma-dangle": "error",
+        "comma-dangle": ["error", "always-multiline"],
         "comma-spacing": [
             "error",
             {
@@ -92,7 +92,7 @@
         "max-classes-per-file": "error",
         "max-depth": "error",
         "max-len": "error",
-        "max-lines": "error",
+        "max-lines": "off",
         "max-lines-per-function": "error",
         "max-nested-callbacks": "error",
         "max-params": "error",
@@ -104,7 +104,7 @@
         "new-parens": "error",
         "newline-after-var": [
             "error",
-            "never"
+            "always"
         ],
         "newline-before-return": "off",
         "newline-per-chained-call": "error",
@@ -139,7 +139,7 @@
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": "error",
+        "no-magic-numbers": ["error", { "ignore": [0, 1] }],
         "no-mixed-operators": "error",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
@@ -201,7 +201,7 @@
         "no-with": "error",
         "nonblock-statement-body-position": "error",
         "object-curly-newline": "error",
-        "object-curly-spacing": "error",
+        "object-curly-spacing": ["error", "always"],
         "object-property-newline": "error",
         "object-shorthand": "error",
         "one-var": "off",

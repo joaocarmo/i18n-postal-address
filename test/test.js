@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const PostalAddress = require('..').default
 
 const myAddressPersonal = new PostalAddress()
@@ -23,7 +24,10 @@ myAddressBusiness.setCompanyName('Synopsys Portugal Lda')
 myAddressBusiness.setCountry('Portugal')
 myAddressBusiness.setPostalCode('2740-267')
 myAddressBusiness.setOutputFormat('array')
-myAddressBusiness.setFormat({ country: 'RU', type: 'business' })
+myAddressBusiness.setFormat({
+  country: 'RU',
+  type: 'business',
+})
 
 console.log(myAddressPersonal.output())
 
