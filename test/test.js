@@ -6,14 +6,17 @@ const myAddressPersonal = new PostalAddress()
 
 myAddressPersonal.setAddress1('Rua do Pastel, 19')
 myAddressPersonal.setCity('Aveiro')
-myAddressPersonal.setCountry('Portugal')
-myAddressPersonal.setFirstName('João')
-myAddressPersonal.setHonorific('Sr.')
+myAddressPersonal.setCountry('Brazil')
+myAddressPersonal.setFirstName('John')
+myAddressPersonal.setHonorific('Mr.')
 myAddressPersonal.setLastName('Pestana')
 myAddressPersonal.setPostalCode('2700-242')
 myAddressPersonal.setSecondName('Lopes')
 myAddressPersonal.setOutputFormat('array')
-myAddressPersonal.setFormat({ country: 'IT' })
+myAddressPersonal.setFormat({
+  country: 'AR',
+  type: 'personal',
+})
 
 const myAddressBusiness = new PostalAddress()
 
