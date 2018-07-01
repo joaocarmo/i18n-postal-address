@@ -1,17 +1,30 @@
 #!/usr/bin/env node
 const PostalAddress = require('..').default
 
-const myAddressPortugal = new PostalAddress()
+const myAddressPersonal = new PostalAddress()
 
-myAddressPortugal.setAddress1('Rua do Seixo, 19')
-myAddressPortugal.setCity('Aveiro')
-myAddressPortugal.setCountry('Portugal')
-myAddressPortugal.setFirstName('João')
-myAddressPortugal.setHonorific('Sr.')
-myAddressPortugal.setLastName('Pestana')
-myAddressPortugal.setPostalCode('2700-242')
-myAddressPortugal.setSecondName('Lopes')
-myAddressPortugal.setOutputFormat('array')
-myAddressPortugal.setFormat({ country: 'CA', type: 'french' })
+myAddressPersonal.setAddress1('Rua do Pastel, 19')
+myAddressPersonal.setCity('Aveiro')
+myAddressPersonal.setCountry('Portugal')
+myAddressPersonal.setFirstName('João')
+myAddressPersonal.setHonorific('Sr.')
+myAddressPersonal.setLastName('Pestana')
+myAddressPersonal.setPostalCode('2700-242')
+myAddressPersonal.setSecondName('Lopes')
+myAddressPersonal.setOutputFormat('array')
+myAddressPersonal.setFormat({ country: 'RU' })
 
-console.log(myAddressPortugal.output())
+const myAddressBusiness = new PostalAddress()
+
+myAddressBusiness.setAddress1('Lagoas Park')
+myAddressBusiness.setAddress2('Edifício 4, Piso 2')
+myAddressBusiness.setCity('Porto Salvo')
+myAddressBusiness.setCompanyName('Synopsys Portugal Lda')
+myAddressBusiness.setCountry('Portugal')
+myAddressBusiness.setPostalCode('2740-267')
+myAddressBusiness.setOutputFormat('array')
+myAddressBusiness.setFormat({ country: 'RU', type: 'business' })
+
+console.log(myAddressPersonal.output())
+
+console.log(myAddressBusiness.output())
