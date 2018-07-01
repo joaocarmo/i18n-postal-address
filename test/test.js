@@ -13,7 +13,7 @@ myAddressPersonal.setLastName('Pestana')
 myAddressPersonal.setPostalCode('2700-242')
 myAddressPersonal.setSecondName('Lopes')
 myAddressPersonal.setOutputFormat('array')
-myAddressPersonal.setFormat({ country: 'RU' })
+myAddressPersonal.setFormat({ country: 'IT' })
 
 const myAddressBusiness = new PostalAddress()
 
@@ -31,4 +31,4 @@ myAddressBusiness.setFormat({
 
 console.log(myAddressPersonal.output())
 
-console.log(myAddressBusiness.output())
+console.log(myAddressBusiness.toString())

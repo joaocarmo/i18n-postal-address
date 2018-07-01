@@ -1,9 +1,9 @@
 module.exports = {
   context: __dirname + '/lib',
-  entry: './i18npa.js',
+  entry: './postal-address.js',
   output: {
     path: __dirname + '/dist',
-    filename: 'i18npa.js',
+    filename: 'postal-address.js',
     library: 'PostalAddress',
     libraryTarget: 'umd',
     globalObject: 'typeof self !== \'undefined\' ? self : this'
