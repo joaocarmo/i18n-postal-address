@@ -1,4 +1,6 @@
 # i18n-postal-address
+[![npm version](https://badge.fury.io/js/i18n-postal-address.svg)](https://badge.fury.io/js/i18n-postal-address)
+
 A JavaScript library to produce international postal addresses formatted by
 region
 
