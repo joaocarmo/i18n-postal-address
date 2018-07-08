@@ -41,4 +41,8 @@ myAddressPersonal.setFormat({
 
 console.log(myAddressPersonal.output())
 
+myAddressPersonal.setUseTransforms(false)
+
+console.log(myAddressPersonal.output())
+
 console.log(myAddressBusiness.toString())

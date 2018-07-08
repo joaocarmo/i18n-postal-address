@@ -1,3 +1,9 @@
+## 0.0.4
+> Jul 8, 2018
+
+- Added an option to ignore transforms
+- Fixed documentation
+
 ## 0.0.3
 > Jul 8, 2018
 

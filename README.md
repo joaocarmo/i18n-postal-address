@@ -27,7 +27,7 @@ It's exposed through the _window_ global object as explained below.
 `foo.js`
 ```javascript
 // define myAddress
-var PostalAddress = window.PostalAddress.PostalAddress;
+var PostalAddress = window.PostalAddress.default;
 var myAddress = new PostalAddress();
 
 // ...
@@ -38,7 +38,7 @@ var myAddress = new PostalAddress();
 With a bundler (e.g. webpack) or in Node.js you can just require / import it.
 
 ```javascript
-import { PostalAddress } from 'i18n-postal-address'
+import PostalAddress from 'i18n-postal-address'
 
 // define myAddress
 const myAddress = new PostalAddress()
@@ -121,9 +121,18 @@ setTitle
 These affect the output format
 
 ```javascript
-// country: 'CA', ...
-// type: 'business', 'english', 'default', 'french', 'personal'
+/*
+  Input one country and one type
+
+  country: 'CA', ...
+  type: 'business', 'english', 'default', 'french', 'personal'
+*/
 setFormat({ country, type })
+
+/*
+  Input either true or false
+*/
+setUseTransforms(boolean)
 ```
 
 ### Why?
