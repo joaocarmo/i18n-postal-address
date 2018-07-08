@@ -14,7 +14,7 @@ myAddressPersonal.setPostalCode('2700-242')
 myAddressPersonal.setSecondName('Lopes')
 myAddressPersonal.setOutputFormat('array')
 myAddressPersonal.setFormat({
-  country: 'AR',
+  country: 'NO',
   type: 'personal',
 })
 
@@ -30,6 +30,13 @@ myAddressBusiness.setOutputFormat('array')
 myAddressBusiness.setFormat({
   country: 'RU',
   type: 'business',
+})
+
+console.log(myAddressPersonal.output())
+
+myAddressPersonal.setFormat({
+  country: 'US',
+  type: '',
 })
 
 console.log(myAddressPersonal.output())
