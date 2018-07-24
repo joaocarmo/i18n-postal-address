@@ -1,5 +1,6 @@
 # i18n-postal-address
 [![npm version](https://badge.fury.io/js/i18n-postal-address.svg)](https://badge.fury.io/js/i18n-postal-address)
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 A JavaScript library to produce international postal addresses formatted by
 region
@@ -122,17 +123,14 @@ These affect the output format
 
 ```javascript
 /*
-  Input one country and one type
+  Input one country and one type,
+  Define whether text transformations should be executed
 
   country: 'CA', ...
   type: 'business', 'english', 'default', 'french', 'personal'
+  useTransforms: true, false
 */
-setFormat({ country, type })
-
-/*
-  Input either true or false
-*/
-setUseTransforms(boolean)
+setFormat({ country, type, useTransforms })
 ```
 
 ### Why?
@@ -160,4 +158,10 @@ Build
 
 ```
 $ npm run build
+```
+
+Test
+
+```
+$ npm test
 ```

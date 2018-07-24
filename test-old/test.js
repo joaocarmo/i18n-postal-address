@@ -37,11 +37,12 @@ console.log(myAddressPersonal.output())
 myAddressPersonal.setFormat({
   country: 'US',
   type: '',
+  useTransforms: true,
 })
 
 console.log(myAddressPersonal.output())
 
-myAddressPersonal.setUseTransforms(false)
+myAddressPersonal.setFormat({ useTransforms: false })
 
 console.log(myAddressPersonal.output())
 
