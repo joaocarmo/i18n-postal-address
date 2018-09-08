@@ -1,1 +1,4 @@
 test/*.js
+webpack.*
+dist/*.js
+test-old/*.js

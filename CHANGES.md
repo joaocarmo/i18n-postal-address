@@ -1,3 +1,8 @@
+## 0.0.6
+> Sep 8, 2018
+
+- Should fix [Issue \#1](https://github.com/joaocarmo/i18n-postal-address/issues/1)
+
 ## 0.0.5
 > Jul 24, 2018
 
