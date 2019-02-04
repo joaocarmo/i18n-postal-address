@@ -1,3 +1,10 @@
+## 0.0.7
+> Feb 4, 2019
+
+- Updated the dependencies to resolve the security vulnerability in
+[merge](https://github.com/joaocarmo/i18n-postal-address/network/alert/package-lock.json/merge/open)
+- Should fix [Issue \#2](https://github.com/joaocarmo/i18n-postal-address/issues/2)
+
 ## 0.0.6
 > Sep 8, 2018
 

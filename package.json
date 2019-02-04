@@ -1,6 +1,6 @@
 {
   "name": "i18n-postal-address",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A JavaScript library to produce international postal addresses formatted by region",
   "main": "dist/postal-address.js",
   "directories": {
@@ -29,17 +29,18 @@
   },
   "homepage": "https://github.com/joaocarmo/i18n-postal-address#readme",
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/runtime": "^7.0.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/runtime": "^7.3.1",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.2",
-    "eslint": "^5.5.0",
-    "jest": "^23.5.0",
-    "regenerator-runtime": "^0.12.1",
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
+    "babel-jest": "^24.0.0",
+    "babel-loader": "^8.0.5",
+    "core-js": "^2.6.3",
+    "eslint": "^5.13.0",
+    "jest": "^24.0.0",
+    "regenerator-runtime": "^0.13.1",
+    "webpack": "^4.29.1",
+    "webpack-cli": "^3.2.1"
   }
 }
