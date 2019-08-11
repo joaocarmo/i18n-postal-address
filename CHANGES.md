@@ -1,8 +1,18 @@
 ## 0.0.7
-> Feb 4, 2019
+> Aug 11, 2019
 
-- Updated the dependencies to resolve the security vulnerability in
-[merge](https://github.com/joaocarmo/i18n-postal-address/network/alert/package-lock.json/merge/open)
+- Added more tests to _Jest_
+- Added a to-do list
+- Updated the dependencies to resolve security vulnerabilities:
+  - [CVE-2019-10744](https://github.com/lodash/lodash/pull/4336)
+
+## 0.0.7
+> Jun 13, 2019
+
+- Updated the dependencies to resolve security vulnerabilities:
+  - [WS-2019-0064](https://github.com/wycats/handlebars.js/compare/v4.1.1...v4.1.2)
+  - [WS-2019-0032](https://github.com/nodeca/js-yaml/issues/475)
+  - [WS-2019-0063](https://github.com/nodeca/js-yaml/pull/480)
 - Should fix [Issue \#2](https://github.com/joaocarmo/i18n-postal-address/issues/2)
 
 ## 0.0.6
