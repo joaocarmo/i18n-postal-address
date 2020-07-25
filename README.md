@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/i18n-postal-address.svg)](https://badge.fury.io/js/i18n-postal-address)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
+[![tests](https://github.com/joaocarmo/i18n-postal-address/workflows/tests/badge.svg)]
 
 A JavaScript library to produce international postal addresses formatted by
 region.

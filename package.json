@@ -6,6 +6,10 @@
   "directories": {
     "lib": "lib"
   },
+  "browserslist": [
+    "last 2 version",
+    "not dead"
+  ],
   "scripts": {
     "build": "NODE_ENV=production webpack --mode production",
     "lint": "eslint .",
@@ -39,7 +43,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.6.5",
+    "core-js": "^3.6",
     "eslint": "^7.5.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
