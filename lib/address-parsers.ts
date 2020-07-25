@@ -1,14 +1,6 @@
 import {
-  AddressFormatPart, AddressFormat, AddressObject, AddressOutputFormat,
+  AddressFormatPart, AddressOutputFormat, ParserInterface,
 } from './types/address-format'
-
-interface ParserInterface {
-  (
-    object: AddressObject,
-    format: AddressFormat,
-    useTransforms: boolean,
-  ): AddressOutputFormat;
-}
 
 const arrayParser: ParserInterface = (
   object, format, useTransforms = true,

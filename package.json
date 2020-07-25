@@ -11,12 +11,14 @@
     "not dead"
   ],
   "scripts": {
+    "build:types": "tsc -p tsconfig.declaration.json",
     "build": "NODE_ENV=production webpack --mode production",
-    "check-types": "tsc --noemit",
     "lint:fix": "eslint . --fix",
     "lint": "eslint .",
     "test:functional": "./test-functional/test.js",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "type-check:watch": "yarn type-check -- --watch",
+    "type-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
