@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const PostalAddress = require('..').default
+const PostalAddress = require('../dist/postal-address').default
 
 const myAddressPersonal = new PostalAddress()
 
@@ -20,12 +20,12 @@ myAddressPersonal.setFormat({
 
 const myAddressBusiness = new PostalAddress()
 
-myAddressBusiness.setAddress1('Lagoas Park')
+myAddressBusiness.setAddress1('Happy Park')
 myAddressBusiness.setAddress2('Edifício 4, Piso 2')
-myAddressBusiness.setCity('Porto Salvo')
-myAddressBusiness.setCompanyName('Synopsys Portugal Lda')
+myAddressBusiness.setCity('Porto')
+myAddressBusiness.setCompanyName('SmartShoes Portugal, Lda.')
 myAddressBusiness.setCountry('Portugal')
-myAddressBusiness.setPostalCode('2740-267')
+myAddressBusiness.setPostalCode('4000-123')
 myAddressBusiness.setOutputFormat('array')
 myAddressBusiness.setFormat({
   country: 'RU',

@@ -1,14 +1,19 @@
 # i18n-postal-address
+
 [![npm version](https://badge.fury.io/js/i18n-postal-address.svg)](https://badge.fury.io/js/i18n-postal-address)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 A JavaScript library to produce international postal addresses formatted by
-region
+region.
 
 ## Installation
 
-```
-$ npm install i18n-postal-address
+```sh
+npm install i18n-postal-address
+
+# or
+
+yarn add i18n-postal-address
 ```
 
 ## Usage
@@ -18,6 +23,7 @@ $ npm install i18n-postal-address
 It's exposed through the _window_ global object as explained below.
 
 `index.html`
+
 ```html
 <head>
   <script type="text/javascript" src="./postal-address.js"></script>
@@ -26,7 +32,8 @@ It's exposed through the _window_ global object as explained below.
 ```
 
 `foo.js`
-```javascript
+
+```js
 // define myAddress
 var PostalAddress = window.PostalAddress.default;
 var myAddress = new PostalAddress();
@@ -38,7 +45,7 @@ var myAddress = new PostalAddress();
 
 With a bundler (e.g. webpack) or in Node.js you can just require / import it.
 
-```javascript
+```js
 import PostalAddress from 'i18n-postal-address'
 
 // define myAddress
@@ -47,7 +54,7 @@ const myAddress = new PostalAddress()
 
 ## Example
 
-```javascript
+```js
 const myAddressPersonal = new PostalAddress()
 
 myAddressPersonal.setAddress1('Rua do Pastel, 19')
@@ -70,7 +77,8 @@ console.log(myAddressPersonal.toString())
 ```
 
 `output()`
-```
+
+```txt
 [ [ 'Mr.', 'John', 'Lopes' ],
   [ 'Pestana' ],
   [ 'Rua do Pastel, 19' ],
@@ -79,7 +87,8 @@ console.log(myAddressPersonal.toString())
 ```
 
 `toString()`
-```
+
+```txt
 Mr. John Lopes
 Pestana
 Rua do Pastel, 19
@@ -90,7 +99,8 @@ Brazil
 ## Available Class Methods
 
 **Address Attributes**
-```
+
+```txt
 setAddress1
 setAddress2
 setAddressNum
@@ -135,7 +145,7 @@ setFormat({ country, type, useTransforms })
 
 ### Why?
 
-The great [libpostal](https://github.com/openvenues/libpostal) is not available
+The great [libpostal][libpostal] is not available
 on the web.
 
 Need to present postal addresses for different regions worldwide stored in
@@ -146,22 +156,31 @@ individual parts (company name, address, postal code, city, county, country,
 
 **Disclaimer:** It doesn't mean this library tries to recreate any of these
 
-MSDN > ... > Globalization and Localization > [Appendix V International Address Formats](https://msdn.microsoft.com/en-us/library/cc195167.aspx)
+MSDN > ... > Globalization and Localization >
+[Appendix V International Address Formats][msappendix]
 
-[Query Address Data](http://i18napis.appspot.com/address)
+[Query Address Data][qad]
 
-[PostalAddress](https://schema.org/PostalAddress)
+[PostalAddress][pa]
 
 ### Forking / Contributing
 
 Build
 
-```
-$ npm run build
+```txt
+yarn build
 ```
 
 Test
 
+```txt
+yarn test:unit
+
+yarn test:functional
 ```
-$ npm test
-```
+
+<!-- References -->
+[libpostal]: https://github.com/openvenues/libpostal
+[msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
+[qad]: http://i18napis.appspot.com/address
+[pa]: https://schema.org/PostalAddress

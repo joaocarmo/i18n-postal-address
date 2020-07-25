@@ -1,4 +1,14 @@
-## 0.0.7
+# Changelog
+
+## 0.0.8
+
+> Jul 25, 2020
+
+- Updated the dependencies to resolve some security vulnerabilities
+- Updated the directory structure
+
+## 0.0.7-2 (no release)
+
 > Aug 11, 2019
 
 - Added more tests to _Jest_
@@ -7,6 +17,7 @@
   - [CVE-2019-10744](https://github.com/lodash/lodash/pull/4336)
 
 ## 0.0.7
+
 > Jun 13, 2019
 
 - Updated the dependencies to resolve security vulnerabilities:
@@ -16,33 +27,39 @@
 - Should fix [Issue \#2](https://github.com/joaocarmo/i18n-postal-address/issues/2)
 
 ## 0.0.6
+
 > Sep 8, 2018
 
 - Should fix [Issue \#1](https://github.com/joaocarmo/i18n-postal-address/issues/1)
 
 ## 0.0.5
+
 > Jul 24, 2018
 
 - Removed the method _setUseTransforms_ and added it as an option to _setFormat_
 - Added _Jest_ for testing
 
 ## 0.0.4
+
 > Jul 8, 2018
 
 - Added an option to ignore transforms
 - Fixed documentation
 
 ## 0.0.3
+
 > Jul 8, 2018
 
 - Added a capitalization transform to some attributes
 
 ## 0.0.2
+
 > Jul 4, 2018
 
 - Publish to [npm](https://www.npmjs.com) repository
 
 ## 0.0.1
+
 > Jul 1, 2018
 
 - Initial release
