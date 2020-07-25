@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const PostalAddress = require('../dist/postal-address').default
+const PostalAddress = require('..').default
 
 const myAddressPersonal = new PostalAddress()
 
