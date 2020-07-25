@@ -1,4 +1,11 @@
 {
-  "include": ["lib/**/*"],
-  "exclude": ["dist/**/*"]
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "strict": true
+  },
+  "include": ["lib/**/*.ts"],
+  "exclude": ["node_modules", "dist/**/*"]
 }

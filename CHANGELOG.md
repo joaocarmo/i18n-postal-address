@@ -7,6 +7,7 @@
 - Updated the dependencies to resolve some security vulnerabilities
 - Updated the directory structure
 - Added GitHub actions
+- Added TypeScript
 
 ## 0.0.7-2 (no release)
 

@@ -8,11 +8,16 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:jest/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module',
+    project: './tsconfig.eslint.json',
+    tsconfigRootDir: __dirname,
   },
   plugins: [
     'jest',
@@ -20,5 +25,20 @@ module.exports = {
   ],
   rules: {
     semi: ['error', 'never'],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        ts: 'never',
+      },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
   },
 }

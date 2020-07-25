@@ -1,10 +1,11 @@
 // Import modules and constants
+import PostalAddressInterface from './postal-address-interface'
 import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'
 import countries from './countries.json'
 
-class PostalAddress {
+class PostalAddress implements PostalAddressInterface {
   constructor() {
     // Possible values: 'array', 'string'
     this.outputFormat = 'array'

@@ -12,8 +12,9 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production webpack --mode production",
-    "lint": "eslint .",
+    "check-types": "tsc --noemit",
     "lint:fix": "eslint . --fix",
+    "lint": "eslint .",
     "test:functional": "./test-functional/test.js",
     "test:unit": "jest"
   },
