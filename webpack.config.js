@@ -8,7 +8,7 @@ const mode = NODE_ENV || 'development'
 
 module.exports = {
   context: path.join(__dirname, 'lib'),
-  entry: './postal-address.js',
+  entry: './postal-address.ts',
   mode,
   output: {
     path: path.join(__dirname, 'dist'),
@@ -17,10 +17,13 @@ module.exports = {
     libraryTarget: 'umd',
     globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+  },
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /.(j|t)s$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

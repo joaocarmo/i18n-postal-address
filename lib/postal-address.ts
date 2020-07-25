@@ -1,5 +1,5 @@
 // Import modules and constants
-import PostalAddressInterface from './postal-address-interface'
+import PostalAddressInterface from './types/postal-address'
 import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'

@@ -34,6 +34,15 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['lib/**/__tests__/*'],
+      rules: {
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+      },
+    },
+  ],
   settings: {
     'import/resolver': {
       node: {
