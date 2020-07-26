@@ -28,8 +28,12 @@ jobs:
       run: yarn --frozen-lockfile
     - name: Lint the source files
       run: yarn lint
+    - name: Type check
+      run: yarn type-check
     - name: Build the library
-      run: yarn build --if-present
+      run: yarn build
+    - name: Build the typings
+      run: yarn build:types
     - name: Execute the tests
       run: |
         yarn test:unit
