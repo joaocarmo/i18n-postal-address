@@ -1,6 +1,7 @@
 // Import modules and constants
 import PostalAddressInterface from './types/postal-address'
 import {
+  AddressFormatPart,
   AddressFormat,
   AddressFormats,
   AddressObject,
@@ -14,31 +15,31 @@ import objectInitialState from './object-initial-state'
 import countries from './countries.json'
 
 class PostalAddress implements PostalAddressInterface {
-  outputFormat: 'array' | 'string'
+  private outputFormat: 'array' | 'string'
 
-  formatForCountry: string
+  private formatForCountry: string
 
-  formatForType: 'business' | 'english' | 'default' | 'french' | 'personal'
+  private formatForType: 'business' | 'english' | 'default' | 'french' | 'personal'
 
-  useTransforms: boolean
+  private useTransforms: boolean
 
-  object: AddressObject
+  private object: AddressObject
 
-  validators: {
+  private validators: {
     [key: string]: Validator
   }
 
-  allowed: {
+  private allowed: {
     [key: string]: string[]
   }
 
-  addressFormats: AddressFormats
+  private addressFormats: AddressFormats
 
-  addressParsers: {
+  private addressParsers: {
     [key: string]: ParserInterface
   }
 
-  constructor() {
+  public constructor() {
     // Possible values: 'array', 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -67,15 +68,18 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  validator(property: string, newValue: string, object = true): string {
+  private validator(property: string, newValue: string, object = true): string {
     let oldValue = ''
+    const validatorFn = this.validators[property]
 
     if (object) {
       oldValue = this.object[property]
     } else {
-      oldValue = this[property] as string
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      oldValue = this[property]
     }
-    const validatorFn = this.validators[property]
 
     if (typeof validatorFn === 'function') {
       if (validatorFn(newValue)) {
@@ -83,48 +87,108 @@ class PostalAddress implements PostalAddressInterface {
       }
       return oldValue
     }
+
     return newValue
   }
 
-  setProperty(property: string, newValue: string, object = true): void {
+  private getFormat(overrideFormat: string): AddressFormatPart[][] | null {
+    const {
+      outputFormat, formatForCountry, formatForType, addressFormats,
+    } = this
+
+    const format = overrideFormat || outputFormat
+    let formatsAvailable = addressFormats[formatForCountry]
+    let outputType: AddressFormat = {}
+
+    if (!formatsAvailable) {
+      // Default to the US format
+      formatsAvailable = addressFormats?.US
+    }
+
+    if (formatsAvailable?.[formatForType as keyof AddressFormats]) {
+      outputType = formatsAvailable[formatForType]
+    } else if (formatsAvailable.default) {
+      outputType = formatsAvailable?.default
+    }
+
+    if (outputType?.[format as keyof AddressFormat]) {
+      return outputType?.[format as keyof AddressFormat] || null
+    }
+
+    if (outputType?.array) {
+      return outputType.array
+    }
+
+    return null
+  }
+
+  private getParser(overrideFormat: string): ParserInterface | null {
+    const { outputFormat, addressParsers } = this
+    const format = overrideFormat || outputFormat
+
+    if (addressParsers[format]) {
+      return addressParsers[format]
+    }
+
+    return null
+  }
+
+  private output(overrideFormat: string): string[][] | string | null {
+    const { useTransforms } = this
+
+    const outputFormat = this.getFormat(overrideFormat)
+    const outputParser = this.getParser(overrideFormat)
+
+    if (typeof outputParser === 'function' && outputFormat) {
+      return outputParser(this.object, outputFormat, useTransforms)
+    }
+
+    return null
+  }
+
+  private setProperty(property: string, newValue: string, object = true): void {
     if (typeof newValue === 'string') {
       if (object) {
         if (typeof this.object[property] === 'string') {
           this.object[property] = this.validator(property, newValue, object)
         }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       } else if (typeof this[property] === 'string') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
         this[property] = this.validator(property, newValue, object)
       }
     }
   }
 
-  setAddress(newValue: string): void {
+  public setAddress(newValue: string): void {
     this.setAddress1(newValue)
   }
 
-  setAddress1(newValue: string): void {
+  public setAddress1(newValue: string): void {
     this.setProperty('address1', newValue)
     this.setProperty('dong', newValue)
   }
 
-  setAddress2(newValue: string): void {
+  public setAddress2(newValue: string): void {
     this.setProperty('address2', newValue)
   }
 
-  setAddressNum(newValue: string): void {
+  public setAddressNum(newValue: string): void {
     this.setProperty('addressNum', newValue)
   }
 
-  setCity(newValue: string): void {
+  public setCity(newValue: string): void {
     this.setProperty('city', newValue)
     this.setProperty('si', newValue)
   }
 
-  setCompanyName(newValue: string): void {
+  public setCompanyName(newValue: string): void {
     this.setProperty('companyName', newValue)
   }
 
-  setCountry(newValue: string): void {
+  public setCountry(newValue: string): void {
     this.setProperty('country', newValue)
     const countryAlpha2 = (countries as Countries)[newValue]
 
@@ -133,89 +197,89 @@ class PostalAddress implements PostalAddressInterface {
     }
   }
 
-  setDo(newValue: string): void {
+  public setDo(newValue: string): void {
     this.setProperty('do', newValue)
     this.setProperty('province', newValue)
   }
 
-  setDong(newValue: string): void {
+  public setDong(newValue: string): void {
     this.setProperty('dong', newValue)
     this.setProperty('address1', newValue)
   }
 
-  setFirstLastName(newValue: string): void {
+  public setFirstLastName(newValue: string): void {
     this.setProperty('firstLastName', newValue)
   }
 
-  setFirstName(newValue: string): void {
+  public setFirstName(newValue: string): void {
     this.setProperty('firstName', newValue)
   }
 
-  setGu(newValue: string): void {
+  public setGu(newValue: string): void {
     this.setProperty('gu', newValue)
   }
 
-  setHonorific(newValue: string): void {
+  public setHonorific(newValue: string): void {
     this.setProperty('honorific', newValue)
   }
 
-  setJobTitle(newValue: string): void {
+  public setJobTitle(newValue: string): void {
     this.setProperty('jobTitle', newValue)
   }
 
-  setLastName(newValue: string): void {
+  public setLastName(newValue: string): void {
     this.setProperty('lastName', newValue)
     this.setProperty('secondLastName', newValue)
   }
 
-  setPostalCode(newValue: string): void {
+  public setPostalCode(newValue: string): void {
     this.setProperty('postalCode', newValue)
   }
 
-  setPrefecture(newValue: string): void {
+  public setPrefecture(newValue: string): void {
     this.setProperty('prefecture', newValue)
   }
 
-  setProvince(newValue: string): void {
+  public setProvince(newValue: string): void {
     this.setProperty('province', newValue)
     this.setProperty('do', newValue)
   }
 
-  setRegion(newValue: string): void {
+  public setRegion(newValue: string): void {
     this.setProperty('region', newValue)
   }
 
-  setRepublic(newValue: string): void {
+  public setRepublic(newValue: string): void {
     this.setProperty('republic', newValue)
   }
 
-  setSecondLastName(newValue: string): void {
+  public setSecondLastName(newValue: string): void {
     this.setProperty('secondLastName', newValue)
     this.setProperty('lastName', newValue)
   }
 
-  setSecondName(newValue: string): void {
+  public setSecondName(newValue: string): void {
     this.setProperty('secondName', newValue)
   }
 
-  setSi(newValue: string): void {
+  public setSi(newValue: string): void {
     this.setProperty('si', newValue)
     this.setProperty('city', newValue)
   }
 
-  setState(newValue: string): void {
+  public setState(newValue: string): void {
     this.setProperty('state', newValue)
   }
 
-  setTitle(newValue: string): void {
+  public setTitle(newValue: string): void {
     this.setProperty('title', newValue)
   }
 
-  setOutputFormat(string: string): void {
+  public setOutputFormat(string: string): void {
     this.setProperty('outputFormat', string, false)
   }
 
-  setFormat(
+  public setFormat(
     {
       country,
       type,
@@ -233,64 +297,17 @@ class PostalAddress implements PostalAddressInterface {
     }
   }
 
-  getFormat(overrideFormat: string): AddressFormat | null {
-    const {
-      outputFormat, formatForCountry, formatForType, addressFormats,
-    } = this
-    const format: string = overrideFormat || outputFormat
-    let formatsAvailable = addressFormats[formatForCountry]
-
-    if (!formatsAvailable) {
-      // Default to the US format
-      formatsAvailable = addressFormats.US
-    }
-    let outputType: { array?: AddressFormat } = { array: undefined }
-
-    if (formatsAvailable[formatForType]) {
-      outputType = formatsAvailable[formatForType]
-    } else if (formatsAvailable.default) {
-      outputType = formatsAvailable.default
-    }
-    if (outputType[format]) {
-      return outputType[format]
-    } if (outputType.array) {
-      return outputType.array
-    }
-    return null
-  }
-
-  getParser(overrideFormat: string): ParserInterface | null {
-    const { outputFormat, addressParsers } = this
-    const format = overrideFormat || outputFormat
-
-    if (addressParsers[format]) {
-      return addressParsers[format]
-    }
-    return null
-  }
-
-  output(overrideFormat: string): string[][] | string | null {
-    const { useTransforms } = this
-
-    const outputFormat = this.getFormat(overrideFormat)
-    const outputParser = this.getParser(overrideFormat)
-
-    if (typeof outputParser === 'function' && outputFormat) {
-      return outputParser(this.object, outputFormat, useTransforms)
-    }
-    return null
-  }
-
-  toString(): string {
+  public toString(): string {
     const output: string[][] = this.output('array') as string[][]
 
     if (output) {
       return output.map((part) => part.join(' ')).join('\n')
     }
+
     return ''
   }
 
-  raw(): AddressObject {
+  public raw(): AddressObject {
     return this.object
   }
 }

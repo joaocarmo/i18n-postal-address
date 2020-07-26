@@ -15,7 +15,6 @@ export type AddressFormatPart = string | AddressFormatOptions
 
 export interface AddressFormat {
   array?: AddressFormatPart[][]
-  string?: string
 }
 
 export interface AddressFormats {
@@ -33,7 +32,7 @@ export interface Countries {
 export interface ParserInterface {
   (
     object: AddressObject,
-    format: AddressFormat,
+    format: AddressFormatPart[][],
     useTransforms: boolean,
   ): AddressOutputFormat
 }

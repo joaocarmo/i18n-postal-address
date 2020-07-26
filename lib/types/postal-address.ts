@@ -1,25 +1,7 @@
-import {
-  AddressFormat, AddressFormats, AddressObject, ParserInterface, Validator,
-} from './address-format'
+import { AddressObject } from './address-format'
 
 export default interface PostalAddressInterface {
-  outputFormat: 'array' | 'string'
-  formatForCountry: string
-  formatForType: 'business' | 'english' | 'default' | 'french' | 'personal'
-  useTransforms: boolean
-  object: AddressObject
-  validators: {
-    [key: string]: Validator
-  }
-  allowed: {
-    [key: string]: string[]
-  }
-  addressFormats: AddressFormats
-  addressParsers: {
-    [key: string]: ParserInterface
-  }
-  validator(property: string, newValue: string, object: boolean): string
-  setProperty(property: string, newValue: string, object: boolean): void
+  // Public methods
   setAddress(newValue: string): void
   setAddress1(newValue: string): void
   setAddress2(newValue: string): void
@@ -54,9 +36,6 @@ export default interface PostalAddressInterface {
       useTransforms,
     }: { country: string, type: string, useTransforms: boolean },
   ): void
-  getFormat(overrideFormat: string): AddressFormat | null
-  getParser(overrideFormat: string): ParserInterface | null
-
   toString(): string
   raw(): AddressObject
 }
