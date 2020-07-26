@@ -8,6 +8,7 @@ module.exports = {
         corejs: '3.6',
       },
     ],
+    '@babel/preset-typescript',
   ],
   plugins: [
     '@babel/plugin-transform-runtime',

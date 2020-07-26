@@ -1,12 +1,18 @@
-const arrayParser = (object, format, useTransforms = true) => {
-  const result = []
+import {
+  AddressFormatPart, AddressOutputFormat, ParserInterface,
+} from './types/address-format'
+
+const arrayParser: ParserInterface = (
+  object, format, useTransforms = true,
+) => {
+  const result: AddressOutputFormat = []
 
   if (Array.isArray(format)) {
-    format.forEach((line) => {
-      const subResult = []
+    format.forEach((line: AddressFormatPart[]) => {
+      const subResult: string[] = []
 
       if (Array.isArray(line)) {
-        line.forEach((part) => {
+        line.forEach((part: AddressFormatPart) => {
           if (typeof part === 'string') {
             if (object[part]) {
               subResult.push(object[part])
@@ -36,15 +42,12 @@ const arrayParser = (object, format, useTransforms = true) => {
       }
     })
   }
+
   return result
 }
 
-// eslint-disable-next-line no-unused-vars
-const stringParser = (object, format, useTransforms = true) => ''
-
 const addressParsers = {
   array: arrayParser,
-  string: stringParser,
 }
 
 export default addressParsers

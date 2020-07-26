@@ -1,12 +1,13 @@
 # Changelog
 
-## 0.0.8
+## 0.1.0
 
-> Jul 25, 2020
+> Jul 26, 2020
 
 - Updated the dependencies to resolve some security vulnerabilities
 - Updated the directory structure
-- Added GitHub actions
+- Added GitHub actions for CI/CD
+- Converted to TypeScript
 
 ## 0.0.7-2 (no release)
 

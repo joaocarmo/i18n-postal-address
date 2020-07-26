@@ -1,6 +1,7 @@
+import { AddressFormats } from './types/address-format'
 import { capitalize } from './address-transforms'
 
-const addressFormats = {
+const addressFormats: AddressFormats = {
   // Argentina
   AR: {
     default: {
