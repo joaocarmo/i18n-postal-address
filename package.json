@@ -25,6 +25,10 @@
     "type": "git",
     "url": "git+https://github.com/joaocarmo/i18n-postal-address.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "tag": "latest"
+  },
   "keywords": [
     "i18n",
     "postal",
@@ -51,16 +55,15 @@
     "babel-jest": "^26.2.2",
     "babel-loader": "^8.0.6",
     "core-js": "^3.6",
+    "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^23.20.0",
-    "eslint": "^7.6.0",
     "jest": "^26.2.2",
     "regenerator-runtime": "^0.13.3",
     "typescript": "^3.9.7",
-    "webpack-cli": "^3.3.6",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.6"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
