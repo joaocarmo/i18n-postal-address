@@ -40,11 +40,11 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public constructor() {
-    // Possible values: 'array', 'string'
+    // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
     this.formatForCountry = 'US'
-    // Possible values: 'business', 'english', 'default', 'french', 'personal'
+    // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
     this.formatForType = 'default'
     // Transform input data or keep it as is
     this.useTransforms = true

@@ -141,8 +141,8 @@ These affect the output format
   Input one country and one type,
   Define whether text transformations should be executed
 
-  country: 'CA', ...
-  type: 'business', 'english', 'default', 'french', 'personal'
+  country: 'CA' | ...
+  type: 'business' | 'english' | 'default' | 'french' | 'personal'
   useTransforms: true | false
 */
 postalAddress.setFormat({ country, type, useTransforms })
