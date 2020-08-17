@@ -3,33 +3,35 @@ const PostalAddress = require('..').default
 
 const myAddressPersonal = new PostalAddress()
 
-myAddressPersonal.setAddress1('Rua do Pastel, 19')
-myAddressPersonal.setCity('Aveiro')
-myAddressPersonal.setCountry('Brazil')
-myAddressPersonal.setFirstName('John')
-myAddressPersonal.setHonorific('Mr.')
-myAddressPersonal.setLastName('Pestana')
-myAddressPersonal.setPostalCode('2700-242')
-myAddressPersonal.setSecondName('Lopes')
-myAddressPersonal.setOutputFormat('array')
-myAddressPersonal.setFormat({
-  country: 'NO',
-  type: 'personal',
-})
+myAddressPersonal
+  .setAddress1('Rua do Pastel, 19')
+  .setCity('Aveiro')
+  .setCountry('Brazil')
+  .setFirstName('John')
+  .setHonorific('Mr.')
+  .setLastName('Pestana')
+  .setPostalCode('2700-242')
+  .setSecondName('Lopes')
+  .setOutputFormat('array')
+  .setFormat({
+    country: 'NO',
+    type: 'personal',
+  })
 
 const myAddressBusiness = new PostalAddress()
 
-myAddressBusiness.setAddress1('Happy Park')
-myAddressBusiness.setAddress2('Edifício 4, Piso 2')
-myAddressBusiness.setCity('Porto')
-myAddressBusiness.setCompanyName('SmartShoes Portugal, Lda.')
-myAddressBusiness.setCountry('Portugal')
-myAddressBusiness.setPostalCode('4000-123')
-myAddressBusiness.setOutputFormat('array')
-myAddressBusiness.setFormat({
-  country: 'RU',
-  type: 'business',
-})
+myAddressBusiness
+  .setAddress1('Happy Park')
+  .setAddress2('Edifício 4, Piso 2')
+  .setCity('Porto')
+  .setCompanyName('SmartShoes Portugal, Lda.')
+  .setCountry('Portugal')
+  .setPostalCode('4000-123')
+  .setOutputFormat('array')
+  .setFormat({
+    country: 'RU',
+    type: 'business',
+  })
 
 console.log(myAddressPersonal.output())
 

@@ -19,7 +19,7 @@ yarn add i18n-postal-address
 
 ## Usage
 
-#### On the web
+### On the web
 
 It's exposed through the _window_ global object as explained below.
 
@@ -28,11 +28,11 @@ It's exposed through the _window_ global object as explained below.
 ```html
 <head>
   <script type="text/javascript" src="./postal-address.js"></script>
-  <script type="text/javascript" src="./foo.js"></script>
+  <script type="text/javascript" src="./app.js"></script>
 </head>
 ```
 
-`foo.js`
+`app.js`
 
 ```js
 // define myAddress
@@ -42,7 +42,7 @@ var myAddress = new PostalAddress();
 // ...
 ```
 
-#### With a bundler / Node.js
+### With a bundler / Node.js
 
 With a bundler (e.g. webpack) or in Node.js you can just require / import it.
 
@@ -55,22 +55,26 @@ const myAddress = new PostalAddress()
 
 ## Example
 
+Starting from `v0.2.0`, the methods can be chained one after the other for a
+cleaner code.
+
 ```js
 const myAddressPersonal = new PostalAddress()
 
-myAddressPersonal.setAddress1('Rua do Pastel, 19')
-myAddressPersonal.setCity('Aveiro')
-myAddressPersonal.setCountry('Brazil')
-myAddressPersonal.setFirstName('John')
-myAddressPersonal.setHonorific('Mr.')
-myAddressPersonal.setLastName('Pestana')
-myAddressPersonal.setPostalCode('2700-242')
-myAddressPersonal.setSecondName('Lopes')
-myAddressPersonal.setOutputFormat('array')
-myAddressPersonal.setFormat({
-  country: 'AR',
-  type: 'personal',
-})
+myAddressPersonal
+  .setAddress1('Rua do Pastel, 19')
+  .setCity('Aveiro')
+  .setCountry('Brazil')
+  .setFirstName('John')
+  .setHonorific('Mr.')
+  .setLastName('Pestana')
+  .setPostalCode('2700-242')
+  .setSecondName('Lopes')
+  .setOutputFormat('array')
+  .setFormat({
+    country: 'AR',
+    type: 'personal',
+  })
 
 console.log(myAddressPersonal.output())
 
@@ -99,7 +103,7 @@ Brazil
 
 ## Available Class Methods
 
-**Address Attributes**
+### Address Attributes
 
 ```txt
 setAddress1
@@ -128,7 +132,7 @@ setState
 setTitle
 ```
 
-**Options**
+### Options
 
 These affect the output format
 
@@ -139,12 +143,14 @@ These affect the output format
 
   country: 'CA', ...
   type: 'business', 'english', 'default', 'french', 'personal'
-  useTransforms: true, false
+  useTransforms: true | false
 */
-setFormat({ country, type, useTransforms })
+postalAddress.setFormat({ country, type, useTransforms })
 ```
 
-### Why?
+## Background
+
+### Why
 
 The great [libpostal][libpostal] is not available
 on the web.
@@ -164,7 +170,7 @@ MSDN > ... > Globalization and Localization >
 
 [PostalAddress][pa]
 
-### Forking / Contributing
+## Forking / Contributing
 
 Build
 

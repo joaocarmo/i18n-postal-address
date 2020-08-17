@@ -162,121 +162,148 @@ class PostalAddress implements PostalAddressInterface {
     }
   }
 
-  public setAddress(newValue: string): void {
+  public setAddress(newValue: string): this {
     this.setAddress1(newValue)
+    return this
   }
 
-  public setAddress1(newValue: string): void {
+  public setAddress1(newValue: string): this {
     this.setProperty('address1', newValue)
     this.setProperty('dong', newValue)
+    return this
   }
 
-  public setAddress2(newValue: string): void {
+  public setAddress2(newValue: string): this {
     this.setProperty('address2', newValue)
+    return this
   }
 
-  public setAddressNum(newValue: string): void {
+  public setAddressNum(newValue: string): this {
     this.setProperty('addressNum', newValue)
+    return this
   }
 
-  public setCity(newValue: string): void {
+  public setCity(newValue: string): this {
     this.setProperty('city', newValue)
     this.setProperty('si', newValue)
+    return this
   }
 
-  public setCompanyName(newValue: string): void {
+  public setCompanyName(newValue: string): this {
     this.setProperty('companyName', newValue)
+    return this
   }
 
-  public setCountry(newValue: string): void {
+  public setCountry(newValue: string): this {
     this.setProperty('country', newValue)
     const countryAlpha2 = (countries as Countries)[newValue]
 
     if (countryAlpha2) {
       this.setProperty('countryAlpha2', countryAlpha2)
     }
+
+    return this
   }
 
-  public setDo(newValue: string): void {
+  public setDo(newValue: string): this {
     this.setProperty('do', newValue)
     this.setProperty('province', newValue)
+    return this
   }
 
-  public setDong(newValue: string): void {
+  public setDong(newValue: string): this {
     this.setProperty('dong', newValue)
     this.setProperty('address1', newValue)
+    return this
   }
 
-  public setFirstLastName(newValue: string): void {
+  public setFirstLastName(newValue: string): this {
     this.setProperty('firstLastName', newValue)
+    return this
   }
 
-  public setFirstName(newValue: string): void {
+  public setFirstName(newValue: string): this {
     this.setProperty('firstName', newValue)
+    return this
   }
 
-  public setGu(newValue: string): void {
+  public setGu(newValue: string): this {
     this.setProperty('gu', newValue)
+    return this
   }
 
-  public setHonorific(newValue: string): void {
+  public setHonorific(newValue: string): this {
     this.setProperty('honorific', newValue)
+    return this
   }
 
-  public setJobTitle(newValue: string): void {
+  public setJobTitle(newValue: string): this {
     this.setProperty('jobTitle', newValue)
+    return this
   }
 
-  public setLastName(newValue: string): void {
+  public setLastName(newValue: string): this {
     this.setProperty('lastName', newValue)
     this.setProperty('secondLastName', newValue)
+    return this
   }
 
-  public setPostalCode(newValue: string): void {
+  public setPostalCode(newValue: string): this {
     this.setProperty('postalCode', newValue)
+    return this
   }
 
-  public setPrefecture(newValue: string): void {
+  public setPrefecture(newValue: string): this {
     this.setProperty('prefecture', newValue)
+    return this
   }
 
-  public setProvince(newValue: string): void {
+  public setProvince(newValue: string): this {
     this.setProperty('province', newValue)
     this.setProperty('do', newValue)
+    return this
   }
 
-  public setRegion(newValue: string): void {
+  public setRegion(newValue: string): this {
     this.setProperty('region', newValue)
+    return this
   }
 
-  public setRepublic(newValue: string): void {
+  public setRepublic(newValue: string): this {
     this.setProperty('republic', newValue)
+    return this
   }
 
-  public setSecondLastName(newValue: string): void {
+  public setSecondLastName(newValue: string): this {
     this.setProperty('secondLastName', newValue)
     this.setProperty('lastName', newValue)
+    return this
   }
 
-  public setSecondName(newValue: string): void {
+  public setSecondName(newValue: string): this {
     this.setProperty('secondName', newValue)
+    return this
   }
 
-  public setSi(newValue: string): void {
+  public setSi(newValue: string): this {
     this.setProperty('si', newValue)
     this.setProperty('city', newValue)
+    return this
   }
 
-  public setState(newValue: string): void {
+  public setState(newValue: string): this {
     this.setProperty('state', newValue)
+    return this
   }
 
-  public setTitle(newValue: string): void {
+  public setTitle(newValue: string): this {
     this.setProperty('title', newValue)
+    return this
   }
 
-  public setOutputFormat(string: string): void {
+  public setOutputFormat(string: string): this {
     this.setProperty('outputFormat', string, false)
+    return this
   }
 
   public setFormat(
@@ -285,7 +312,7 @@ class PostalAddress implements PostalAddressInterface {
       type,
       useTransforms,
     }: { country: string, type: string, useTransforms: boolean },
-  ): void {
+  ): this {
     if (typeof country === 'string') {
       this.setProperty('formatForCountry', country, false)
     }
@@ -295,6 +322,8 @@ class PostalAddress implements PostalAddressInterface {
     if (typeof useTransforms === 'boolean') {
       this.useTransforms = useTransforms
     }
+
+    return this
   }
 
   public toString(): string {

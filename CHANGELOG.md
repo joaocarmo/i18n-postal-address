@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+> Aug 17, 2020
+
+- Added support for Method Chaining
+
 ## 0.1.0
 
 > Jul 26, 2020

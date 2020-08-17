@@ -2,40 +2,40 @@ import { AddressObject } from './address-format'
 
 export default interface PostalAddressInterface {
   // Public methods
-  setAddress(newValue: string): void
-  setAddress1(newValue: string): void
-  setAddress2(newValue: string): void
-  setAddressNum(newValue: string): void
-  setCity(newValue: string): void
-  setCompanyName(newValue: string): void
-  setCountry(newValue: string): void
-  setDo(newValue: string): void
-  setDong(newValue: string): void
-  setFirstLastName(newValue: string): void
-  setFirstName(newValue: string): void
-  setGu(newValue: string): void
-  setHonorific(newValue: string): void
-  setHonorific(newValue: string): void
-  setJobTitle(newValue: string): void
-  setLastName(newValue: string): void
-  setPostalCode(newValue: string): void
-  setPrefecture(newValue: string): void
-  setProvince(newValue: string): void
-  setRegion(newValue: string): void
-  setRepublic(newValue: string): void
-  setSecondLastName(newValue: string): void
-  setSecondName(newValue: string): void
-  setSi(newValue: string): void
-  setState(newValue: string): void
-  setTitle(newValue: string): void
-  setOutputFormat(string: string): void
+  setAddress(newValue: string): this
+  setAddress1(newValue: string): this
+  setAddress2(newValue: string): this
+  setAddressNum(newValue: string): this
+  setCity(newValue: string): this
+  setCompanyName(newValue: string): this
+  setCountry(newValue: string): this
+  setDo(newValue: string): this
+  setDong(newValue: string): this
+  setFirstLastName(newValue: string): this
+  setFirstName(newValue: string): this
+  setGu(newValue: string): this
+  setHonorific(newValue: string): this
+  setHonorific(newValue: string): this
+  setJobTitle(newValue: string): this
+  setLastName(newValue: string): this
+  setPostalCode(newValue: string): this
+  setPrefecture(newValue: string): this
+  setProvince(newValue: string): this
+  setRegion(newValue: string): this
+  setRepublic(newValue: string): this
+  setSecondLastName(newValue: string): this
+  setSecondName(newValue: string): this
+  setSi(newValue: string): this
+  setState(newValue: string): this
+  setTitle(newValue: string): this
+  setOutputFormat(string: string): this
   setFormat(
     {
       country,
       type,
       useTransforms,
     }: { country: string, type: string, useTransforms: boolean },
-  ): void
+  ): this
   toString(): string
   raw(): AddressObject
 }
