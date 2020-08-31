@@ -15,7 +15,6 @@ export default interface PostalAddressInterface {
   setFirstName(newValue: string): this
   setGu(newValue: string): this
   setHonorific(newValue: string): this
-  setHonorific(newValue: string): this
   setJobTitle(newValue: string): this
   setLastName(newValue: string): this
   setPostalCode(newValue: string): this
