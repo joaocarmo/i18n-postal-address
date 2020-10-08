@@ -133,7 +133,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private output(overrideFormat: string): string[][] | string | null {
+  public output(overrideFormat: string): string[][] | string | null {
     const { useTransforms } = this
 
     const outputFormat = this.getFormat(overrideFormat)
@@ -311,7 +311,7 @@ class PostalAddress implements PostalAddressInterface {
       country,
       type,
       useTransforms,
-    }: { country: string, type: string, useTransforms: boolean },
+    }: { country?: string, type?: string, useTransforms?: boolean },
   ): this {
     if (typeof country === 'string') {
       this.setProperty('formatForCountry', country, false)
