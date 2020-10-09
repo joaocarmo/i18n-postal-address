@@ -33,8 +33,9 @@ export default interface PostalAddressInterface {
       country,
       type,
       useTransforms,
-    }: { country: string, type: string, useTransforms: boolean },
+    }: { country?: string, type?: string, useTransforms?: boolean },
   ): this
+  output(overrideFormat: string): string[][] | string | null
   toString(): string
   raw(): AddressObject
 }
