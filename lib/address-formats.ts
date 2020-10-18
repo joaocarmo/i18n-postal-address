@@ -1,5 +1,5 @@
 import { AddressFormats } from './types/address-format'
-import { capitalize } from './address-transforms'
+import { addCommaAfter, capitalize } from './address-transforms'
 
 const addressFormats: AddressFormats = {
   // Argentina
@@ -24,7 +24,7 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        ['city', 'state', 'postalCode'],
+        [{ attribute: 'city', transforms: [addCommaAfter] }, 'state', 'postalCode'],
         ['country'],
       ],
     },
@@ -62,7 +62,7 @@ const addressFormats: AddressFormats = {
         ['honorific', 'firstName', 'lastName'],
         ['companyName'],
         ['address1', 'address2'],
-        ['city', 'province', 'postalCode'],
+        [{ attribute: 'city', transforms: [addCommaAfter] }, 'province', 'postalCode'],
         ['country'],
       ],
     },
@@ -416,7 +416,7 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        ['postalCode', 'city'],
+        [{ attribute: 'postalCode', transforms: [addCommaAfter] }, 'city'],
         ['country'],
       ],
     },
@@ -429,7 +429,7 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        ['city', 'state', 'postalCode'],
+        [{ attribute: 'city', transforms: [addCommaAfter] }, 'state', 'postalCode'],
         [
           {
             attribute: 'country',
