@@ -4,7 +4,8 @@
 
 > Oct 18, 2020
 
-- Added transforms and definitions to append commas in certain formats (#10)
+- Added transforms and definitions to append commas in certain formats
+([#8](https://github.com/joaocarmo/i18n-postal-address/issues/8))
 
 ## 0.2.0
 
