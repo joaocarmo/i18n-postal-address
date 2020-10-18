@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+> Oct 18, 2020
+
+- Added transforms and definitions to append commas in certain formats (#10)
+
 ## 0.2.0
 
 > Aug 17, 2020
