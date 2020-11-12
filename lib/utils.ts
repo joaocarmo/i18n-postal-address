@@ -1,6 +1,19 @@
+import objectInitialState from './object-initial-state'
 import { AddressFormatPart } from './types/address-format'
 
-// eslint-disable-next-line import/prefer-default-export
+export const allowedTokens = Object.keys(objectInitialState)
+
+export const containsValidTokens = (
+  format: AddressFormatPart[][], parser = 'array',
+): boolean => (parser === 'array' ? format.every(
+  (row) => row.every(
+    (cell) => {
+      const attribute = typeof cell === 'object' ? cell.attribute : cell
+      return allowedTokens.includes(attribute)
+    },
+  ),
+) : false)
+
 export const isValidFormat = (
   format: AddressFormatPart[][], parser = 'array',
 ): boolean => {

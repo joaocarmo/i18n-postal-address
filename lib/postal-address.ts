@@ -13,7 +13,7 @@ import {
 import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'
-import { isValidFormat } from './utils'
+import { containsValidTokens, isValidFormat } from './utils'
 import countries from './countries.json'
 
 class PostalAddress implements PostalAddressInterface {
@@ -34,8 +34,6 @@ class PostalAddress implements PostalAddressInterface {
   private allowed: {
     [key: string]: string[]
   }
-
-  private allowedKeywords: string[]
 
   private addressFormats: AddressFormats
 
@@ -66,8 +64,6 @@ class PostalAddress implements PostalAddressInterface {
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
       outputFormat: ['array', 'string'],
     }
-    // Allowed Keywords
-    this.allowedKeywords = Object.keys(objectInitialState)
     // Address formats
     this.addressFormats = allAddressFormats
     // Parsers
@@ -351,6 +347,10 @@ class PostalAddress implements PostalAddressInterface {
 
     if (!isValidFormat(format, parser)) {
       throw new PostalAddressError('Format is invalid, should be an array of arrays of strings or objects')
+    }
+
+    if (!containsValidTokens(format, parser)) {
+      throw new PostalAddressError('Format contains invalid tokens')
     }
 
     const countryAlpha2 = country.toUpperCase()
