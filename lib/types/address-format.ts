@@ -7,7 +7,7 @@ export interface TransformFunction {
 }
 
 export interface AddressFormatOptions {
-  attribute?: string
+  attribute: string
   transforms?: TransformFunction[]
 }
 

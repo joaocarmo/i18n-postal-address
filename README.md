@@ -21,7 +21,19 @@ yarn add i18n-postal-address
 
 ## Usage
 
-### On the web
+### As an ESM module (web)
+
+Load **i18n-postal-address** directly from [skypack][skypack] (CDN).
+
+```html
+<script type="module">
+  import VCard from "https://cdn.skypack.dev/i18n-postal-address"
+</script>
+```
+
+Demo available in [codepen][codepen].
+
+### On the web (self-hosted)
 
 It's exposed through the _window_ global object as explained below.
 
@@ -37,7 +49,7 @@ It's exposed through the _window_ global object as explained below.
 `app.js`
 
 ```js
-// define myAddress
+// Define myAddress
 var PostalAddress = window.PostalAddress.default;
 var myAddress = new PostalAddress();
 
@@ -51,7 +63,7 @@ With a bundler (e.g. webpack) or in Node.js you can just require / import it.
 ```js
 import PostalAddress from 'i18n-postal-address'
 
-// define myAddress
+// Define myAddress
 const myAddress = new PostalAddress()
 ```
 
@@ -107,38 +119,38 @@ Brazil
 
 ### Address Attributes
 
-```txt
-setAddress1
-setAddress2
-setAddressNum
-setCity
-setCompanyName
-setCountry
-setDo
-setDong
-setFirstLastName
-setFirstName
-setGu
-setHonorific
-setJobTitle
-setLastName
-setPostalCode
-setPrefecture
-setProvince
-setRegion
-setRepublic
-setSecondLastName
-setSecondName
-setSi
-setState
-setTitle
+```js
+setAddress1(string)
+setAddress2(string)
+setAddressNum(string)
+setCity(string)
+setCompanyName(string)
+setCountry(string)
+setDo(string)
+setDong(string)
+setFirstLastName(string)
+setFirstName(string)
+setGu(string)
+setHonorific(string)
+setJobTitle(string)
+setLastName(string)
+setPostalCode(string)
+setPrefecture(string)
+setProvince(string)
+setRegion(string)
+setRepublic(string)
+setSecondLastName(string)
+setSecondName(string)
+setSi(string)
+setState(string)
+setTitle(string)
 ```
 
 ### Options
 
 These affect the output format
 
-```javascript
+```js
 /*
   Input one country and one type,
   Define whether text transformations should be executed
@@ -147,7 +159,70 @@ These affect the output format
   type: 'business' | 'english' | 'default' | 'french' | 'personal'
   useTransforms: true | false
 */
+
+const postalAddress = new PostalAddress()
+
 postalAddress.setFormat({ country, type, useTransforms })
+```
+
+### Custom Formats
+
+Additional formats can be added or existing ones can be replaced
+
+```js
+/*
+  The country should be an uppercase ISO 3166-1 alpha-2 code
+
+  The format should be an array of array of strings or objects
+    - The strings should be valid attribute names
+    - The objects should contain the attribute (required)
+    - The objects may contain an array of transforming functions that will be
+      applied sequentially over the given attribute with the following signature
+        (string) => string
+*/
+
+const addCommaAfter = (value) => `${value},`
+
+const postalAddress = new PostalAddress()
+
+postalAddress.addFormat({
+  country: 'PT',
+  format: [
+    [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],
+    ['city', 'postalCode'],
+    ['country'],
+  ],
+})
+```
+
+#### Valid attributes
+
+```txt
+address1
+address2
+addressNum
+city
+companyName
+country
+countryAlpha2
+do
+dong
+firstLastName
+firstName
+gu
+honorific
+jobTitle
+lastName
+postalCode
+prefecture
+province
+region
+republic
+secondLastName
+secondName
+si
+state
+title
 ```
 
 ## Background
@@ -176,20 +251,23 @@ MSDN > ... > Globalization and Localization >
 
 Build
 
-```txt
+```sh
 yarn build
 ```
 
 Test
 
-```txt
+```sh
 yarn test:unit
 
 yarn test:functional
 ```
 
 <!-- References -->
+
+[codepen]: https://codepen.io/joaocarmo/pen/bGeOVQw
 [libpostal]: https://github.com/openvenues/libpostal
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
-[qad]: http://i18napis.appspot.com/address
 [pa]: https://schema.org/PostalAddress
+[qad]: http://i18napis.appspot.com/address
+[skypack]: https://skypack.dev
