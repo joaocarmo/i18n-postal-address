@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+> Nov 12, 2020
+
+- Added support for custom formats through the new API `.addFormat()`
+
 ## 0.3.0
 
 > Oct 18, 2020

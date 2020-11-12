@@ -1,4 +1,5 @@
 // Import modules and constants
+import PostalAddressError from './postal-address-error'
 import PostalAddressInterface from './types/postal-address'
 import {
   AddressFormatPart,
@@ -12,6 +13,7 @@ import {
 import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'
+import { isValidFormat } from './utils'
 import countries from './countries.json'
 
 class PostalAddress implements PostalAddressInterface {
@@ -32,6 +34,8 @@ class PostalAddress implements PostalAddressInterface {
   private allowed: {
     [key: string]: string[]
   }
+
+  private allowedKeywords: string[]
 
   private addressFormats: AddressFormats
 
@@ -62,6 +66,8 @@ class PostalAddress implements PostalAddressInterface {
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
       outputFormat: ['array', 'string'],
     }
+    // Allowed Keywords
+    this.allowedKeywords = Object.keys(objectInitialState)
     // Address formats
     this.addressFormats = allAddressFormats
     // Parsers
@@ -321,6 +327,38 @@ class PostalAddress implements PostalAddressInterface {
     }
     if (typeof useTransforms === 'boolean') {
       this.useTransforms = useTransforms
+    }
+
+    return this
+  }
+
+  public addFormat({
+    country, format, parser = 'array', type = 'default',
+  }: {
+    country: string, format: AddressFormatPart[][], parser: string, type: string,
+  }): this {
+    if (!country) {
+      throw new PostalAddressError('Country is not specified, but is required')
+    }
+
+    if (typeof country !== 'string' || country.length !== 2) {
+      throw new PostalAddressError('Country is not an ISO 3166-1 alpha-2 code')
+    }
+
+    if (!format) {
+      throw new PostalAddressError('Format is not specified, but is required')
+    }
+
+    if (!isValidFormat(format, parser)) {
+      throw new PostalAddressError('Format is invalid, should be an array of arrays of strings or objects')
+    }
+
+    const countryAlpha2 = country.toUpperCase()
+
+    this.addressFormats[countryAlpha2] = {
+      [type]: {
+        [parser]: format,
+      },
     }
 
     return this
