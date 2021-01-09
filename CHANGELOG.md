@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1
+
+> Jab 9, 2021
+
+- Fixes the [subpath exports](https://nodejs.org/api/packages.html#packages_subpath_exports)
+- Combined the typings into a single file
+
 ## 0.4.0
 
 > Nov 12, 2020
