@@ -9,7 +9,7 @@ const mode = NODE_ENV || 'development'
 module.exports = {
   mode,
   context: path.join(__dirname, 'lib'),
-  entry: './postal-address.ts',
+  entry: './index.ts',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'postal-address.js',
