@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+> Jab 28, 2021
+
+- Fixes the exported typings ([#17](https://github.com/joaocarmo/i18n-postal-address/issues/17))
+
 ## 0.4.1
 
 > Jab 9, 2021
