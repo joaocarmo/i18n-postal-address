@@ -27,7 +27,7 @@ Load **i18n-postal-address** directly from [skypack][skypack] (CDN).
 
 ```html
 <script type="module">
-  import VCard from "https://cdn.skypack.dev/i18n-postal-address"
+  import PostalAddress from "https://cdn.skypack.dev/i18n-postal-address"
 </script>
 ```
 
@@ -69,8 +69,7 @@ const myAddress = new PostalAddress()
 
 ## Example
 
-Starting from `v0.2.0`, the methods can be chained one after the other for a
-cleaner code.
+The methods can be chained one after the other for a cleaner code.
 
 ```js
 const myAddressPersonal = new PostalAddress()
