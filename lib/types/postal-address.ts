@@ -8,10 +8,10 @@ export default interface PostalAddressInterface {
     parser,
     type,
   }: {
-    country: string,
-    format: AddressFormatPart[][],
-    parser: string,
-    type: string,
+    country: string
+    format: AddressFormatPart[][]
+    parser: string
+    type: string
   }): this
   setAddress(newValue: string): this
   setAddress1(newValue: string): this
@@ -39,17 +39,15 @@ export default interface PostalAddressInterface {
   setState(newValue: string): this
   setTitle(newValue: string): this
   setOutputFormat(string: string): this
-  setFormat(
-    {
-      country,
-      type,
-      useTransforms,
-    }: {
-      country?: string,
-      type?: string,
-      useTransforms?: boolean,
-    },
-  ): this
+  setFormat({
+    country,
+    type,
+    useTransforms,
+  }: {
+    country?: string
+    type?: string
+    useTransforms?: boolean
+  }): this
   output(overrideFormat: string): string[][] | string | null
   toString(): string
   raw(): AddressObject

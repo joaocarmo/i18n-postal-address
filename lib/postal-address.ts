@@ -21,7 +21,12 @@ class PostalAddress implements PostalAddressInterface {
 
   private formatForCountry: string
 
-  private formatForType: 'business' | 'english' | 'default' | 'french' | 'personal'
+  private formatForType:
+    | 'business'
+    | 'english'
+    | 'default'
+    | 'french'
+    | 'personal'
 
   private useTransforms: boolean
 
@@ -54,7 +59,8 @@ class PostalAddress implements PostalAddressInterface {
     this.object = { ...objectInitialState }
     // Validator functions
     this.validators = {
-      formatForCountry: (value) => this.allowed.formatForCountry.includes(value),
+      formatForCountry: (value) =>
+        this.allowed.formatForCountry.includes(value),
       formatForType: (value) => this.allowed.formatForType.includes(value),
       outputFormat: (value) => this.allowed.outputFormat.includes(value),
     }
@@ -95,7 +101,10 @@ class PostalAddress implements PostalAddressInterface {
 
   private getFormat(overrideFormat: string): AddressFormatPart[][] | null {
     const {
-      outputFormat, formatForCountry, formatForType, addressFormats,
+      outputFormat,
+      formatForCountry,
+      formatForType,
+      addressFormats,
     } = this
 
     const format = overrideFormat || outputFormat
@@ -135,7 +144,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  public output(overrideFormat: string): string[][] | string | null {
+  public output(overrideFormat = ''): string[][] | string | null {
     const { useTransforms } = this
 
     const outputFormat = this.getFormat(overrideFormat)
@@ -154,11 +163,11 @@ class PostalAddress implements PostalAddressInterface {
         if (typeof this.object[property] === 'string') {
           this.object[property] = this.validator(property, newValue, object)
         }
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
       } else if (typeof this[property] === 'string') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         this[property] = this.validator(property, newValue, object)
       }
     }
@@ -308,13 +317,15 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setFormat(
-    {
-      country,
-      type,
-      useTransforms,
-    }: { country?: string, type?: string, useTransforms?: boolean },
-  ): this {
+  public setFormat({
+    country,
+    type,
+    useTransforms,
+  }: {
+    country?: string
+    type?: string
+    useTransforms?: boolean
+  }): this {
     if (typeof country === 'string') {
       this.setProperty('formatForCountry', country, false)
     }
@@ -329,9 +340,15 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public addFormat({
-    country, format, parser = 'array', type = 'default',
+    country,
+    format,
+    parser = 'array',
+    type = 'default',
   }: {
-    country: string, format: AddressFormatPart[][], parser: string, type: string,
+    country: string
+    format: AddressFormatPart[][]
+    parser: string
+    type: string
   }): this {
     if (!country) {
       throw new PostalAddressError('Country is not specified, but is required')
@@ -346,7 +363,9 @@ class PostalAddress implements PostalAddressInterface {
     }
 
     if (!isValidFormat(format, parser)) {
-      throw new PostalAddressError('Format is invalid, should be an array of arrays of strings or objects')
+      throw new PostalAddressError(
+        'Format is invalid, should be an array of arrays of strings or objects',
+      )
     }
 
     if (!containsValidTokens(format, parser)) {
