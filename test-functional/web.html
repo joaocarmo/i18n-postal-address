@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
   <head>
     <title>Test Web</title>
@@ -10,30 +10,30 @@
     </div>
     <script type="text/javascript" src="../dist/postal-address.js"></script>
     <script type="text/javascript">
-      var PostalAddress = window.PostalAddress.default;
-      var myAddress = new PostalAddress();
+      var PostalAddress = window.PostalAddress.default
+      var myAddress = new PostalAddress()
 
-      var myAddressPersonal = new PostalAddress();
+      var myAddressPersonal = new PostalAddress()
 
-      myAddressPersonal.setAddress1('Rua do Pastel, 19');
-      myAddressPersonal.setCity('Aveiro');
-      myAddressPersonal.setCountry('Brazil');
-      myAddressPersonal.setFirstName('John');
-      myAddressPersonal.setHonorific('Mr.');
-      myAddressPersonal.setLastName('Pestana');
-      myAddressPersonal.setPostalCode('2700-242');
-      myAddressPersonal.setSecondName('Lopes');
-      myAddressPersonal.setOutputFormat('array');
+      myAddressPersonal.setAddress1('Rua do Pastel, 19')
+      myAddressPersonal.setCity('Aveiro')
+      myAddressPersonal.setCountry('Brazil')
+      myAddressPersonal.setFirstName('John')
+      myAddressPersonal.setHonorific('Mr.')
+      myAddressPersonal.setLastName('Pestana')
+      myAddressPersonal.setPostalCode('2700-242')
+      myAddressPersonal.setSecondName('Lopes')
+      myAddressPersonal.setOutputFormat('array')
       myAddressPersonal.setFormat({
         country: 'AR',
         type: 'personal',
-      });
+      })
 
-      var output = myAddressPersonal.toString();
+      var output = myAddressPersonal.toString()
 
-      console.log(output);
+      console.log(output)
 
-      document.getElementById('postal-address').innerHTML = output;
+      document.getElementById('postal-address').innerHTML = output
     </script>
   </body>
 </html>

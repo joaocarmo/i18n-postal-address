@@ -24,7 +24,11 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        [{ attribute: 'city', transforms: [addCommaAfter] }, 'state', 'postalCode'],
+        [
+          { attribute: 'city', transforms: [addCommaAfter] },
+          'state',
+          'postalCode',
+        ],
         ['country'],
       ],
     },
@@ -62,7 +66,11 @@ const addressFormats: AddressFormats = {
         ['honorific', 'firstName', 'lastName'],
         ['companyName'],
         ['address1', 'address2'],
-        [{ attribute: 'city', transforms: [addCommaAfter] }, 'province', 'postalCode'],
+        [
+          { attribute: 'city', transforms: [addCommaAfter] },
+          'province',
+          'postalCode',
+        ],
         ['country'],
       ],
     },
@@ -429,7 +437,11 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        [{ attribute: 'city', transforms: [addCommaAfter] }, 'state', 'postalCode'],
+        [
+          { attribute: 'city', transforms: [addCommaAfter] },
+          'state',
+          'postalCode',
+        ],
         [
           {
             attribute: 'country',

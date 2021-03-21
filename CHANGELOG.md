@@ -1,14 +1,20 @@
 # Changelog
 
+## 0.4.3
+
+> Mar 21, 2021
+
+- Marked the arguments in the `output()` method as optional
+
 ## 0.4.2
 
-> Jab 28, 2021
+> Jan 28, 2021
 
 - Fixes the exported typings ([#17](https://github.com/joaocarmo/i18n-postal-address/issues/17))
 
 ## 0.4.1
 
-> Jab 9, 2021
+> Jan 9, 2021
 
 - Fixes the [subpath exports](https://nodejs.org/api/packages.html#packages_subpath_exports)
 - Combined the typings into a single file
@@ -24,7 +30,7 @@
 > Oct 18, 2020
 
 - Added transforms and definitions to append commas in certain formats
-([#8](https://github.com/joaocarmo/i18n-postal-address/issues/8))
+  ([#8](https://github.com/joaocarmo/i18n-postal-address/issues/8))
 
 ## 0.2.0
 

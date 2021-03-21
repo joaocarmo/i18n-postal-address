@@ -27,7 +27,7 @@ Load **i18n-postal-address** directly from [skypack][skypack] (CDN).
 
 ```html
 <script type="module">
-  import PostalAddress from "https://cdn.skypack.dev/i18n-postal-address"
+  import PostalAddress from 'https://cdn.skypack.dev/i18n-postal-address'
 </script>
 ```
 
@@ -50,8 +50,8 @@ It's exposed through the _window_ global object as explained below.
 
 ```js
 // Define myAddress
-var PostalAddress = window.PostalAddress.default;
-var myAddress = new PostalAddress();
+var PostalAddress = window.PostalAddress.default
+var myAddress = new PostalAddress()
 
 // ...
 ```
@@ -233,7 +233,7 @@ on the web.
 
 Need to present postal addresses for different regions worldwide stored in
 individual parts (company name, address, postal code, city, county, country,
-  ...).
+...).
 
 ### Inspiration
 
