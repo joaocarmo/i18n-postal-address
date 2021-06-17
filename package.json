@@ -1,7 +1,7 @@
 {
   "name": "i18n-postal-address",
   "version": "0.4.3",
-  "description": "A JavaScript library to produce international postal addresses formatted by region",
+  "description": "A JavaScript library to produce and parse international postal addresses formatted by region",
   "main": "./dist/postal-address.js",
   "exports": {
     ".": "./dist/postal-address.js"
@@ -39,10 +39,11 @@
     "tag": "latest"
   },
   "keywords": [
-    "i18n",
-    "postal",
     "address",
     "formatter",
+    "i18n",
+    "node",
+    "postal",
     "web"
   ],
   "author": "Joao Carmo",

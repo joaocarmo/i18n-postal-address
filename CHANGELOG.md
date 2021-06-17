@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+> Jun 17, 2021
+
+- Added a new method `fromString()` that accepts a properly formatted address
+  string
+
 ## 0.4.3
 
 > Mar 21, 2021

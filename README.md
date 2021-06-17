@@ -6,8 +6,8 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/joaocarmo/i18n-postal-address.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/joaocarmo/i18n-postal-address/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/joaocarmo/i18n-postal-address.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/joaocarmo/i18n-postal-address/context:javascript)
 
-A JavaScript library to produce international postal addresses formatted by
-region.
+A JavaScript library to produce and parse international postal addresses
+formatted by region.
 
 ## Installation
 

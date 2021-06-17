@@ -1,6 +1,7 @@
 import { AddressObject } from './types/address-format'
 
 const objectInitialState: AddressObject = {
+  _string: '',
   address1: '',
   address2: '',
   addressNum: '',

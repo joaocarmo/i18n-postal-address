@@ -19,6 +19,8 @@ import countries from './countries.json'
 class PostalAddress implements PostalAddressInterface {
   private outputFormat: 'array' | 'string'
 
+  private outputParser: 'object' | 'string'
+
   private formatForCountry: string
 
   private formatForType:
@@ -49,6 +51,8 @@ class PostalAddress implements PostalAddressInterface {
   public constructor() {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
+    // Possible values: 'object' | 'string'
+    this.outputParser = 'object'
     // 2-letter country code
     this.formatForCountry = 'US'
     // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
@@ -57,18 +61,20 @@ class PostalAddress implements PostalAddressInterface {
     this.useTransforms = true
     // The object properties that can be set
     this.object = { ...objectInitialState }
+    // Allowed values
+    this.allowed = {
+      formatForCountry: Object.keys(allAddressFormats),
+      formatForType: ['business', 'default', 'english', 'french', 'personal'],
+      outputFormat: ['array', 'string'],
+      outputParser: ['object', 'string'],
+    }
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
         this.allowed.formatForCountry.includes(value),
       formatForType: (value) => this.allowed.formatForType.includes(value),
       outputFormat: (value) => this.allowed.outputFormat.includes(value),
-    }
-    // Allowed values
-    this.allowed = {
-      formatForCountry: Object.keys(allAddressFormats),
-      formatForType: ['business', 'default', 'english', 'french', 'personal'],
-      outputFormat: ['array', 'string'],
+      outputParser: (value) => this.allowed.outputParser.includes(value),
     }
     // Address formats
     this.addressFormats = allAddressFormats
@@ -129,22 +135,25 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private getParser(overrideFormat: string): ParserInterface | null {
-    const { outputFormat, addressParsers } = this
-    const format = overrideFormat || outputFormat
+  private getParser(overrideParser: string): ParserInterface | null {
+    const { outputParser, addressParsers } = this
+    const parser = overrideParser || outputParser
 
-    if (addressParsers[format]) {
-      return addressParsers[format]
+    if (addressParsers[parser]) {
+      return addressParsers[parser]
     }
 
     return null
   }
 
-  public output(overrideFormat = ''): string[][] | string | null {
+  public output(
+    overrideFormat = '',
+    overrideParser = '',
+  ): string[][] | string | null {
     const { useTransforms } = this
 
     const outputFormat = this.getFormat(overrideFormat)
-    const outputParser = this.getParser(overrideFormat)
+    const outputParser = this.getParser(overrideParser)
 
     if (typeof outputParser === 'function' && outputFormat) {
       return outputParser(this.object, outputFormat, useTransforms)
@@ -308,8 +317,13 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setOutputFormat(string: string): this {
-    this.setProperty('outputFormat', string, false)
+  public setOutputFormat(newValue: string): this {
+    this.setProperty('outputFormat', newValue, false)
+    return this
+  }
+
+  public setOutputParser(newValue: string): this {
+    this.setProperty('outputParser', newValue, false)
     return this
   }
 
@@ -377,6 +391,16 @@ class PostalAddress implements PostalAddressInterface {
     }
 
     return this
+  }
+
+  public fromString(_string: string): this {
+    if (_string && typeof _string === 'string' && _string.length > 0) {
+      this.setProperty('_string', _string)
+      this.setOutputParser('string')
+      return this
+    }
+
+    throw new PostalAddressError('Expected a valid, non-empty string value')
   }
 
   public toString(): string {
