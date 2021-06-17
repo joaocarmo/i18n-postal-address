@@ -4,11 +4,7 @@ import {
   ParserInterface,
 } from './types/address-format'
 
-const objectParser: ParserInterface = (
-  object,
-  format,
-  useTransforms = true,
-) => {
+const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
   const result: AddressOutputFormat = []
 
   if (Array.isArray(format)) {
@@ -60,7 +56,7 @@ const stringParser: ParserInterface = (
 }
 
 const addressParsers = {
-  object: objectParser,
+  array: arrayParser,
   string: stringParser,
 }
 

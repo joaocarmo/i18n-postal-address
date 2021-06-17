@@ -14,12 +14,13 @@ import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'
 import { containsValidTokens, isValidFormat } from './utils'
+import * as constants from './constants'
 import countries from './countries.json'
 
 class PostalAddress implements PostalAddressInterface {
   private outputFormat: 'array' | 'string'
 
-  private outputParser: 'object' | 'string'
+  private outputParser: 'array' | 'string'
 
   private formatForCountry: string
 
@@ -50,23 +51,23 @@ class PostalAddress implements PostalAddressInterface {
 
   public constructor() {
     // Possible values: 'array' | 'string'
-    this.outputFormat = 'array'
-    // Possible values: 'object' | 'string'
-    this.outputParser = 'object'
+    this.outputFormat = constants.DEFAULT_OUTPUT_FORMAT
+    // Possible values: 'array' | 'string'
+    this.outputParser = constants.DEFAULT_OUTPUT_PARSER
     // 2-letter country code
-    this.formatForCountry = 'US'
+    this.formatForCountry = constants.DEFAULT_FORMAT_FOR_COUNTRY
     // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
-    this.formatForType = 'default'
+    this.formatForType = constants.DEFAULT_FORMAT_FOR_TYPE
     // Transform input data or keep it as is
-    this.useTransforms = true
+    this.useTransforms = constants.DEFAULT_USE_TRANSFORMS
     // The object properties that can be set
     this.object = { ...objectInitialState }
     // Allowed values
     this.allowed = {
       formatForCountry: Object.keys(allAddressFormats),
-      formatForType: ['business', 'default', 'english', 'french', 'personal'],
-      outputFormat: ['array', 'string'],
-      outputParser: ['object', 'string'],
+      formatForType: constants.ALLOWED_FORMAT_FOR_TYPE,
+      outputFormat: constants.ALLOWED_OUTPUT_FORMAT,
+      outputParser: constants.ALLOWED_OUTPUT_PARSER,
     }
     // Validator functions
     this.validators = {
@@ -352,8 +353,8 @@ class PostalAddress implements PostalAddressInterface {
   public addFormat({
     country,
     format,
-    parser = 'array',
-    type = 'default',
+    parser = constants.DEFAULT_OUTPUT_PARSER,
+    type = constants.DEFAULT_FORMAT_FOR_TYPE,
   }: {
     country: string
     format: AddressFormatPart[][]
@@ -361,25 +362,23 @@ class PostalAddress implements PostalAddressInterface {
     type: string
   }): this {
     if (!country) {
-      throw new PostalAddressError('Country is not specified, but is required')
+      throw new PostalAddressError(constants.ERROR_REQUIRED_COUNTRY)
     }
 
     if (typeof country !== 'string' || country.length !== 2) {
-      throw new PostalAddressError('Country is not an ISO 3166-1 alpha-2 code')
+      throw new PostalAddressError(constants.ERROR_INVALID_COUNTRY)
     }
 
     if (!format) {
-      throw new PostalAddressError('Format is not specified, but is required')
+      throw new PostalAddressError(constants.ERROR_REQUIRED_FORMAT)
     }
 
     if (!isValidFormat(format, parser)) {
-      throw new PostalAddressError(
-        'Format is invalid, should be an array of arrays of strings or objects',
-      )
+      throw new PostalAddressError(constants.ERROR_INVALID_FORMAT)
     }
 
     if (!containsValidTokens(format, parser)) {
-      throw new PostalAddressError('Format contains invalid tokens')
+      throw new PostalAddressError(constants.ERROR_INVALID_TOKENS)
     }
 
     const countryAlpha2 = country.toUpperCase()
@@ -400,14 +399,16 @@ class PostalAddress implements PostalAddressInterface {
       return this
     }
 
-    throw new PostalAddressError('Expected a valid, non-empty string value')
+    throw new PostalAddressError(constants.ERROR_INVALID_STRING)
   }
 
   public toString(): string {
-    const output: string[][] = this.output('array') as string[][]
+    const output: string[][] = this.output(constants.OUTPUT_ARRAY) as string[][]
 
     if (output) {
-      return output.map((part) => part.join(' ')).join('\n')
+      return output
+        .map((part) => part.join(constants.JOIN_FIRST_SEPARATOR))
+        .join(constants.JOIN_SECOND_SEPARATOR)
     }
 
     return ''
