@@ -100,12 +100,8 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   private getFormat(overrideFormat: string): AddressFormatPart[][] | null {
-    const {
-      outputFormat,
-      formatForCountry,
-      formatForType,
-      addressFormats,
-    } = this
+    const { outputFormat, formatForCountry, formatForType, addressFormats } =
+      this
 
     const format = overrideFormat || outputFormat
     let formatsAvailable = addressFormats[formatForCountry]
