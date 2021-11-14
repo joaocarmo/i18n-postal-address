@@ -37,8 +37,9 @@ module.exports = {
     {
       files: ['lib/**/__tests__/*'],
       rules: {
-        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
       },
     },
   ],
