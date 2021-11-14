@@ -2,8 +2,9 @@
 import PostalAddressError from './postal-address-error'
 import PostalAddressInterface from './types/postal-address'
 import {
-  AddressFormatPart,
+  AddFormatArgs,
   AddressFormat,
+  AddressFormatPart,
   AddressFormats,
   AddressObject,
   Countries,
@@ -340,12 +341,7 @@ class PostalAddress implements PostalAddressInterface {
     format,
     parser = 'array',
     type = 'default',
-  }: {
-    country: string
-    format: AddressFormatPart[][]
-    parser: string
-    type: string
-  }): this {
+  }: AddFormatArgs): this {
     if (!country) {
       throw new PostalAddressError('Country is not specified, but is required')
     }

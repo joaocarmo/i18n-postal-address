@@ -1,6 +1,7 @@
 import PostalAddress from '../postal-address'
 import PostalAddressError from '../postal-address-error'
 import { addCommaAfter } from '../address-transforms'
+import { AddFormatArgs } from '../types/address-format'
 
 const expectedOutputPT = `\
 Portugal
@@ -33,19 +34,19 @@ Porto 4000-123
 Portugal`
 
 describe('Postal Address', () => {
-  let myAddressPersonal = null
-  let myAddressBusiness = null
-
   it('should be a valid constructor', () => {
     expect(() => {
-      myAddressPersonal = new PostalAddress()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const myAddressPersonal = new PostalAddress()
     }).not.toThrow()
     expect(() => {
-      myAddressBusiness = new PostalAddress()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const myAddressBusiness = new PostalAddress()
     }).not.toThrow()
   })
 
   it('should output a valid formatted postal address (PT)', () => {
+    const myAddressBusiness = new PostalAddress()
     myAddressBusiness
       .setAddress1('Happy Park')
       .setAddress2('Edifício 4, Piso 2')
@@ -63,6 +64,7 @@ describe('Postal Address', () => {
   })
 
   it('should output a valid formatted postal address (US)', () => {
+    const myAddressPersonal = new PostalAddress()
     myAddressPersonal
       .setAddress1('123 Nevermore Rd')
       .setCity('Austin')
@@ -88,7 +90,7 @@ describe('Postal Address', () => {
 
 describe('Custom Formats', () => {
   const myAddressBusiness = new PostalAddress()
-  const customFormats = [
+  const customFormats: [unknown, string][] = [
     [
       {
         country: null,
@@ -134,7 +136,7 @@ describe('Custom Formats', () => {
     'test invalid custom format: %s',
     (format, errorMessage) => {
       expect(() => {
-        myAddressBusiness.addFormat(format)
+        myAddressBusiness.addFormat(format as AddFormatArgs)
       }).toThrow(new PostalAddressError(errorMessage))
     },
   )

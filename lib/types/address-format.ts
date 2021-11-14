@@ -1,3 +1,10 @@
+export interface AddFormatArgs {
+  country: string
+  format: AddressFormatPart[][]
+  parser?: string
+  type?: string
+}
+
 export interface AddressObject {
   [key: string]: string
 }

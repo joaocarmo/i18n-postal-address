@@ -1,4 +1,5 @@
 import { allowedTokens, containsValidTokens, isValidFormat } from '../utils'
+import { AddressFormatPart } from '../types/address-format'
 
 describe('test the allowed tokens', () => {
   it('should be an array of strings', () => {
@@ -9,7 +10,7 @@ describe('test the allowed tokens', () => {
 })
 
 describe('test the token validator fn', () => {
-  const formats = [
+  const formats: [string, unknown, boolean][] = [
     ['invalid', [['string']], false],
     ['invalid', [[{ attribute: 'string' }]], false],
     [
@@ -24,12 +25,12 @@ describe('test the token validator fn', () => {
   ]
 
   it.each(formats)('testing %s format: %s', (description, format, expected) => {
-    expect(containsValidTokens(format)).toBe(expected)
+    expect(containsValidTokens(format as AddressFormatPart[][])).toBe(expected)
   })
 })
 
 describe('test the format validator fn', () => {
-  const formats = [
+  const formats: [string, unknown, boolean][] = [
     ['invalid', undefined, false],
     ['invalid', null, false],
     ['invalid', 1, false],
@@ -44,6 +45,6 @@ describe('test the format validator fn', () => {
   ]
 
   it.each(formats)('testing %s format: %s', (description, format, expected) => {
-    expect(isValidFormat(format)).toBe(expected)
+    expect(isValidFormat(format as AddressFormatPart[][])).toBe(expected)
   })
 })
