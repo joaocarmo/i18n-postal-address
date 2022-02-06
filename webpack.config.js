@@ -2,9 +2,7 @@
 const path = require('path')
 const babelOptions = require('./babel.config')
 
-const { NODE_ENV } = process.env
-
-const mode = NODE_ENV || 'development'
+const mode = process.env.NODE_ENV || 'development'
 
 module.exports = {
   mode,
