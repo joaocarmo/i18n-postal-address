@@ -1,7 +1,7 @@
 import PostalAddress from '../postal-address'
 import PostalAddressError from '../postal-address-error'
 import { addCommaAfter } from '../address-transforms'
-import { AddFormatArgs } from '../types/address-format'
+import type { AddFormatArgs } from '../types/address-format'
 
 const expectedOutputPT = `\
 Portugal
@@ -18,7 +18,7 @@ const expectedOutputUSWithTransforms = `\
 123 Nevermore Rd
 Austin, TX 78752`
 
-const customFormat = {
+const customFormat: AddFormatArgs = {
   country: 'RU',
   format: [
     [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],

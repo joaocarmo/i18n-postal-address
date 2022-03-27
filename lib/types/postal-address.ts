@@ -1,4 +1,4 @@
-import { AddressFormatPart, AddressObject } from './address-format'
+import type { AddressFormatPart, AddressObject } from './address-format'
 
 export default interface PostalAddressInterface {
   // Public methods

@@ -1,5 +1,5 @@
 import objectInitialState from './object-initial-state'
-import { AddressFormatPart } from './types/address-format'
+import type { AddressFormatPart } from './types/address-format'
 
 export const allowedTokens = Object.keys(objectInitialState)
 
@@ -11,7 +11,7 @@ export const containsValidTokens = (
     ? format.every((row) =>
         row.every((cell) => {
           const attribute = typeof cell === 'object' ? cell.attribute : cell
-          return allowedTokens.includes(attribute)
+          return allowedTokens.includes(attribute as string)
         }),
       )
     : false

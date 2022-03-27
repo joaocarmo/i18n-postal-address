@@ -1,15 +1,14 @@
 import countries from '../countries.json'
-import { Countries } from '../types/address-format'
 
 describe('Countries', () => {
   it('should be mapped to a 2-letter country code', () => {
     const ALPHA2 = 2
-    const countryKeys = Object.keys(countries)
+    const countryKeys = Object.keys(countries) as Array<keyof typeof countries>
     const numCountries = countryKeys.length
     const numDefaults = countryKeys.reduce((acc, val) => {
       if (
-        typeof (countries as Countries)[val] === 'string' &&
-        (countries as Countries)[val].length === ALPHA2
+        typeof countries[val] === 'string' &&
+        countries[val].length === ALPHA2
       ) {
         return acc + 1
       }

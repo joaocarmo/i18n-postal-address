@@ -1,4 +1,4 @@
-import { AddressFormats } from './types/address-format'
+import type { AddressFormats } from './types/address-format'
 import { addCommaAfter, capitalize } from './address-transforms'
 
 const addressFormats: AddressFormats = {

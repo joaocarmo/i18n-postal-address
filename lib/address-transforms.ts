@@ -1,4 +1,4 @@
-import { TransformFunction } from './types/address-format'
+import type { TransformFunction } from './types/address-format'
 
 export const addCommaAfter: TransformFunction = (string) => {
   const comma = ','

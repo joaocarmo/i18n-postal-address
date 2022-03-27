@@ -1,7 +1,7 @@
 // Import modules and constants
 import PostalAddressError from './postal-address-error'
-import PostalAddressInterface from './types/postal-address'
-import {
+import type PostalAddressInterface from './types/postal-address'
+import type {
   AddFormatArgs,
   AddressFormat,
   AddressFormatPart,
@@ -77,7 +77,11 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  private validator(property: string, newValue: string, object = true): string {
+  private validator<T extends keyof AddressObject>(
+    property: T,
+    newValue: string,
+    object = true,
+  ): string {
     let oldValue = ''
     const validatorFn = this.validators[property]
 
@@ -154,7 +158,11 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private setProperty(property: string, newValue: string, object = true): void {
+  private setProperty<T extends keyof AddressObject>(
+    property: T,
+    newValue: string,
+    object = true,
+  ): void {
     if (typeof newValue === 'string') {
       if (object) {
         if (typeof this.object[property] === 'string') {

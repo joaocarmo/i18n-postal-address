@@ -1,5 +1,5 @@
 import { allowedTokens, containsValidTokens, isValidFormat } from '../utils'
-import { AddressFormatPart } from '../types/address-format'
+import type { AddressFormatPart } from '../types/address-format'
 
 describe('test the allowed tokens', () => {
   it('should be an array of strings', () => {
