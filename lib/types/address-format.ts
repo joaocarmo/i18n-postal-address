@@ -69,6 +69,21 @@ export interface ParserInterface {
   ): AddressOutputFormat
 }
 
-export interface Validator {
-  (string: string): boolean
+export interface Validator<K = string> {
+  (string: K): boolean
+}
+
+export type OutputFormat = 'array' | 'string'
+
+export type FormatTypes =
+  | 'business'
+  | 'default'
+  | 'english'
+  | 'french'
+  | 'personal'
+
+export type ClassProperties = {
+  formatForCountry: string
+  formatForType: FormatTypes
+  outputFormat: OutputFormat
 }
