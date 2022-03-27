@@ -57,23 +57,28 @@ export interface AddressFormats {
 
 export type AddressOutputFormat = string[][]
 
+export type AddressOutputFormats = {
+  array: AddressOutputFormat
+  string: string
+}
+
 export interface Countries {
   [key: string]: string
 }
 
-export interface ParserInterface {
+export interface ParserInterface<T extends keyof AddressOutputFormats> {
   (
     object: AddressObject,
     format: AddressFormatPart[][],
     useTransforms: boolean,
-  ): AddressOutputFormat
+  ): AddressOutputFormats[T]
 }
 
 export interface Validator<K = string> {
   (string: K): boolean
 }
 
-export type OutputFormat = 'array' | 'string'
+export type OutputFormat = keyof AddressOutputFormats
 
 export type FormatTypes =
   | 'business'

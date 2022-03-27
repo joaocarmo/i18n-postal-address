@@ -4,7 +4,11 @@ import type {
   ParserInterface,
 } from './types/address-format'
 
-const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
+const arrayParser: ParserInterface<'array'> = (
+  object,
+  format,
+  useTransforms = true,
+) => {
   const result: AddressOutputFormat = []
 
   if (Array.isArray(format)) {
@@ -48,6 +52,7 @@ const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
 
 const addressParsers = {
   array: arrayParser,
+  string: null,
 }
 
 export default addressParsers

@@ -6,6 +6,8 @@ import type {
   AddressFormatPart,
   AddressFormats,
   AddressObject,
+  AddressOutputFormat,
+  AddressOutputFormats,
   ClassProperties,
   Countries,
   FormatTypes,
@@ -41,7 +43,7 @@ class PostalAddress implements PostalAddressInterface {
   private addressFormats: AddressFormats
 
   private addressParsers: {
-    [key: string]: ParserInterface
+    [key in OutputFormat]: ParserInterface<key> | null
   }
 
   public constructor(initialObject?: AddressObject) {
@@ -74,7 +76,9 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  private getFormat(overrideFormat: string): AddressFormatPart[][] | null {
+  private getFormat(
+    overrideFormat: OutputFormat,
+  ): AddressFormatPart[][] | null {
     const { outputFormat, formatForCountry, formatForType, addressFormats } =
       this
 
@@ -104,7 +108,9 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private getParser(overrideFormat: string): ParserInterface | null {
+  private getParser<T extends OutputFormat>(
+    overrideFormat: T,
+  ): ParserInterface<T> | null {
     const { outputFormat, addressParsers } = this
     const format = overrideFormat || outputFormat
 
@@ -115,7 +121,9 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  public output(overrideFormat = ''): string[][] | string | null {
+  public output<T extends OutputFormat>(
+    overrideFormat: T,
+  ): AddressOutputFormats[T] | null {
     const { useTransforms } = this
 
     const outputFormat = this.getFormat(overrideFormat)
@@ -358,10 +366,18 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public toString(): string {
-    const output: string[][] = this.output('array') as string[][]
+  public toArray(): AddressOutputFormat {
+    return this.output('array') || []
+  }
 
-    if (output) {
+  public toObject(): AddressObject {
+    return this.object
+  }
+
+  public toString(): string {
+    const output = this.toArray()
+
+    if (output?.length) {
       return output.map((part) => part.join(' ')).join('\n')
     }
 
@@ -369,7 +385,7 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public raw(): AddressObject {
-    return this.object
+    return this.toObject()
   }
 }
 

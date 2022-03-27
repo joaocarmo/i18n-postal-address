@@ -1,18 +1,15 @@
-import type { AddressFormatPart, AddressObject } from './address-format'
+import type {
+  AddFormatArgs,
+  AddressObject,
+  AddressOutputFormat,
+  AddressOutputFormats,
+  FormatTypes,
+  OutputFormat,
+} from './address-format'
 
 export default interface PostalAddressInterface {
   // Public methods
-  addFormat({
-    country,
-    format,
-    parser,
-    type,
-  }: {
-    country: string
-    format: AddressFormatPart[][]
-    parser: string
-    type: string
-  }): this
+  addFormat({ country, format, parser, type }: AddFormatArgs): this
   setAddress(newValue: string): this
   setAddress1(newValue: string): this
   setAddress2(newValue: string): this
@@ -38,17 +35,21 @@ export default interface PostalAddressInterface {
   setSi(newValue: string): this
   setState(newValue: string): this
   setTitle(newValue: string): this
-  setOutputFormat(string: string): this
+  setOutputFormat(string: OutputFormat): this
   setFormat({
     country,
     type,
     useTransforms,
   }: {
     country?: string
-    type?: string
+    type?: FormatTypes
     useTransforms?: boolean
   }): this
-  output(overrideFormat: string): string[][] | string | null
-  toString(): string
+  output<T extends OutputFormat>(
+    overrideFormat: T,
+  ): AddressOutputFormats[T] | null
   raw(): AddressObject
+  toArray(): AddressOutputFormat
+  toObject(): AddressObject
+  toString(): string
 }
