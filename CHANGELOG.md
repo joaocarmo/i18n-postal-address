@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+> Mar 28, 2021
+
+- Adds support for a full or partial preset state to be passed to the
+  constructor.
+
 ## 0.4.3
 
 > Mar 21, 2021
