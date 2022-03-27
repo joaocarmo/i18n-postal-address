@@ -1,7 +1,26 @@
 import objectInitialState from './object-initial-state'
-import type { AddressFormatPart, Validator } from './types/address-format'
+import type {
+  AddressFormatPart,
+  AddressObject,
+  Validator,
+} from './types/address-format'
 
 export const allowedTokens = Object.keys(objectInitialState)
+
+export const constructInitialObject = (
+  presetState?: Partial<AddressObject>,
+): AddressObject => {
+  const initialState: AddressObject = { ...objectInitialState }
+  const entries = Object.entries(presetState || {})
+
+  entries.forEach(([key, value]) => {
+    if (key in initialState && typeof value === 'string') {
+      initialState[key] = value
+    }
+  })
+
+  return initialState
+}
 
 export const parseValidator = <K = string>(
   oldValue: K,
