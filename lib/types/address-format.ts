@@ -73,11 +73,6 @@ export interface Validator<K = string> {
   (string: K): boolean
 }
 
-export type ClassProperties =
-  | 'formatForCountry'
-  | 'formatForType'
-  | 'outputFormat'
-
 export type OutputFormat = 'array' | 'string'
 
 export type FormatTypes =
@@ -86,3 +81,9 @@ export type FormatTypes =
   | 'english'
   | 'french'
   | 'personal'
+
+export type ClassProperties = {
+  formatForCountry: string
+  formatForType: FormatTypes
+  outputFormat: OutputFormat
+}

@@ -31,11 +31,11 @@ class PostalAddress implements PostalAddressInterface {
   private object: AddressObject
 
   private validators: {
-    [key in ClassProperties]: Validator
+    [key in keyof ClassProperties]: Validator<ClassProperties[key]>
   }
 
   private allowed: {
-    [key: string]: string[]
+    [key in keyof ClassProperties]: ClassProperties[key][]
   }
 
   private addressFormats: AddressFormats
