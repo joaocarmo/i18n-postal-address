@@ -171,7 +171,7 @@ describe('Custom Formats', () => {
 describe('Initial Value [empty]', () => {
   const myAddress = new PostalAddress()
 
-  it('should have an empty address', () => {
+  it('should have an empty address (string)', () => {
     expect(myAddress.toString()).toBe('')
   })
 
@@ -184,7 +184,7 @@ describe('Initial Value [empty]', () => {
   })
 })
 
-describe('Initial Value [non-empty]', () => {
+describe('Initial Value [full non-empty]', () => {
   const presetState = {
     address1: 'Happy Park',
     address2: 'Edifício 4, Piso 2',
@@ -214,7 +214,7 @@ describe('Initial Value [non-empty]', () => {
   }
   const myAddress = new PostalAddress(presetState)
 
-  it('should have an empty address', () => {
+  it('should have a non-empty address (string)', () => {
     expect(myAddress.toString()).toBe(`\
 John Pestana
 SmartShoes Portugal, Lda.
@@ -225,7 +225,7 @@ PORTUGAL\
 `)
   })
 
-  it('should have an empty address (array)', () => {
+  it('should have a non-empty address (array)', () => {
     expect(myAddress.toArray()).toEqual([
       ['John', 'Pestana'],
       ['SmartShoes Portugal, Lda.'],
@@ -236,7 +236,54 @@ PORTUGAL\
     ])
   })
 
-  it('should have an empty address (object)', () => {
+  it('should have a non-empty address (object)', () => {
     expect(myAddress.toObject()).toEqual(presetState)
+  })
+})
+
+describe('Initial Value [partial non-empty]', () => {
+  const presetState = {
+    address1: 'Happy Park',
+    address2: 'Edifício 4, Piso 2',
+    city: 'Porto',
+    companyName: 'SmartShoes Portugal, Lda.',
+    country: 'Portugal',
+    countryAlpha2: 'PT',
+    dong: 'Happy Park',
+    firstName: 'John',
+    lastName: 'Pestana',
+    postalCode: '4000-123',
+    secondLastName: 'Pestana',
+    si: 'Porto',
+  }
+  const myAddress = new PostalAddress(presetState)
+
+  it('should have a non-empty address (string)', () => {
+    expect(myAddress.toString()).toBe(`\
+John Pestana
+SmartShoes Portugal, Lda.
+Happy Park
+Edifício 4, Piso 2
+Porto, 4000-123
+PORTUGAL\
+`)
+  })
+
+  it('should have a non-empty address (array)', () => {
+    expect(myAddress.toArray()).toEqual([
+      ['John', 'Pestana'],
+      ['SmartShoes Portugal, Lda.'],
+      ['Happy Park'],
+      ['Edifício 4, Piso 2'],
+      ['Porto,', '4000-123'],
+      ['PORTUGAL'],
+    ])
+  })
+
+  it('should have a non-empty address (object)', () => {
+    expect(myAddress.toObject()).toEqual({
+      ...objectInitialState,
+      ...presetState,
+    })
   })
 })
