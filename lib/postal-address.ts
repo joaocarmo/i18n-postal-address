@@ -1,4 +1,3 @@
-// Import modules and constants
 import PostalAddressError from './postal-address-error'
 import type PostalAddressInterface from './types/postal-address'
 import type {
@@ -7,34 +6,32 @@ import type {
   AddressFormatPart,
   AddressFormats,
   AddressObject,
+  ClassProperties,
   Countries,
+  FormatTypes,
+  OutputFormat,
   ParserInterface,
   Validator,
 } from './types/address-format'
 import allAddressFormats from './address-formats'
 import allAddressParsers from './address-parsers'
 import objectInitialState from './object-initial-state'
-import { containsValidTokens, isValidFormat } from './utils'
+import { containsValidTokens, isValidFormat, parseValidator } from './utils'
 import countries from './countries.json'
 
 class PostalAddress implements PostalAddressInterface {
-  private outputFormat: 'array' | 'string'
+  private outputFormat: OutputFormat
 
   private formatForCountry: string
 
-  private formatForType:
-    | 'business'
-    | 'english'
-    | 'default'
-    | 'french'
-    | 'personal'
+  private formatForType: FormatTypes
 
   private useTransforms: boolean
 
   private object: AddressObject
 
   private validators: {
-    [key: string]: Validator
+    [key in ClassProperties]: Validator
   }
 
   private allowed: {
@@ -75,33 +72,6 @@ class PostalAddress implements PostalAddressInterface {
     this.addressFormats = allAddressFormats
     // Parsers
     this.addressParsers = allAddressParsers
-  }
-
-  private validator<T extends keyof AddressObject>(
-    property: T,
-    newValue: string,
-    object = true,
-  ): string {
-    let oldValue = ''
-    const validatorFn = this.validators[property]
-
-    if (object) {
-      oldValue = this.object[property]
-    } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      oldValue = this[property]
-    }
-
-    if (typeof validatorFn === 'function') {
-      if (validatorFn(newValue)) {
-        return newValue
-      }
-      return oldValue
-    }
-
-    return newValue
   }
 
   private getFormat(overrideFormat: string): AddressFormatPart[][] | null {
@@ -161,20 +131,13 @@ class PostalAddress implements PostalAddressInterface {
   private setProperty<T extends keyof AddressObject>(
     property: T,
     newValue: string,
-    object = true,
   ): void {
-    if (typeof newValue === 'string') {
-      if (object) {
-        if (typeof this.object[property] === 'string') {
-          this.object[property] = this.validator(property, newValue, object)
-        }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-      } else if (typeof this[property] === 'string') {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        this[property] = this.validator(property, newValue, object)
-      }
+    if (
+      typeof newValue === 'string' &&
+      property in this.object &&
+      typeof this.object[property] === 'string'
+    ) {
+      this.object[property] = newValue
     }
   }
 
@@ -317,8 +280,12 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setOutputFormat(string: string): this {
-    this.setProperty('outputFormat', string, false)
+  public setOutputFormat(format: OutputFormat): this {
+    this.outputFormat = parseValidator(
+      this.outputFormat,
+      format,
+      this.validators.outputFormat,
+    )
     return this
   }
 
@@ -328,14 +295,22 @@ class PostalAddress implements PostalAddressInterface {
     useTransforms,
   }: {
     country?: string
-    type?: string
+    type?: FormatTypes
     useTransforms?: boolean
   }): this {
     if (typeof country === 'string') {
-      this.setProperty('formatForCountry', country, false)
+      this.formatForCountry = parseValidator(
+        this.formatForCountry,
+        country,
+        this.validators.formatForCountry,
+      )
     }
     if (typeof type === 'string') {
-      this.setProperty('formatForType', type, false)
+      this.formatForType = parseValidator(
+        this.formatForType,
+        type,
+        this.validators.formatForType,
+      )
     }
     if (typeof useTransforms === 'boolean') {
       this.useTransforms = useTransforms

@@ -19,13 +19,14 @@
     "clean": "rm -rf ./dist/ && rm -rf ./node_modules/.cache/",
     "lint:fix": "eslint . --fix",
     "lint": "eslint .",
+    "prepare": "husky install",
     "pretty:fix": "prettier --write .",
     "pretty": "prettier --check .",
     "test:functional": "./test-functional/test.js",
     "test:unit": "jest",
+    "test": "jest",
     "type-check:watch": "yarn type-check -- --watch",
-    "type-check": "tsc --noEmit",
-    "prepare": "husky install"
+    "type-check": "tsc --noEmit"
   },
   "lint-staged": {
     "*.{js,ts}": [
