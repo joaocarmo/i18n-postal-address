@@ -47,7 +47,7 @@ class PostalAddress implements PostalAddressInterface {
     [key: string]: ParserInterface
   }
 
-  public constructor() {
+  public constructor(initialObject?: AddressObject) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -57,7 +57,7 @@ class PostalAddress implements PostalAddressInterface {
     // Transform input data or keep it as is
     this.useTransforms = true
     // The object properties that can be set
-    this.object = { ...objectInitialState }
+    this.object = { ...objectInitialState, ...initialObject }
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
