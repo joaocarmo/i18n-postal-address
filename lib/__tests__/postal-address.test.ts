@@ -18,7 +18,7 @@ const expectedOutputUSWithTransforms = `\
 123 Nevermore Rd
 Austin, TX 78752`
 
-const customFormat = {
+const customFormat: AddFormatArgs = {
   country: 'RU',
   format: [
     [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],

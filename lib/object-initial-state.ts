@@ -1,4 +1,4 @@
-import { AddressObject } from './types/address-format'
+import type { AddressObject } from './types/address-format'
 
 const objectInitialState: AddressObject = {
   address1: '',
