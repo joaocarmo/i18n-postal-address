@@ -1,5 +1,6 @@
 import PostalAddress from '../postal-address'
 import PostalAddressError from '../postal-address-error'
+import objectInitialState from '../object-initial-state'
 import { addCommaAfter } from '../address-transforms'
 import type { AddFormatArgs } from '../types/address-format'
 
@@ -164,5 +165,125 @@ describe('Custom Formats', () => {
     myAddressBusiness.setFirstName('John').setLastName('Pestana')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutput)
+  })
+})
+
+describe('Initial Value [empty]', () => {
+  const myAddress = new PostalAddress()
+
+  it('should have an empty address (string)', () => {
+    expect(myAddress.toString()).toBe('')
+  })
+
+  it('should have an empty address (array)', () => {
+    expect(myAddress.toArray()).toEqual([])
+  })
+
+  it('should have an empty address (object)', () => {
+    expect(myAddress.toObject()).toEqual(objectInitialState)
+  })
+})
+
+describe('Initial Value [full non-empty]', () => {
+  const presetState = {
+    address1: 'Happy Park',
+    address2: 'Edifício 4, Piso 2',
+    addressNum: '',
+    city: 'Porto',
+    companyName: 'SmartShoes Portugal, Lda.',
+    country: 'Portugal',
+    countryAlpha2: 'PT',
+    do: '',
+    dong: 'Happy Park',
+    firstLastName: '',
+    firstName: 'John',
+    gu: '',
+    honorific: '',
+    jobTitle: '',
+    lastName: 'Pestana',
+    postalCode: '4000-123',
+    prefecture: '',
+    province: '',
+    region: '',
+    republic: '',
+    secondLastName: 'Pestana',
+    secondName: '',
+    si: 'Porto',
+    state: '',
+    title: '',
+  }
+  const myAddress = new PostalAddress(presetState)
+
+  it('should have a non-empty address (string)', () => {
+    expect(myAddress.toString()).toBe(`\
+John Pestana
+SmartShoes Portugal, Lda.
+Happy Park
+Edifício 4, Piso 2
+Porto, 4000-123
+PORTUGAL\
+`)
+  })
+
+  it('should have a non-empty address (array)', () => {
+    expect(myAddress.toArray()).toEqual([
+      ['John', 'Pestana'],
+      ['SmartShoes Portugal, Lda.'],
+      ['Happy Park'],
+      ['Edifício 4, Piso 2'],
+      ['Porto,', '4000-123'],
+      ['PORTUGAL'],
+    ])
+  })
+
+  it('should have a non-empty address (object)', () => {
+    expect(myAddress.toObject()).toEqual(presetState)
+  })
+})
+
+describe('Initial Value [partial non-empty]', () => {
+  const presetState = {
+    address1: 'Happy Park',
+    address2: 'Edifício 4, Piso 2',
+    city: 'Porto',
+    companyName: 'SmartShoes Portugal, Lda.',
+    country: 'Portugal',
+    countryAlpha2: 'PT',
+    dong: 'Happy Park',
+    firstName: 'John',
+    lastName: 'Pestana',
+    postalCode: '4000-123',
+    secondLastName: 'Pestana',
+    si: 'Porto',
+  }
+  const myAddress = new PostalAddress(presetState)
+
+  it('should have a non-empty address (string)', () => {
+    expect(myAddress.toString()).toBe(`\
+John Pestana
+SmartShoes Portugal, Lda.
+Happy Park
+Edifício 4, Piso 2
+Porto, 4000-123
+PORTUGAL\
+`)
+  })
+
+  it('should have a non-empty address (array)', () => {
+    expect(myAddress.toArray()).toEqual([
+      ['John', 'Pestana'],
+      ['SmartShoes Portugal, Lda.'],
+      ['Happy Park'],
+      ['Edifício 4, Piso 2'],
+      ['Porto,', '4000-123'],
+      ['PORTUGAL'],
+    ])
+  })
+
+  it('should have a non-empty address (object)', () => {
+    expect(myAddress.toObject()).toEqual({
+      ...objectInitialState,
+      ...presetState,
+    })
   })
 })
