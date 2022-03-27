@@ -1,7 +1,7 @@
 import PostalAddress from '../postal-address'
 import PostalAddressError from '../postal-address-error'
 import { addCommaAfter } from '../address-transforms'
-import { AddFormatArgs } from '../types/address-format'
+import type { AddFormatArgs } from '../types/address-format'
 
 const expectedOutputPT = `\
 Portugal
