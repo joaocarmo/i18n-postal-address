@@ -20,6 +20,7 @@ import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
+  parseStringToObject,
   parseValidator,
 } from './utils'
 import untypedCountries from './data/countries.json'
@@ -51,7 +52,7 @@ class PostalAddress implements PostalAddressInterface {
     [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
-  public constructor(presetState?: Partial<AddressObject>) {
+  public constructor(presetState?: Partial<AddressObject> | string) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -61,7 +62,10 @@ class PostalAddress implements PostalAddressInterface {
     // Transform input data or keep it as is
     this.useTransforms = true
     // The object properties that can be set
-    this.object = constructInitialObject(presetState)
+    this.object =
+      typeof presetState === 'string'
+        ? parseStringToObject(presetState)
+        : constructInitialObject(presetState)
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
@@ -363,6 +367,18 @@ class PostalAddress implements PostalAddressInterface {
         [parser]: format,
       },
     }
+
+    return this
+  }
+
+  public fromObject(presetState: Partial<AddressObject>): this {
+    this.object = constructInitialObject(presetState)
+
+    return this
+  }
+
+  public fromString(address: string): this {
+    this.object = parseStringToObject(address)
 
     return this
   }

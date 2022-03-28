@@ -22,6 +22,14 @@ export const constructInitialObject = (
   return initialState
 }
 
+export const parseStringToObject = (address: string): AddressObject => {
+  const initialState: AddressObject = { ...objectInitialState }
+
+  console.log(address)
+
+  return initialState
+}
+
 export const parseValidator = <K = string>(
   oldValue: K,
   newValue: K,
