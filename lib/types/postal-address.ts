@@ -3,6 +3,7 @@ import type {
   AddressObject,
   AddressOutputFormat,
   AddressOutputFormats,
+  AvailableAddressFormat,
   FormatTypes,
   OutputFormat,
 } from './address-format'
@@ -45,7 +46,7 @@ export default interface PostalAddressInterface {
     type?: FormatTypes
     useTransforms?: boolean
   }): this
-  output<T extends OutputFormat>(
+  output<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): AddressOutputFormats[T] | null
   raw(): AddressObject

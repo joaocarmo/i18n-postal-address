@@ -45,6 +45,8 @@ export interface AddressFormat {
 
 export type AcceptAddressFormat = AddressFormat[keyof AddressFormat]
 
+export type AvailableAddressFormat = keyof AddressFormat
+
 export interface AddFormatArgs {
   country: string
   format: AcceptAddressFormat

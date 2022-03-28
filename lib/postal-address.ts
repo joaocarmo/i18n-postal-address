@@ -7,6 +7,7 @@ import type {
   AddressObject,
   AddressOutputFormat,
   AddressOutputFormats,
+  AvailableAddressFormat,
   ClassProperties,
   FormatTypes,
   OutputFormat,
@@ -47,7 +48,7 @@ class PostalAddress implements PostalAddressInterface {
   private addressFormats: AddressFormats
 
   private addressParsers: {
-    [key in OutputFormat]: ParserInterface<key> | null
+    [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
   public constructor(presetState?: Partial<AddressObject>) {
@@ -80,7 +81,7 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  private getFormat<T extends OutputFormat>(
+  private getFormat<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): AcceptAddressFormat | null {
     const { outputFormat, formatForCountry, formatForType, addressFormats } =
@@ -108,7 +109,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private getParser<T extends OutputFormat>(
+  private getParser<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): ParserInterface<T> | null {
     const { outputFormat, addressParsers } = this
@@ -121,7 +122,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  public output<T extends OutputFormat>(
+  public output<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): AddressOutputFormats[T] | null {
     const { useTransforms } = this
