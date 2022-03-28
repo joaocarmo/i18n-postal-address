@@ -1,10 +1,3 @@
-export interface AddFormatArgs {
-  country: string
-  format: AddressFormatPart[][]
-  parser?: string
-  type?: string
-}
-
 export interface AddressObject {
   address1: string
   address2: string
@@ -47,6 +40,16 @@ export type AddressFormatPart = keyof AddressObject | AddressFormatOptions
 
 export interface AddressFormat {
   array?: AddressFormatPart[][]
+  string?: string
+}
+
+export type AcceptAddressFormat = AddressFormat[keyof AddressFormat]
+
+export interface AddFormatArgs {
+  country: string
+  format: AcceptAddressFormat
+  parser?: string
+  type?: string
 }
 
 export interface AddressFormats {
@@ -62,14 +65,10 @@ export type AddressOutputFormats = {
   string: string
 }
 
-export interface Countries {
-  [key: string]: string
-}
-
 export interface ParserInterface<T extends keyof AddressOutputFormats> {
   (
     object: AddressObject,
-    format: AddressFormatPart[][],
+    format: AcceptAddressFormat,
     useTransforms: boolean,
   ): AddressOutputFormats[T]
 }

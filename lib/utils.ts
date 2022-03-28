@@ -1,6 +1,6 @@
 import objectInitialState from './object-initial-state'
 import type {
-  AddressFormatPart,
+  AcceptAddressFormat,
   AddressObject,
   Validator,
 } from './types/address-format'
@@ -38,10 +38,10 @@ export const parseValidator = <K = string>(
 }
 
 export const containsValidTokens = (
-  format: AddressFormatPart[][],
+  format: AcceptAddressFormat,
   parser = 'array',
 ): boolean =>
-  parser === 'array'
+  parser === 'array' && Array.isArray(format)
     ? format.every((row) =>
         row.every((cell) => {
           const attribute = typeof cell === 'object' ? cell.attribute : cell
@@ -51,7 +51,7 @@ export const containsValidTokens = (
     : false
 
 export const isValidFormat = (
-  format: AddressFormatPart[][],
+  format: AcceptAddressFormat,
   parser = 'array',
 ): boolean => {
   if (parser === 'array') {

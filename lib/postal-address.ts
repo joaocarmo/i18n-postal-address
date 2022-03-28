@@ -1,15 +1,13 @@
 import PostalAddressError from './postal-address-error'
 import type PostalAddressInterface from './types/postal-address'
 import type {
+  AcceptAddressFormat,
   AddFormatArgs,
-  AddressFormat,
-  AddressFormatPart,
   AddressFormats,
   AddressObject,
   AddressOutputFormat,
   AddressOutputFormats,
   ClassProperties,
-  Countries,
   FormatTypes,
   OutputFormat,
   ParserInterface,
@@ -23,7 +21,9 @@ import {
   isValidFormat,
   parseValidator,
 } from './utils'
-import countries from './countries.json'
+import untypedCountries from './data/countries.json'
+
+const countries: Record<string, string> = untypedCountries
 
 class PostalAddress implements PostalAddressInterface {
   private outputFormat: OutputFormat
@@ -80,29 +80,25 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  private getFormat(
-    overrideFormat: OutputFormat,
-  ): AddressFormatPart[][] | null {
+  private getFormat<T extends OutputFormat>(
+    overrideFormat: T,
+  ): AcceptAddressFormat | null {
     const { outputFormat, formatForCountry, formatForType, addressFormats } =
       this
 
     const format = overrideFormat || outputFormat
     let formatsAvailable = addressFormats[formatForCountry]
-    let outputType: AddressFormat = {}
 
     if (!formatsAvailable) {
       // Default to the US format
       formatsAvailable = addressFormats?.US
     }
 
-    if (formatsAvailable?.[formatForType as keyof AddressFormats]) {
-      outputType = formatsAvailable[formatForType]
-    } else if (formatsAvailable.default) {
-      outputType = formatsAvailable?.default
-    }
+    const outputType =
+      formatsAvailable?.[formatForType] || formatsAvailable?.default
 
-    if (outputType?.[format as keyof AddressFormat]) {
-      return outputType?.[format as keyof AddressFormat] || null
+    if (outputType?.[format]) {
+      return outputType[format]
     }
 
     if (outputType?.array) {
@@ -187,7 +183,7 @@ class PostalAddress implements PostalAddressInterface {
 
   public setCountry(newValue: string): this {
     this.setProperty('country', newValue)
-    const countryAlpha2 = (countries as Countries)[newValue]
+    const countryAlpha2 = countries[newValue]
 
     if (countryAlpha2) {
       this.setProperty('countryAlpha2', countryAlpha2)

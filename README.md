@@ -93,7 +93,7 @@ console.log(myAddressPersonal.output())
 console.log(myAddressPersonal.toString())
 ```
 
-`output()`
+`toArray()`
 
 ```txt
 [ [ 'Mr.', 'John', 'Lopes' ],
