@@ -1,4 +1,4 @@
-export interface AddressObject {
+export interface Address {
   address1: string
   address2: string
   addressNum: string
@@ -24,8 +24,13 @@ export interface AddressObject {
   si: string
   state: string
   title: string
+}
+
+export interface AddressObject extends Address {
   [key: string]: string
 }
+
+export type AddressParts = keyof Address
 
 export interface TransformFunction {
   (string: string): string
@@ -93,3 +98,9 @@ export type ClassProperties = {
   formatForType: FormatTypes
   outputFormat: OutputFormat
 }
+
+export type ParserOutput = Partial<{
+  [key in AddressParts]: string
+}>
+
+export type Parsers = '' | 'libpostal'

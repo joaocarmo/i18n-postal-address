@@ -12,6 +12,7 @@ import type {
   FormatTypes,
   OutputFormat,
   ParserInterface,
+  Parsers,
   Validator,
 } from './types/address-format'
 import allAddressFormats from './address-formats'
@@ -52,6 +53,8 @@ class PostalAddress implements PostalAddressInterface {
     [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
+  private stringParser: Parsers = ''
+
   public constructor(presetState?: Partial<AddressObject> | string) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
@@ -64,7 +67,7 @@ class PostalAddress implements PostalAddressInterface {
     // The object properties that can be set
     this.object =
       typeof presetState === 'string'
-        ? parseStringToObject(presetState)
+        ? parseStringToObject(presetState, this.stringParser)
         : constructInitialObject(presetState)
     // Validator functions
     this.validators = {
@@ -378,7 +381,7 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public fromString(address: string): this {
-    this.object = parseStringToObject(address)
+    this.object = parseStringToObject(address, this.stringParser)
 
     return this
   }

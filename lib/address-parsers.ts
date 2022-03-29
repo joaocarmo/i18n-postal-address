@@ -1,7 +1,10 @@
+import type { PostalLabels, PostalResult } from 'node-postal'
+import type { ParserMap } from './address-mappings'
 import type {
   AddressFormatPart,
   AddressOutputFormat,
   ParserInterface,
+  ParserOutput,
 } from './types/address-format'
 
 const arrayParser: ParserInterface<'array'> = (
@@ -53,6 +56,26 @@ const arrayParser: ParserInterface<'array'> = (
 const addressParsers = {
   array: arrayParser,
   string: null,
+}
+
+export const parseLibpostal = (
+  mapping: ParserMap<PostalLabels>,
+  result: PostalResult[],
+): ParserOutput => {
+  const output: ParserOutput = {}
+
+  result.forEach((entry) => {
+    const { component, value } = entry
+
+    if (component in mapping) {
+      const mappedKeys = mapping[component]
+      mappedKeys.forEach((key) => {
+        output[key] = value || ''
+      })
+    }
+  })
+
+  return output
 }
 
 export default addressParsers

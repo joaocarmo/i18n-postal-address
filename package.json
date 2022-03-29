@@ -57,6 +57,9 @@
   },
   "homepage": "https://github.com/joaocarmo/i18n-postal-address#readme",
   "dependencies": {},
+  "peerDependencies": {
+    "node-postal": "^1.1.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "^7.17.0",

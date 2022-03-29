@@ -1,7 +1,10 @@
+import StringParser from './string-parser'
+import PostalAddressError from './postal-address-error'
 import objectInitialState from './object-initial-state'
 import type {
   AcceptAddressFormat,
   AddressObject,
+  Parsers,
   Validator,
 } from './types/address-format'
 
@@ -22,12 +25,22 @@ export const constructInitialObject = (
   return initialState
 }
 
-export const parseStringToObject = (address: string): AddressObject => {
+export const parseStringToObject = (
+  address: string,
+  parser: Parsers,
+): AddressObject => {
   const initialState: AddressObject = { ...objectInitialState }
 
-  console.log(address)
+  if (!parser) {
+    throw new PostalAddressError(
+      'No parser specified or this feature is not supported in your environment',
+    )
+  }
 
-  return initialState
+  const worker = new StringParser({ parser })
+  const output = worker.parse(address)
+
+  return { ...initialState, ...output }
 }
 
 export const parseValidator = <K = string>(
