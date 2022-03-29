@@ -6,10 +6,10 @@ import type {
   AvailableAddressFormat,
   FormatTypes,
   OutputFormat,
+  Parsers,
 } from './address-format'
 
 export default interface PostalAddressInterface {
-  // Public methods
   addFormat({ country, format, parser, type }: AddFormatArgs): this
   setAddress(newValue: string): this
   setAddress1(newValue: string): this
@@ -37,6 +37,7 @@ export default interface PostalAddressInterface {
   setState(newValue: string): this
   setTitle(newValue: string): this
   setOutputFormat(string: OutputFormat): this
+  setStringParser(parser: Parsers): this
   setFormat({
     country,
     type,

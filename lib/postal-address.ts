@@ -296,6 +296,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public setStringParser(parser: Parsers): this {
+    this.stringParser = parser
+    return this
+  }
+
   public setOutputFormat(format: OutputFormat): this {
     this.outputFormat = parseValidator(
       this.outputFormat,
