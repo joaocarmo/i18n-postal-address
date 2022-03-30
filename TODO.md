@@ -1,3 +1,3 @@
 # TODO
 
-- Implement the _stringParser_ method
+- Implement the more _stringParser_ methods

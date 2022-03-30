@@ -24,9 +24,18 @@ fi
 
 make -j4
 
-sudo make install
+if [ -x "$(command -v sudo)" ]; then
+  sudo make install
 
-if [ "$(uname)" = "Linux" ]; then
-  # On Linux it's probably a good idea to run
-  sudo ldconfig
+  if [ "$(uname)" = "Linux" ]; then
+    # On Linux it's probably a good idea to run
+    sudo ldconfig
+  fi
+else
+  # For Docker builds, sudo is not available
+  make install
+
+  if [ "$(uname)" = "Linux" ]; then
+    ldconfig
+  fi
 fi
