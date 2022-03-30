@@ -53,7 +53,7 @@ class PostalAddress implements PostalAddressInterface {
     [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
-  private stringParser: Parsers = ''
+  private stringParser: Parsers = STRING_PARSER_DEFAULT
 
   public constructor(presetState?: Partial<AddressObject> | string) {
     // Possible values: 'array' | 'string'

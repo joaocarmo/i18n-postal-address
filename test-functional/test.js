@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-const PostalAddress = require('..').default
+const PostalAddress = require('../dist/postal-address.node').default
+const PostalAddressWithStrings =
+  require('../dist/postal-address.strings.node').default
 
 const myAddressPersonal = new PostalAddress()
 
@@ -49,9 +51,7 @@ console.log(myAddressPersonal.output())
 
 console.log(myAddressBusiness.toString())
 
-const myStringParser = new PostalAddress()
-myStringParser.setStringParser('libpostal')
-myStringParser.fromString(
+const myStringParser = new PostalAddressWithStrings(
   'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
 )
 

@@ -28,8 +28,10 @@ declare module 'node-postal' {
 
   const postal: {
     parser: {
-      parse_address: (input: string) => PostalResult[]
+      expand_address: (address: string) => string[]
+      parse_address: (address: string) => PostalResult[]
     }
   }
+
   export default postal
 }

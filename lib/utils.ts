@@ -31,10 +31,14 @@ export const parseStringToObject = (
 ): AddressObject => {
   const initialState: AddressObject = { ...objectInitialState }
 
-  if (!parser) {
+  if (!STRING_PARSER_ENABLED) {
     throw new PostalAddressError(
-      'No parser specified or this feature is not supported in your environment',
+      'This feature is not supported in your environment',
     )
+  }
+
+  if (!parser) {
+    throw new PostalAddressError('No parser specified')
   }
 
   const worker = new StringParser({ parser })

@@ -8,6 +8,9 @@
     ".": {
       "browser": "./dist/postal-address.js",
       "require": "./dist/postal-address.node.js"
+    },
+    "./strings": {
+      "require": "./dist/postal-address.strings.node.js"
     }
   },
   "types": "./dist/postal-address.d.ts",
