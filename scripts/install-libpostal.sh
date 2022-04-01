@@ -19,7 +19,11 @@ if [ "$(uname)" = "Darwin" ] && [ "$(uname -m)" = "arm64" ]; then
   # Handle macOS with Apple silicon
   ./configure --disable-sse2 --datadir="$DATA_DIR"
 else
-  ./configure --datadir="$DATA_DIR"
+  if grep sse2 < /proc/cpuinfo; then
+    ./configure --datadir="$DATA_DIR"
+  else
+    ./configure --disable-sse2 --datadir="$DATA_DIR"
+  fi
 fi
 
 make -j4

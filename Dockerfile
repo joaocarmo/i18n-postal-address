@@ -31,7 +31,7 @@ FROM node:16 AS tester-libpostal
 
 WORKDIR /app
 
-RUN apt-get install curl autoconf automake libtool pkg-config
+RUN apt install -y curl autoconf automake libtool pkg-config
 
 COPY --from=builder /app/build /app/build
 COPY --from=builder /app/scripts /app/scripts
@@ -41,6 +41,6 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
 
 RUN yarn
 
-RUN yarn add node-postal
-
 RUN ./scripts/install-libpostal.sh
+
+RUN yarn add node-postal
