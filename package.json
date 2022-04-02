@@ -29,6 +29,7 @@
     "prepare": "husky install",
     "pretty:fix": "prettier --write .",
     "pretty": "prettier --check .",
+    "test:functional:strings": "./test-functional/test-strings.js",
     "test:functional": "./test-functional/test.js",
     "test:unit": "jest",
     "test": "jest",

@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 const PostalAddress = require('../dist/postal-address.node').default
-const PostalAddressWithStrings =
-  require('../dist/postal-address.strings.node').default
 
 const myAddressPersonal = new PostalAddress()
 
@@ -50,11 +48,3 @@ myAddressPersonal.setFormat({ useTransforms: false })
 console.log(myAddressPersonal.output())
 
 console.log(myAddressBusiness.toString())
-
-const myStringParser = new PostalAddressWithStrings(
-  'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
-)
-
-console.log(myStringParser.toObject())
-
-console.log(myStringParser.toString())
