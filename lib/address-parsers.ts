@@ -1,4 +1,5 @@
 import type { PostalLabels, PostalResult } from 'node-postal'
+import { pascalCase } from './address-transforms'
 import type { ParserMap } from './address-mappings'
 import type {
   AddressFormatPart,
@@ -75,7 +76,12 @@ export const parseLibpostal = (
         )
 
         if (addressFound) {
-          acc.push(addressFound.value)
+          // Uses an heuristic to determine if we should PascalCase the value
+          const value =
+            addressFound.value.length > 3
+              ? pascalCase(addressFound.value)
+              : addressFound.value
+          acc.push(value)
         }
 
         return acc
