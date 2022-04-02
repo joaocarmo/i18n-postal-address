@@ -3,6 +3,7 @@ import type { ParserMap } from './address-mappings'
 import type {
   AddressFormatPart,
   AddressOutputFormat,
+  AddressParts,
   ParserInterface,
   ParserOutput,
 } from './types/address-format'
@@ -62,17 +63,27 @@ export const parseLibpostal = (
   mapping: ParserMap<PostalLabels>,
   result: PostalResult[],
 ): ParserOutput => {
+  const ADDRESS_DELIMITER = ' '
   const output: ParserOutput = {}
+  const keys = Object.keys(mapping) as AddressParts[]
 
-  result.forEach((entry) => {
-    const { component, value } = entry
+  keys.forEach((key) => {
+    const addressPart = mapping[key].reduce(
+      (acc: string[], label: PostalLabels) => {
+        const addressFound = result.find(
+          ({ component, value }) => component === label && value,
+        )
 
-    if (component in mapping) {
-      const mappedKeys = mapping[component]
-      mappedKeys.forEach((key) => {
-        output[key] = value || ''
-      })
-    }
+        if (addressFound) {
+          acc.push(addressFound.value)
+        }
+
+        return acc
+      },
+      [],
+    )
+
+    output[key] = addressPart.join(ADDRESS_DELIMITER)
   })
 
   return output
