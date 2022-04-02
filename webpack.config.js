@@ -49,7 +49,7 @@ const webConfig = {
   resolve: {
     ...commonConfig.resolve,
     alias: {
-      'node-postal$': path.resolve(__dirname, 'lib/mocks/node-postal.js'),
+      'node-postal$': path.resolve(__dirname, 'lib/__mocks__/node-postal.js'),
     },
   },
 }
@@ -65,7 +65,7 @@ const nodeConfig = {
   resolve: {
     ...commonConfig.resolve,
     alias: {
-      'node-postal$': path.resolve(__dirname, 'lib/mocks/node-postal.js'),
+      'node-postal$': path.resolve(__dirname, 'lib/__mocks__/node-postal.js'),
     },
   },
   externalsPresets: { node: true },
