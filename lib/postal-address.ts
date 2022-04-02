@@ -1,18 +1,18 @@
 import PostalAddressError from './postal-address-error'
 import type PostalAddressInterface from './types/postal-address'
 import type {
+  AcceptAddressFormat,
   AddFormatArgs,
-  AddressFormat,
-  AddressFormatPart,
   AddressFormats,
   AddressObject,
   AddressOutputFormat,
   AddressOutputFormats,
+  AvailableAddressFormat,
   ClassProperties,
-  Countries,
   FormatTypes,
   OutputFormat,
   ParserInterface,
+  Parsers,
   Validator,
 } from './types/address-format'
 import allAddressFormats from './address-formats'
@@ -21,9 +21,12 @@ import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
+  parseStringToObject,
   parseValidator,
 } from './utils'
-import countries from './countries.json'
+import untypedCountries from './data/countries.json'
+
+const countries: Record<string, string> = untypedCountries
 
 class PostalAddress implements PostalAddressInterface {
   private outputFormat: OutputFormat
@@ -47,10 +50,12 @@ class PostalAddress implements PostalAddressInterface {
   private addressFormats: AddressFormats
 
   private addressParsers: {
-    [key in OutputFormat]: ParserInterface<key> | null
+    [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
-  public constructor(presetState?: Partial<AddressObject>) {
+  private stringParser: Parsers = STRING_PARSER_DEFAULT
+
+  public constructor(presetState?: Partial<AddressObject> | string) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -60,7 +65,10 @@ class PostalAddress implements PostalAddressInterface {
     // Transform input data or keep it as is
     this.useTransforms = true
     // The object properties that can be set
-    this.object = constructInitialObject(presetState)
+    this.object =
+      typeof presetState === 'string'
+        ? parseStringToObject(presetState, this.stringParser)
+        : constructInitialObject(presetState)
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
@@ -80,29 +88,25 @@ class PostalAddress implements PostalAddressInterface {
     this.addressParsers = allAddressParsers
   }
 
-  private getFormat(
-    overrideFormat: OutputFormat,
-  ): AddressFormatPart[][] | null {
+  private getFormat<T extends AvailableAddressFormat>(
+    overrideFormat: T,
+  ): AcceptAddressFormat | null {
     const { outputFormat, formatForCountry, formatForType, addressFormats } =
       this
 
     const format = overrideFormat || outputFormat
     let formatsAvailable = addressFormats[formatForCountry]
-    let outputType: AddressFormat = {}
 
     if (!formatsAvailable) {
       // Default to the US format
       formatsAvailable = addressFormats?.US
     }
 
-    if (formatsAvailable?.[formatForType as keyof AddressFormats]) {
-      outputType = formatsAvailable[formatForType]
-    } else if (formatsAvailable.default) {
-      outputType = formatsAvailable?.default
-    }
+    const outputType =
+      formatsAvailable?.[formatForType] || formatsAvailable?.default
 
-    if (outputType?.[format as keyof AddressFormat]) {
-      return outputType?.[format as keyof AddressFormat] || null
+    if (outputType?.[format]) {
+      return outputType[format]
     }
 
     if (outputType?.array) {
@@ -112,7 +116,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  private getParser<T extends OutputFormat>(
+  private getParser<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): ParserInterface<T> | null {
     const { outputFormat, addressParsers } = this
@@ -125,7 +129,7 @@ class PostalAddress implements PostalAddressInterface {
     return null
   }
 
-  public output<T extends OutputFormat>(
+  public output<T extends AvailableAddressFormat>(
     overrideFormat: T,
   ): AddressOutputFormats[T] | null {
     const { useTransforms } = this
@@ -187,7 +191,7 @@ class PostalAddress implements PostalAddressInterface {
 
   public setCountry(newValue: string): this {
     this.setProperty('country', newValue)
-    const countryAlpha2 = (countries as Countries)[newValue]
+    const countryAlpha2 = countries[newValue]
 
     if (countryAlpha2) {
       this.setProperty('countryAlpha2', countryAlpha2)
@@ -292,6 +296,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public setStringParser(parser: Parsers): this {
+    this.stringParser = parser
+    return this
+  }
+
   public setOutputFormat(format: OutputFormat): this {
     this.outputFormat = parseValidator(
       this.outputFormat,
@@ -366,6 +375,18 @@ class PostalAddress implements PostalAddressInterface {
         [parser]: format,
       },
     }
+
+    return this
+  }
+
+  public fromObject(presetState: Partial<AddressObject>): this {
+    this.object = constructInitialObject(presetState)
+
+    return this
+  }
+
+  public fromString(address: string): this {
+    this.object = parseStringToObject(address, this.stringParser)
 
     return this
   }

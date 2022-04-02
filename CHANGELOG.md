@@ -1,11 +1,17 @@
 # Changelog
 
+## 0.6.0
+
+> Mar 30, 2021
+
+- Implements a string parser for the node.js version
+
 ## 0.5.0
 
 > Mar 28, 2021
 
 - Adds support for a full or partial preset state to be passed to the
-  constructor.
+  constructor
 
 ## 0.4.3
 

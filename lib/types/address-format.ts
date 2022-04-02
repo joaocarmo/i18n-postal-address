@@ -1,36 +1,35 @@
-export interface AddFormatArgs {
-  country: string
-  format: AddressFormatPart[][]
-  parser?: string
-  type?: string
+export type AddressParts =
+  | 'address1'
+  | 'address2'
+  | 'addressNum'
+  | 'city'
+  | 'companyName'
+  | 'country'
+  | 'countryAlpha2'
+  | 'do'
+  | 'dong'
+  | 'firstLastName'
+  | 'firstName'
+  | 'gu'
+  | 'honorific'
+  | 'jobTitle'
+  | 'lastName'
+  | 'postalCode'
+  | 'prefecture'
+  | 'province'
+  | 'region'
+  | 'republic'
+  | 'secondLastName'
+  | 'secondName'
+  | 'si'
+  | 'state'
+  | 'title'
+
+export type Address = {
+  [key in AddressParts]: string
 }
 
-export interface AddressObject {
-  address1: string
-  address2: string
-  addressNum: string
-  city: string
-  companyName: string
-  country: string
-  countryAlpha2: string
-  do: string
-  dong: string
-  firstLastName: string
-  firstName: string
-  gu: string
-  honorific: string
-  jobTitle: string
-  lastName: string
-  postalCode: string
-  prefecture: string
-  province: string
-  region: string
-  republic: string
-  secondLastName: string
-  secondName: string
-  si: string
-  state: string
-  title: string
+export interface AddressObject extends Address {
   [key: string]: string
 }
 
@@ -47,6 +46,18 @@ export type AddressFormatPart = keyof AddressObject | AddressFormatOptions
 
 export interface AddressFormat {
   array?: AddressFormatPart[][]
+  string?: string
+}
+
+export type AcceptAddressFormat = AddressFormat[keyof AddressFormat]
+
+export type AvailableAddressFormat = keyof AddressFormat
+
+export interface AddFormatArgs {
+  country: string
+  format: AcceptAddressFormat
+  parser?: string
+  type?: string
 }
 
 export interface AddressFormats {
@@ -62,14 +73,10 @@ export type AddressOutputFormats = {
   string: string
 }
 
-export interface Countries {
-  [key: string]: string
-}
-
 export interface ParserInterface<T extends keyof AddressOutputFormats> {
   (
     object: AddressObject,
-    format: AddressFormatPart[][],
+    format: AcceptAddressFormat,
     useTransforms: boolean,
   ): AddressOutputFormats[T]
 }
@@ -92,3 +99,9 @@ export type ClassProperties = {
   formatForType: FormatTypes
   outputFormat: OutputFormat
 }
+
+export type ParserOutput = Partial<{
+  [key in AddressParts]: string
+}>
+
+export type Parsers = '' | 'libpostal'

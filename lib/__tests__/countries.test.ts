@@ -1,4 +1,4 @@
-import countries from '../countries.json'
+import countries from '../data/countries.json'
 
 describe('Countries', () => {
   it('should be mapped to a 2-letter country code', () => {

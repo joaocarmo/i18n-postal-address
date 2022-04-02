@@ -76,31 +76,30 @@ const myAddressPersonal = new PostalAddress()
 myAddressPersonal
   .setAddress1('Rua do Pastel, 19')
   .setCity('Aveiro')
-  .setCountry('Brazil')
+  .setCountry('Portugal')
   .setFirstName('John')
   .setHonorific('Mr.')
   .setLastName('Pestana')
   .setPostalCode('2700-242')
   .setSecondName('Lopes')
-  .setOutputFormat('array')
   .setFormat({
     country: 'AR',
     type: 'personal',
   })
 
-console.log(myAddressPersonal.output())
+console.log(myAddressPersonal.toArray())
 
 console.log(myAddressPersonal.toString())
 ```
 
-`output()`
+`toArray()`
 
 ```txt
 [ [ 'Mr.', 'John', 'Lopes' ],
   [ 'Pestana' ],
   [ 'Rua do Pastel, 19' ],
   [ '2700-242', 'Aveiro' ],
-  [ 'Brazil' ] ]
+  [ 'Portugal' ] ]
 ```
 
 `toString()`
@@ -110,7 +109,7 @@ Mr. John Lopes
 Pestana
 Rua do Pastel, 19
 2700-242 Aveiro
-Brazil
+Portugal
 ```
 
 ## Available Class Methods
@@ -223,12 +222,51 @@ state
 title
 ```
 
+## Experimental string parsing
+
+If you're interested in parsing a string into an object, you can use the new
+experimental support for parsing addresses using some existing libraries.
+
+### libpostal
+
+This is the most complete and comprehensive library for parsing addresses. You
+need to be using the **node** version as it's not supported on the web.
+
+#### Requirements
+
+1. Install [libpostal][libpostal] following their installation instructions, or
+   execute [this script][install-libpostal] if you're on a *nix machine
+2. Install [node-postal][node-postal] as a dependency in your project, _after
+   installing libpostal_
+
+#### Experimental usage
+
+Notice the import is slightly different, you should import this library as
+`i18n-postal-address/strings`.
+
+```js
+const PostalAddress = require('i18n-postal-address/strings').default
+
+const postalAddress = new PostalAddress()
+
+postalAddress.fromString(
+  'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
+)
+
+console.log(postalAddress.toString())
+```
+
+```txt
+Barboncino 781 Franklin Ave
+Crown Heights Brooklyn
+NY 11238
+```
+
 ## Background
 
 ### Why
 
-The great [libpostal][libpostal] is not available
-on the web.
+The [libpostal][libpostal] library is not available on the web.
 
 Need to present postal addresses for different regions worldwide stored in
 individual parts (company name, address, postal code, city, county, country,
@@ -264,8 +302,10 @@ yarn test:functional
 <!-- References -->
 
 [codepen]: https://codepen.io/joaocarmo/pen/bGeOVQw
+[install-libpostal]: ./scripts/install-libpostal.sh
 [libpostal]: https://github.com/openvenues/libpostal
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
+[node-postal]: https://github.com/openvenues/node-postal
 [pa]: https://schema.org/PostalAddress
 [qad]: http://i18napis.appspot.com/address
 [skypack]: https://skypack.dev

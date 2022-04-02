@@ -17,3 +17,22 @@ export const capitalize: TransformFunction = (string) => {
 
   return ''
 }
+
+export const capitalizeWhenTwo: TransformFunction = (string) => {
+  if (string && typeof string === 'string' && string.length === 2) {
+    return string.toUpperCase()
+  }
+
+  return string
+}
+
+export const pascalCase: TransformFunction = (string) => {
+  if (typeof string === 'string') {
+    return string.replace(
+      /(\w)(\w*)/g,
+      (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase(),
+    )
+  }
+
+  return ''
+}

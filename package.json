@@ -2,9 +2,16 @@
   "name": "i18n-postal-address",
   "version": "0.5.0",
   "description": "A JavaScript library to produce international postal addresses formatted by region for node and the web",
-  "main": "./dist/postal-address.js",
+  "browser": "./dist/postal-address.js",
+  "main": "./dist/postal-address.node.js",
   "exports": {
-    ".": "./dist/postal-address.js"
+    ".": {
+      "browser": "./dist/postal-address.js",
+      "require": "./dist/postal-address.node.js"
+    },
+    "./strings": {
+      "require": "./dist/postal-address.strings.node.js"
+    }
   },
   "types": "./dist/postal-address.d.ts",
   "directories": {
@@ -22,6 +29,7 @@
     "prepare": "husky install",
     "pretty:fix": "prettier --write .",
     "pretty": "prettier --check .",
+    "test:functional:strings": "./test-functional/test-strings.js",
     "test:functional": "./test-functional/test.js",
     "test:unit": "jest",
     "test": "jest",
@@ -57,6 +65,9 @@
   },
   "homepage": "https://github.com/joaocarmo/i18n-postal-address#readme",
   "dependencies": {},
+  "peerDependencies": {
+    "node-postal": "^1.1.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
@@ -65,8 +76,8 @@
     "@babel/runtime": "^7.17.8",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
-    "@typescript-eslint/eslint-plugin": "^5.16.0",
-    "@typescript-eslint/parser": "^5.16.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.4",
@@ -81,6 +92,7 @@
     "husky": ">=6",
     "jest": "^27.5.1",
     "lint-staged": ">=12.3.7",
+    "node-postal": "^1.1.2",
     "prettier": "^2.6.1",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3",
