@@ -249,7 +249,17 @@ const PostalAddress = require('i18n-postal-address/strings').default
 
 const postalAddress = new PostalAddress()
 
-postalAddress.fromString('Rua do Pastel, 19, Aveiro, Portugal')
+postalAddress.fromString(
+  'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
+)
+
+console.log(postalAddress.toString())
+```
+
+```txt
+Barboncino 781 Franklin Ave
+Crown Heights Brooklyn
+NY 11238
 ```
 
 ## Background

@@ -1,7 +1,15 @@
 import type { PostalLabels } from 'node-postal'
-import type { AddressParts } from './types/address-format'
+import { capitalizeWhenTwo } from './address-transforms'
+import type { AddressParts, TransformFunction } from './types/address-format'
 
-export type ParserMap<T> = Record<AddressParts, Partial<T>[]>
+type LabelObject<T> = {
+  attribute: T
+  transform: TransformFunction
+}
+
+export type LabelConfig<T> = Partial<T> | LabelObject<T>
+
+export type ParserMap<T> = Record<AddressParts, LabelConfig<T>[]>
 
 /**
  * Mapping between the parsed labels and this library's internal representation.
@@ -21,7 +29,13 @@ const libpostalMap: ParserMap<PostalLabels> = {
   addressNum: ['po_box'],
   city: ['city'],
   companyName: [],
-  country: ['country', 'world_region'],
+  country: [
+    {
+      attribute: 'country',
+      transform: capitalizeWhenTwo,
+    },
+    'world_region',
+  ],
   countryAlpha2: [],
   do: ['country_region'],
   dong: [],
@@ -39,7 +53,12 @@ const libpostalMap: ParserMap<PostalLabels> = {
   secondLastName: [],
   secondName: [],
   si: ['city'],
-  state: ['state'],
+  state: [
+    {
+      attribute: 'state',
+      transform: capitalizeWhenTwo,
+    },
+  ],
   title: [],
 }
 
