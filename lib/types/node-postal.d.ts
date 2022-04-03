@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 declare module 'node-postal' {
+  // Source: https://github.com/openvenues/libpostal#parser-labels
   export type PostalLabels =
     | 'category'
     | 'city_district'
@@ -26,11 +29,21 @@ declare module 'node-postal' {
     value: string
   }
 
-  const postal: {
-    parser: {
-      expand_address: (address: string) => string[]
-      parse_address: (address: string) => PostalResult[]
-    }
+  export function expand_address(address: string): string[]
+
+  export function parse_address(address: string): PostalResult[]
+
+  export const expand: {
+    expand_address: typeof expand_address
+  }
+
+  export const parser: {
+    parse_address: typeof parse_address
+  }
+
+  export const postal: {
+    expand: typeof expand
+    parser: typeof parser
   }
 
   export default postal

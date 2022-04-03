@@ -16,6 +16,22 @@ RUN mkdir build
 
 RUN npm pack --pack-destination ./build
 
+# For CI testing
+FROM node:16 AS tester
+
+WORKDIR /app
+
+RUN apt install -y curl autoconf automake libtool pkg-config
+
+COPY --from=builder /app /app
+
+RUN ./scripts/install-libpostal.sh
+
+RUN yarn --frozen-lockfile
+
+RUN rm -rf ./lib/__mocks__
+
+# For manual testing in a vanilla environment
 FROM node:16 AS tester-vanilla
 
 WORKDIR /app
@@ -27,6 +43,7 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
 
 RUN yarn
 
+# For manual testing in an environment with libpostal
 FROM node:16 AS tester-libpostal
 
 WORKDIR /app

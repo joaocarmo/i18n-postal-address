@@ -1,6 +1,6 @@
 #!/bin/sh
 # This script installs libpostal
-# @source: https://github.com/openvenues/libpostal
+# Source: https://github.com/openvenues/libpostal
 
 BASE_DIR=$HOME/.libpostal
 DATA_DIR=$BASE_DIR/data
@@ -36,7 +36,7 @@ if [ -x "$(command -v sudo)" ]; then
     sudo ldconfig
   fi
 else
-  # For Docker builds, sudo is not available
+  # For Docker builds sudo is not available
   make install
 
   if [ "$(uname)" = "Linux" ]; then
