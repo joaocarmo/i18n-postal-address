@@ -2,9 +2,10 @@
 
 ## 0.6.0
 
-> Mar 30, 2021
+> Apr 3, 2021
 
-- Implements a string parser for the node.js version
+- Implements a string parser for the node version, check the documentation for
+  more information
 
 ## 0.5.0
 
