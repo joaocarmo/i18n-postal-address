@@ -1,6 +1,6 @@
 {
   "name": "i18n-postal-address",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A JavaScript library to produce international postal addresses formatted by region for node and the web",
   "browser": "./dist/postal-address.js",
   "main": "./dist/postal-address.node.js",
