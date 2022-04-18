@@ -76,6 +76,7 @@
     "@babel/runtime": "^7.17.8",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
+    "@types/node-postal": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "babel-eslint": "^10.1.0",

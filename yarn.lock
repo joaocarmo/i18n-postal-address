@@ -1326,6 +1326,11 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/node-postal@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/node-postal/-/node-postal-1.1.0.tgz#98cd8d4b17ca9c081cdf5d105a52e519d44bc053"
+  integrity sha512-gKTKPJBntLm/LgxMKd6I+IzZ5r3iWvQDgzjRqUYDuABhp8sByF0tsT1oYMuYYKn9p5jbDLdXqSw9R88dFZr3Mg==
+
 "@types/node@*", "@types/node@^17.0.23":
   version "17.0.23"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.23.tgz#3b41a6e643589ac6442bdbd7a4a3ded62f33f7da"
