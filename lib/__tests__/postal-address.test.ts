@@ -19,7 +19,7 @@ const expectedOutputUSWithTransforms = `\
 123 Nevermore Rd
 Austin, TX 78752`
 
-const customFormat: AddFormatArgs = {
+const customFormatOverwrite: AddFormatArgs = {
   country: 'RU',
   format: [
     [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],
@@ -29,10 +29,24 @@ const customFormat: AddFormatArgs = {
   type: 'business',
 }
 
-const customFormatOutput = `\
+const customFormatOutputOverwrite = `\
 Pestana, John
 Porto 4000-123
 Portugal`
+
+// prettier-ignore
+const customFormatNew: AddFormatArgs = {
+  country: 'GB',
+  format: [
+    ['address1'],
+    ['city', 'postalCode'],
+  ],
+  type: 'personal',
+}
+
+const customFormatOutputNew = `\
+Happy Park
+Porto 4000-123`
 
 describe('Postal Address', () => {
   it('should be a valid constructor', () => {
@@ -55,7 +69,6 @@ describe('Postal Address', () => {
       .setCompanyName('SmartShoes Portugal, Lda.')
       .setCountry('Portugal')
       .setPostalCode('4000-123')
-      .setOutputFormat('array')
       .setFormat({
         country: 'RU',
         type: 'business',
@@ -71,7 +84,6 @@ describe('Postal Address', () => {
       .setCity('Austin')
       .setState('TX')
       .setPostalCode('78752')
-      .setOutputFormat('array')
       .setFormat({
         country: 'US',
         type: 'personal',
@@ -90,7 +102,6 @@ describe('Postal Address', () => {
 })
 
 describe('Custom Formats', () => {
-  const myAddressBusiness = new PostalAddress()
   const customFormats: [unknown, string][] = [
     [
       {
@@ -137,12 +148,14 @@ describe('Custom Formats', () => {
     'test invalid custom format: %s',
     (format, errorMessage) => {
       expect(() => {
+        const myAddressBusiness = new PostalAddress()
         myAddressBusiness.addFormat(format as AddFormatArgs)
       }).toThrow(new PostalAddressError(errorMessage))
     },
   )
 
-  it('should allow custom formats', () => {
+  it('should allow custom formats (overwrite)', () => {
+    const myAddressBusiness = new PostalAddress()
     myAddressBusiness
       .setAddress1('Happy Park')
       .setAddress2('Edifício 4, Piso 2')
@@ -150,7 +163,6 @@ describe('Custom Formats', () => {
       .setCompanyName('SmartShoes Portugal, Lda.')
       .setCountry('Portugal')
       .setPostalCode('4000-123')
-      .setOutputFormat('array')
       .setFormat({
         country: 'RU',
         type: 'business',
@@ -158,13 +170,41 @@ describe('Custom Formats', () => {
 
     expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
 
-    myAddressBusiness.addFormat(customFormat)
+    myAddressBusiness.addFormat(customFormatOverwrite)
 
     expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
 
     myAddressBusiness.setFirstName('John').setLastName('Pestana')
 
-    expect(myAddressBusiness.toString()).toBe(customFormatOutput)
+    expect(myAddressBusiness.toString()).toBe(customFormatOutputOverwrite)
+  })
+
+  it('should allow custom formats (new)', () => {
+    const myAddressBusiness = new PostalAddress()
+    myAddressBusiness
+      .setAddress1('Happy Park')
+      .setAddress2('Edifício 4, Piso 2')
+      .setCity('Porto')
+      .setCompanyName('SmartShoes Portugal, Lda.')
+      .setCountry('Portugal')
+      .setPostalCode('4000-123')
+      .setFormat({
+        country: 'RU',
+        type: 'business',
+      })
+
+    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+
+    myAddressBusiness.addFormat(customFormatNew).setFormat({
+      country: 'GB',
+      type: 'personal',
+    })
+
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
+
+    myAddressBusiness.setFirstName('John').setLastName('Pestana')
+
+    expect(myAddressBusiness.toString()).toBe(customFormatOutputNew)
   })
 })
 

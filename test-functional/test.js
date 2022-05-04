@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 const PostalAddress = require('../dist/postal-address.node').default
 
+const console = ((_console) => ({
+  log: (...args) => {
+    const divider = '\n----------------------------------------------------\n'
+    _console.log(divider)
+    _console.log(...args)
+  },
+}))(global.console)
+
 const myAddressPersonal = new PostalAddress()
 
 myAddressPersonal
@@ -12,7 +20,6 @@ myAddressPersonal
   .setLastName('Pestana')
   .setPostalCode('2700-242')
   .setSecondName('Lopes')
-  .setOutputFormat('array')
   .setFormat({
     country: 'NO',
     type: 'personal',
@@ -27,7 +34,6 @@ myAddressBusiness
   .setCompanyName('SmartShoes Portugal, Lda.')
   .setCountry('Portugal')
   .setPostalCode('4000-123')
-  .setOutputFormat('array')
   .setFormat({
     country: 'RU',
     type: 'business',
@@ -48,3 +54,30 @@ myAddressPersonal.setFormat({ useTransforms: false })
 console.log(myAddressPersonal.output())
 
 console.log(myAddressBusiness.toString())
+
+// prettier-ignore
+const myCustomAddress = new PostalAddress().addFormat({
+  country: 'GB',
+  format: [
+    ['address1'],
+    ['city', 'postalCode'],
+  ],
+  type: 'personal',
+})
+
+myCustomAddress
+  .setAddress1('Happy Park')
+  .setAddress2('Edifício 4, Piso 2')
+  .setCity('Porto')
+  .setCompanyName('SmartShoes Portugal, Lda.')
+  .setCountry('Portugal')
+  .setPostalCode('4000-123')
+
+console.log(myCustomAddress.toString())
+
+myCustomAddress.setFormat({
+  country: 'GB',
+  type: 'personal',
+})
+
+console.log(myCustomAddress.toString())
