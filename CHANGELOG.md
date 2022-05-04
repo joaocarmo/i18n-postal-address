@@ -1,15 +1,22 @@
 # Changelog
 
+## 0.6.1
+
+> May 4, 2022
+
+- Fixes an issue with the custom formats that prevented new countries from being
+  used ([#38](https://github.com/joaocarmo/i18n-postal-address/issues/38))
+
 ## 0.6.0
 
-> Apr 3, 2021
+> Apr 3, 2022
 
 - Implements a string parser for the node version, check the documentation for
   more information
 
 ## 0.5.0
 
-> Mar 28, 2021
+> Mar 28, 2022
 
 - Adds support for a full or partial preset state to be passed to the
   constructor

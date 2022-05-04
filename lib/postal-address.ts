@@ -368,13 +368,21 @@ class PostalAddress implements PostalAddressInterface {
       throw new PostalAddressError('Format contains invalid tokens')
     }
 
+    // Make sure the country code is capitalized
     const countryAlpha2 = country.toUpperCase()
 
-    this.addressFormats[countryAlpha2] = {
-      [type]: {
-        [parser]: format,
+    // Add the format to the list
+    this.addressFormats = {
+      ...this.addressFormats,
+      [countryAlpha2]: {
+        [type]: {
+          [parser]: format,
+        },
       },
     }
+
+    // Update the validator
+    this.allowed.formatForCountry = Object.keys(this.addressFormats)
 
     return this
   }

@@ -235,7 +235,7 @@ need to be using the **node** version as it's not supported on the web.
 #### Requirements
 
 1. Install [libpostal][libpostal] following their installation instructions, or
-   execute [this script][install-libpostal] if you're on a *nix machine
+   execute [this script][install-libpostal] if you're on a \*nix machine
 2. Install [node-postal][node-postal] as a dependency in your project, _after
    installing libpostal_
 
