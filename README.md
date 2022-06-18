@@ -8,6 +8,8 @@
 A JavaScript library to produce international postal addresses formatted by
 region for Node.js and the web.
 
+**Try it out in the [playground]!**
+
 ## Installation
 
 ```sh
@@ -307,5 +309,6 @@ yarn test:functional
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
 [node-postal]: https://github.com/openvenues/node-postal
 [pa]: https://schema.org/PostalAddress
+[playground]: https://joaocarmo.com/i18n-postal-address-playground
 [qad]: http://i18napis.appspot.com/address
 [skypack]: https://skypack.dev
