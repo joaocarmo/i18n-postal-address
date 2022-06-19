@@ -417,6 +417,9 @@ class PostalAddress implements PostalAddressInterface {
     return ''
   }
 
+  /**
+   * @deprecated Use `toObject` instead.
+   */
   public raw(): AddressObject {
     return this.toObject()
   }
