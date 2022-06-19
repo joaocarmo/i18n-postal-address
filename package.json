@@ -16,7 +16,7 @@
       "require": "./dist/postal-address.strings.node.js"
     }
   },
-  "types": "./dist/postal-address.d.ts",
+  "types": "./dist/index.d.ts",
   "directories": {
     "lib": "lib"
   },
