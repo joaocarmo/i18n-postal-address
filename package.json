@@ -1,6 +1,6 @@
 {
   "name": "i18n-postal-address",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "A JavaScript library to produce international postal addresses formatted by region for node and the web",
   "homepage": "https://joaocarmo.com/i18n-postal-address-playground",
   "author": "João Carmo",
