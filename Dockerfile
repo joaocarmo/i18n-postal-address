@@ -1,4 +1,4 @@
-FROM node:16 AS builder
+FROM node:18 AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN mkdir build
 RUN npm pack --pack-destination ./build
 
 # For CI testing
-FROM node:16 AS tester
+FROM node:18 AS tester
 
 WORKDIR /app
 
@@ -32,7 +32,7 @@ RUN yarn --frozen-lockfile
 RUN rm -rf ./lib/__mocks__
 
 # For manual testing in a vanilla environment
-FROM node:16 AS tester-vanilla
+FROM node:18 AS tester-vanilla
 
 WORKDIR /app
 
@@ -44,7 +44,7 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
 RUN yarn
 
 # For manual testing in an environment with libpostal
-FROM node:16 AS tester-libpostal
+FROM node:18 AS tester-libpostal
 
 WORKDIR /app
 
