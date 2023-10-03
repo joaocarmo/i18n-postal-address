@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.2
+
+> Oct 4, 2023
+
+- Upgrades all dependencies to the latest versions
+
 ## 0.6.1
 
 > May 4, 2022
