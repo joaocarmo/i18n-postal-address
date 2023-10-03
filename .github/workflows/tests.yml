@@ -11,22 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js v16 (LTS)
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v18 (LTS)
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'yarn'
+
       - name: Install dependencies
         run: yarn --frozen-lockfile
+
       - name: Lint the source files
         run: yarn lint
+
       - name: Type check
         run: yarn type-check
+
       - name: Build the library
         run: yarn build
+
       - name: Build the typings
         run: yarn build:types
+
       - name: Execute the tests
         run: |
           yarn test:unit
