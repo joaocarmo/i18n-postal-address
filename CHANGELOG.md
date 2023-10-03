@@ -1,10 +1,6 @@
 # Changelog
 
-## 0.6.2
-
-> Oct 4, 2023
-
-- Upgrades all dependencies to the latest versions
+> The changelog will no longer be maintained. Instead, the information will be available in the releases.
 
 ## 0.6.1
 
