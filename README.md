@@ -226,18 +226,27 @@ title
 
 If you're interested in parsing a string into an object, you can use the new
 experimental support for parsing addresses using some existing libraries.
+However, note that these are optional and not required for the primary
+functionality of this library.
 
 ### libpostal
 
 This is the most complete and comprehensive library for parsing addresses. You
 need to be using the **node** version as it's not supported on the web.
 
-#### Requirements
+#### Optional Requirements for libpostal Support
+
+If you wish to utilize the `libpostal` experimental features, follow these
+steps:
 
 1. Install [libpostal][libpostal] following their installation instructions, or
-   execute [this script][install-libpostal] if you're on a \*nix machine
-2. Install [node-postal][node-postal] as a dependency in your project, _after
-   installing libpostal_
+   execute [this script][install-libpostal] if you're on a \*nix machine.
+2. Install [node-postal][node-postal] as an **optional** dependency in your
+   project, _after installing libpostal_. This is not required for the core
+   functionality but only if you want to use the `libpostal` features.
+
+Remember, these steps are optional and are only for users interested in the
+experimental string parsing feature.
 
 #### Experimental usage
 
