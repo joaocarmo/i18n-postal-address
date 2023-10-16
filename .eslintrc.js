@@ -29,6 +29,10 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { optionalDependencies: ['./lib/string-parser.ts'] },
+    ],
   },
   settings: {
     'import/resolver': {
