@@ -45,7 +45,7 @@ jobs:
 
     env:
       IMAGE_TARGET: tester
-      IMAGE_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:latest
+      IMAGE_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
 
     steps:
       - name: Checkout
@@ -75,11 +75,11 @@ jobs:
         id: diff
         run: |
           git fetch origin main
-          echo "::set-output name=changed::$(git diff --name-only origin/main HEAD | grep -q 'Dockerfile' && echo true || echo false)"
+          echo 'DOCKERFILE_CHANGED='$(git diff --name-only origin/main HEAD | grep -q 'Dockerfile' && echo true || echo false) >> $GITHUB_ENV
 
       - name: Build Docker image
         uses: docker/build-push-action@v5
-        if: steps.diff.outputs.changed == 'true'
+        if: ${{ env.DOCKERFILE_CHANGED == 'true' }}
         with:
           push: true
           context: .
