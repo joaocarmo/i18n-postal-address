@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  test-local:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,3 +39,54 @@ jobs:
         run: |
           yarn test:unit
           yarn test:functional
+
+  test-docker:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_TARGET: tester
+      IMAGE_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Check for changes in Dockerfile
+        id: diff
+        run: |
+          git fetch origin main
+          echo 'DOCKERFILE_CHANGED='$(git diff --name-only origin/main HEAD | grep -q 'Dockerfile' && echo true || echo false) >> $GITHUB_ENV
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        if: ${{ env.DOCKERFILE_CHANGED == 'true' }}
+        with:
+          push: true
+          context: .
+          target: ${{ env.IMAGE_TARGET }}
+          tags: ${{ env.IMAGE_TAG }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Execute the tests in a container
+        run: docker run --rm ${{ env.IMAGE_TAG }} ./test-functional/test-strings.ci.js
