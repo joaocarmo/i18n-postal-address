@@ -45,7 +45,7 @@ jobs:
 
     env:
       IMAGE_TARGET: tester
-      IMAGE_TAG: local/tester:latest
+      IMAGE_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:latest
 
     steps:
       - name: Checkout
@@ -71,10 +71,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Check for changes in Dockerfile
+        id: diff
+        run: |
+          echo "::set-output name=changed::$(git diff --name-only main HEAD | grep -q 'Dockerfile' && echo true || echo false)"
+
       - name: Build Docker image
         uses: docker/build-push-action@v5
+        if: steps.diff.outputs.changed == 'true'
         with:
-          push: false
+          push: true
           context: .
           target: ${{ env.IMAGE_TARGET }}
           tags: ${{ env.IMAGE_TAG }}
