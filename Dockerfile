@@ -1,3 +1,4 @@
+# Base image
 FROM node:18 AS builder
 
 WORKDIR /app
@@ -30,6 +31,8 @@ RUN ./scripts/install-libpostal.sh
 RUN yarn --frozen-lockfile
 
 RUN rm -rf ./lib/__mocks__
+
+RUN npm rebuild
 
 # For manual testing in a vanilla environment
 FROM node:18 AS tester-vanilla
