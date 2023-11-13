@@ -5,17 +5,9 @@
   "homepage": "https://joaocarmo.com/i18n-postal-address-playground",
   "author": "João Carmo",
   "license": "MIT",
+  "module": "./dist/postal-address.js",
   "browser": "./dist/postal-address.js",
   "main": "./dist/postal-address.node.js",
-  "exports": {
-    ".": {
-      "browser": "./dist/postal-address.js",
-      "require": "./dist/postal-address.node.js"
-    },
-    "./strings": {
-      "require": "./dist/postal-address.strings.node.js"
-    }
-  },
   "types": "./dist/index.d.ts",
   "directories": {
     "lib": "lib"
