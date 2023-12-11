@@ -1468,9 +1468,9 @@
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
 "@types/node-postal@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@types/node-postal/-/node-postal-1.1.2.tgz#e5b344eff201fa389baa85864f6f0cfd41e1fb1e"
-  integrity sha512-7lvdr1mnGO+P1KDZeJ8CK2kP0cWuDPNBXI9daY2awxg4/7qwvs28jtbADgqdsEANKFtqPXE7hAmcqzxkKD5Xlg==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@types/node-postal/-/node-postal-1.1.3.tgz#24d0f7c7d315d04b31178ca5ba80459462d6226e"
+  integrity sha512-ake/U8TW0RM+C0CS8wYx+eNQMa6zkJT/306Gx3kBrEOw6pAl2Hg0ku3RTjjSyKQ5UJxfsSt2YX6TvQPH+1Vmzw==
 
 "@types/node@*", "@types/node@^20.8.7":
   version "20.9.2"
