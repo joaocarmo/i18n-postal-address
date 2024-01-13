@@ -33,6 +33,33 @@ const addressFormats: AddressFormats = {
       ],
     },
   },
+  // Austria
+  AT: {
+    default: {
+      array: [
+        ['honorific'],
+        ['firstName', 'secondName', 'lastName'],
+        ['companyName'],
+        ['address1'],
+        ['address2'],
+        ['postalCode', 'city'],
+        ['country'],
+      ],
+    },
+  },
+  // The Bahamas
+  BS: {
+    default: {
+      array: [
+        ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
+        ['address1'],
+        ['address2'],
+        ['city'],
+        ['country'],
+      ],
+    },
+  },
   // Bulgaria
   BG: {
     default: {
@@ -386,6 +413,19 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['lastName'],
         ['firstName', 'secondName'],
+      ],
+    },
+  },
+  // Singapore
+  SG: {
+    default: {
+      array: [
+        ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
+        ['address1'],
+        ['address2'],
+        ['country', 'postalCode'],
+        ['country'],
       ],
     },
   },
