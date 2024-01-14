@@ -36,7 +36,7 @@
     "test:functional": "./test-functional/test.js",
     "test:unit": "jest",
     "test": "jest",
-    "type-check:watch": "yarn type-check -- --watch",
+    "type-check:watch": "pnpm type-check -- --watch",
     "type-check": "tsc --noEmit"
   },
   "lint-staged": {

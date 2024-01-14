@@ -5,13 +5,13 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN yarn --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN yarn build
+RUN pnpm build
 
-RUN yarn build:types
+RUN pnpm build:types
 
 RUN mkdir build
 
@@ -28,7 +28,7 @@ COPY --from=builder /app /app
 
 RUN ./scripts/install-libpostal.sh
 
-RUN yarn --frozen-lockfile
+RUN pnpm --frozen-lockfile
 
 RUN rm -rf ./lib/__mocks__
 
@@ -44,7 +44,7 @@ COPY --from=builder /app/build /app/build
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN yarn
+RUN pnpm install
 
 # For manual testing in an environment with libpostal
 FROM node:18 AS tester-libpostal
@@ -59,8 +59,8 @@ COPY --from=builder /app/scripts /app/scripts
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN yarn
+RUN pnpm install
 
 RUN ./scripts/install-libpostal.sh
 
-RUN yarn add node-postal
+RUN pnpm add node-postal

@@ -18,27 +18,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Lint the source files
-        run: yarn lint
+        run: pnpm lint
 
       - name: Type check
-        run: yarn type-check
+        run: pnpm type-check
 
       - name: Build the library
-        run: yarn build
+        run: pnpm build
 
       - name: Build the typings
-        run: yarn build:types
+        run: pnpm build:types
 
       - name: Execute the tests
         run: |
-          yarn test:unit
-          yarn test:functional
+          pnpm test:unit
+          pnpm test:functional
 
   test-docker:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
         id: diff
         run: |
           git fetch origin main
-          echo 'DOCKERFILE_CHANGED='$(git diff --name-only origin/main HEAD | grep -qE '(Dockerfile|yarn.lock)' && echo true || echo false) >> $GITHUB_ENV
+          echo 'DOCKERFILE_CHANGED='$(git diff --name-only origin/main HEAD | grep -qE '(Dockerfile|pnpm-lock.yaml)' && echo true || echo false) >> $GITHUB_ENV
 
       - name: Build Docker image
         uses: docker/build-push-action@v5
