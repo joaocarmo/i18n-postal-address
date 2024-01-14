@@ -1,6 +1,8 @@
 # Base image
 FROM node:20 AS builder
 
+RUN corepack enable
+
 WORKDIR /app
 
 COPY package.json .
@@ -20,6 +22,8 @@ RUN npm pack --pack-destination ./build
 # For CI testing
 FROM node:20 AS tester
 
+RUN corepack enable
+
 WORKDIR /app
 
 RUN apt install -y curl autoconf automake libtool pkg-config
@@ -37,6 +41,8 @@ RUN npm rebuild
 # For manual testing in a vanilla environment
 FROM node:20 AS tester-vanilla
 
+RUN corepack enable
+
 WORKDIR /app
 
 COPY --from=builder /app/build /app/build
@@ -48,6 +54,8 @@ RUN pnpm install
 
 # For manual testing in an environment with libpostal
 FROM node:20 AS tester-libpostal
+
+RUN corepack enable
 
 WORKDIR /app
 
