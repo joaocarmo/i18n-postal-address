@@ -1,5 +1,5 @@
 # Base image
-FROM node:18 AS builder
+FROM node:20 AS builder
 
 WORKDIR /app
 
@@ -18,7 +18,7 @@ RUN mkdir build
 RUN npm pack --pack-destination ./build
 
 # For CI testing
-FROM node:18 AS tester
+FROM node:20 AS tester
 
 WORKDIR /app
 
@@ -35,7 +35,7 @@ RUN rm -rf ./lib/__mocks__
 RUN npm rebuild
 
 # For manual testing in a vanilla environment
-FROM node:18 AS tester-vanilla
+FROM node:20 AS tester-vanilla
 
 WORKDIR /app
 
@@ -47,7 +47,7 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
 RUN pnpm install
 
 # For manual testing in an environment with libpostal
-FROM node:18 AS tester-libpostal
+FROM node:20 AS tester-libpostal
 
 WORKDIR /app
 
