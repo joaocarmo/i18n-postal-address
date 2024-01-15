@@ -5,7 +5,7 @@ RUN corepack enable
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
@@ -32,7 +32,7 @@ COPY --from=builder /app /app
 
 RUN ./scripts/install-libpostal.sh
 
-RUN pnpm --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 RUN rm -rf ./lib/__mocks__
 
@@ -50,7 +50,7 @@ COPY --from=builder /app/build /app/build
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # For manual testing in an environment with libpostal
 FROM node:20 AS tester-libpostal
@@ -67,7 +67,7 @@ COPY --from=builder /app/scripts /app/scripts
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 RUN ./scripts/install-libpostal.sh
 
