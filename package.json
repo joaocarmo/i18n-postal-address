@@ -9,6 +9,7 @@
   "main": "./dist/postal-address.node.js",
   "exports": {
     ".": {
+      "import": "./dist/postal-address.js",
       "browser": "./dist/postal-address.js",
       "require": "./dist/postal-address.node.js"
     },
