@@ -67,7 +67,7 @@ COPY --from=builder /app/scripts /app/scripts
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 RUN ./scripts/install-libpostal.sh
 
