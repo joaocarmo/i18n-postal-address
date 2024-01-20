@@ -55,8 +55,6 @@ RUN pnpm install --frozen-lockfile
 # For manual testing in an environment with libpostal
 FROM node:20 AS tester-libpostal
 
-RUN corepack enable
-
 WORKDIR /app
 
 RUN apt install -y curl autoconf automake libtool pkg-config
@@ -67,8 +65,8 @@ COPY --from=builder /app/scripts /app/scripts
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
 
-RUN pnpm install
+RUN npm install
 
 RUN ./scripts/install-libpostal.sh
 
-RUN pnpm add node-postal
+RUN npm install node-postal
