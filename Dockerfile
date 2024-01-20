@@ -1,19 +1,17 @@
 # Base image
 FROM node:20 AS builder
 
-RUN corepack enable
-
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml .npmrc ./
+COPY package.json .
 
-RUN pnpm install --frozen-lockfile
+RUN npm install
 
 COPY . .
 
-RUN pnpm build
+RUN npm run build
 
-RUN pnpm build:types
+RUN npm run build:types
 
 RUN mkdir build
 
@@ -21,8 +19,6 @@ RUN npm pack --pack-destination ./build
 
 # For CI testing
 FROM node:20 AS tester
-
-RUN corepack enable
 
 WORKDIR /app
 
@@ -32,7 +28,7 @@ COPY --from=builder /app /app
 
 RUN ./scripts/install-libpostal.sh
 
-RUN pnpm install --frozen-lockfile
+RUN npm install
 
 RUN rm -rf ./lib/__mocks__
 
@@ -41,16 +37,14 @@ RUN npm rebuild
 # For manual testing in a vanilla environment
 FROM node:20 AS tester-vanilla
 
-RUN corepack enable
-
 WORKDIR /app
 
 COPY --from=builder /app/build /app/build
 
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
-  echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
+  echo "{\"license\": \"MIT\", \"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"} }" > package.json
 
-RUN pnpm install --frozen-lockfile
+RUN npm install
 
 # For manual testing in an environment with libpostal
 FROM node:20 AS tester-libpostal
@@ -63,7 +57,7 @@ COPY --from=builder /app/build /app/build
 COPY --from=builder /app/scripts /app/scripts
 
 RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
-  echo "{\"license\": \"MIT\",\"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"}}" > package.json
+  echo "{\"license\": \"MIT\", \"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"} }" > package.json
 
 RUN npm install
 
