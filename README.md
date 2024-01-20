@@ -15,7 +15,7 @@ npm install i18n-postal-address
 
 # or
 
-yarn add i18n-postal-address
+pnpm add i18n-postal-address
 ```
 
 ## Usage
@@ -297,15 +297,15 @@ MSDN > ... > Globalization and Localization >
 Build
 
 ```sh
-yarn build
+pnpm build
 ```
 
 Test
 
 ```sh
-yarn test:unit
+pnpm test:unit
 
-yarn test:functional
+pnpm test:functional
 ```
 
 <!-- References -->

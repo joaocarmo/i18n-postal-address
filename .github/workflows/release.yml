@@ -15,14 +15,14 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           ref: 'main'
 
-      - name: Use Node.js v18 (LTS)
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Get release
         id: get_release
