@@ -15,6 +15,9 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           ref: 'main'
 
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
