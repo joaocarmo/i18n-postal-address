@@ -7,7 +7,7 @@ settings:
 optionalDependencies:
   node-postal:
     specifier: ^1.1.2
-    version: 1.1.2
+    version: 1.2.0
 
 devDependencies:
   '@babel/core':
@@ -4644,8 +4644,8 @@ packages:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
     dev: true
 
-  /node-postal@1.1.2:
-    resolution: {integrity: sha512-eWg/p0dgDuPZT55kYnoZASDRfmXHGirGKtWwDprZSJklHhlnEuYfc62JF2mxVE6A7N6KV1vb49DJTvqdL/K/Xg==}
+  /node-postal@1.2.0:
+    resolution: {integrity: sha512-SfaaE5ey8mklK55mafRu+HS+cQp49WIqtyl6wwqXSfF6vXXO15jHzP0+KwL27dJluk0JJGFqPB999JGPba2kDA==}
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
