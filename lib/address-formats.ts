@@ -64,13 +64,12 @@ const addressFormats: AddressFormats = {
   BG: {
     default: {
       array: [
-        ['country'],
-        ['state'],
-        ['postalCode', 'city'],
-        ['address1'],
-        ['address2'],
         ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['address1', 'address2'],
+        ['postalCode', 'city'],
+        ['state'],
+        ['country'],
       ],
     },
   },
