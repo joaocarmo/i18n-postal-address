@@ -1,5 +1,5 @@
 # Base image
-FROM node:18 AS builder
+FROM node:20 AS builder
 
 RUN corepack enable
 
@@ -20,7 +20,7 @@ RUN mkdir build
 RUN npm pack --pack-destination ./build
 
 # For CI testing
-FROM node:18 AS tester
+FROM node:20 AS tester
 
 RUN corepack enable
 
@@ -39,7 +39,7 @@ RUN rm -rf ./lib/__mocks__
 RUN npm rebuild
 
 # For manual testing in a vanilla environment
-FROM node:18 AS tester-vanilla
+FROM node:20 AS tester-vanilla
 
 RUN corepack enable
 
@@ -53,7 +53,7 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
 RUN pnpm install --frozen-lockfile
 
 # For manual testing in an environment with libpostal
-FROM node:18 AS tester-libpostal
+FROM node:20 AS tester-libpostal
 
 RUN corepack enable
 
