@@ -36,6 +36,7 @@ export default interface PostalAddressInterface {
   setSi(newValue: string): this
   setState(newValue: string): this
   setTitle(newValue: string): this
+  setPropagation(propagate: boolean): this
   setOutputFormat(string: OutputFormat): this
   setStringParser(parser: Parsers): this
   setFormat({

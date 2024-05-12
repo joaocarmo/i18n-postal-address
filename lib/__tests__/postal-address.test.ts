@@ -327,3 +327,19 @@ PORTUGAL\
     })
   })
 })
+
+describe('Propagation', () => {
+  it('Propagation of changes to related properties can be disabled', () => {
+    const myAddress = new PostalAddress()
+
+    myAddress.setLastName('Smith')
+    expect(myAddress.toObject().lastName).toBe('Smith')
+    expect(myAddress.toObject().secondLastName).toBe('Smith')
+
+    myAddress.setPropagation(false)
+
+    myAddress.setLastName('Doe')
+    expect(myAddress.toObject().lastName).toBe('Doe')
+    expect(myAddress.toObject().secondLastName).toBe('Smith')
+  })
+})
