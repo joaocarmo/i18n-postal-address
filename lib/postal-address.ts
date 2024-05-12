@@ -334,6 +334,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public setPropagation(propagate: boolean): this {
+    this.propagateToRelatedProperties = propagate
+    return this
+  }
+
   public setOutputFormat(format: OutputFormat): this {
     this.outputFormat = parseValidator(
       this.outputFormat,
