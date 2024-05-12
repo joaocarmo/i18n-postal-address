@@ -329,5 +329,17 @@ PORTUGAL\
 })
 
 describe('Propagation', () => {
-  it.todo('Propagation of changes to related properties can be disabled')
+  it('Propagation of changes to related properties can be disabled', () => {
+    const myAddress = new PostalAddress()
+
+    myAddress.setLastName('John')
+    expect(myAddress.toObject().lastName).toBe('John')
+    expect(myAddress.toObject().secondLastName).toBe('John')
+
+    myAddress.setPropagation(false)
+
+    myAddress.setLastName('Jane')
+    expect(myAddress.toObject().lastName).toBe('Jane')
+    expect(myAddress.toObject().secondLastName).toBe('John')
+  })
 })
