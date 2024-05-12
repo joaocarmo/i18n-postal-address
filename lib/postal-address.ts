@@ -55,6 +55,8 @@ class PostalAddress implements PostalAddressInterface {
 
   private stringParser: Parsers = STRING_PARSER_DEFAULT
 
+  private propagateToRelatedProperties: boolean = true
+
   public constructor(presetState?: Partial<AddressObject> | string) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
@@ -164,7 +166,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setAddress1(newValue: string): this {
     this.setProperty('address1', newValue)
-    this.setProperty('dong', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('dong', newValue)
+    }
     return this
   }
 
@@ -180,7 +185,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setCity(newValue: string): this {
     this.setProperty('city', newValue)
-    this.setProperty('si', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('si', newValue)
+    }
     return this
   }
 
@@ -191,10 +199,13 @@ class PostalAddress implements PostalAddressInterface {
 
   public setCountry(newValue: string): this {
     this.setProperty('country', newValue)
-    const countryAlpha2 = countries[newValue]
 
-    if (countryAlpha2) {
-      this.setProperty('countryAlpha2', countryAlpha2)
+    if (this.propagateToRelatedProperties) {
+      const countryAlpha2 = countries[newValue]
+
+      if (countryAlpha2) {
+        this.setProperty('countryAlpha2', countryAlpha2)
+      }
     }
 
     return this
@@ -202,13 +213,19 @@ class PostalAddress implements PostalAddressInterface {
 
   public setDo(newValue: string): this {
     this.setProperty('do', newValue)
-    this.setProperty('province', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('province', newValue)
+    }
     return this
   }
 
   public setDong(newValue: string): this {
     this.setProperty('dong', newValue)
-    this.setProperty('address1', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('address1', newValue)
+    }
     return this
   }
 
@@ -239,7 +256,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setLastName(newValue: string): this {
     this.setProperty('lastName', newValue)
-    this.setProperty('secondLastName', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('secondLastName', newValue)
+    }
     return this
   }
 
@@ -255,7 +275,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setProvince(newValue: string): this {
     this.setProperty('province', newValue)
-    this.setProperty('do', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('do', newValue)
+    }
     return this
   }
 
@@ -271,7 +294,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setSecondLastName(newValue: string): this {
     this.setProperty('secondLastName', newValue)
-    this.setProperty('lastName', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('lastName', newValue)
+    }
     return this
   }
 
@@ -282,7 +308,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setSi(newValue: string): this {
     this.setProperty('si', newValue)
-    this.setProperty('city', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('city', newValue)
+    }
     return this
   }
 
