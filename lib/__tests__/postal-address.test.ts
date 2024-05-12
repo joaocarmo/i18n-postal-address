@@ -332,14 +332,14 @@ describe('Propagation', () => {
   it('Propagation of changes to related properties can be disabled', () => {
     const myAddress = new PostalAddress()
 
-    myAddress.setLastName('John')
-    expect(myAddress.toObject().lastName).toBe('John')
-    expect(myAddress.toObject().secondLastName).toBe('John')
+    myAddress.setLastName('Smith')
+    expect(myAddress.toObject().lastName).toBe('Smith')
+    expect(myAddress.toObject().secondLastName).toBe('Smith')
 
     myAddress.setPropagation(false)
 
-    myAddress.setLastName('Jane')
-    expect(myAddress.toObject().lastName).toBe('Jane')
-    expect(myAddress.toObject().secondLastName).toBe('John')
+    myAddress.setLastName('Doe')
+    expect(myAddress.toObject().lastName).toBe('Doe')
+    expect(myAddress.toObject().secondLastName).toBe('Smith')
   })
 })
