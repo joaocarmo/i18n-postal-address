@@ -55,6 +55,10 @@ class PostalAddress implements PostalAddressInterface {
 
   private stringParser: Parsers = STRING_PARSER_DEFAULT
 
+  /**
+   * If `true`, changes to one property will propagate to related properties.
+   * Default is `true`.
+   */
   private propagateToRelatedProperties: boolean = true
 
   public constructor(presetState?: Partial<AddressObject> | string) {
