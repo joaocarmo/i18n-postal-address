@@ -12,9 +12,11 @@ const commonConfig = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'postal-address.js',
-    library: 'PostalAddress',
-    libraryTarget: 'umd',
-    globalObject: "typeof self !== 'undefined' ? self : this",
+    library: {
+      name: 'PostalAddress',
+      type: 'umd',
+    },
+    globalObject: 'this',
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -44,7 +46,6 @@ const webConfig = {
   target: 'web',
   output: {
     ...commonConfig.output,
-    globalObject: 'self',
   },
   resolve: {
     ...commonConfig.resolve,
@@ -60,7 +61,6 @@ const nodeConfig = {
   output: {
     ...commonConfig.output,
     filename: 'postal-address.node.js',
-    globalObject: 'this',
   },
   resolve: {
     ...commonConfig.resolve,
