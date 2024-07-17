@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['dist/', 'node_modules/', 'test-functional/'],
   env: {
     browser: true,
     es2020: true,
