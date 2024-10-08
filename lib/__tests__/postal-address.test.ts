@@ -342,4 +342,15 @@ describe('Propagation', () => {
     expect(myAddress.toObject().lastName).toBe('Doe')
     expect(myAddress.toObject().secondLastName).toBe('Smith')
   })
+
+  it('Propagation of changes to related properties overwrites with latest invoked even if both present', () => {
+    const myAddress = new PostalAddress()
+
+    myAddress.setCity('City')
+    myAddress.setSi('Si')
+    expect(myAddress.toObject().si).toBe('Si')
+    expect(myAddress.toObject().city).toBe('Si')
+
+    myAddress.setPropagation(false)
+  })
 })

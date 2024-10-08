@@ -282,6 +282,7 @@ class PostalAddress implements PostalAddressInterface {
 
     if (this.propagateToRelatedProperties) {
       this.setProperty('do', newValue)
+      this.setProperty('state', newValue)
     }
     return this
   }
@@ -321,6 +322,10 @@ class PostalAddress implements PostalAddressInterface {
 
   public setState(newValue: string): this {
     this.setProperty('state', newValue)
+
+    if (this.propagateToRelatedProperties) {
+      this.setProperty('province', newValue)
+    }
     return this
   }
 
