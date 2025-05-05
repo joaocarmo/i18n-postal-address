@@ -47,7 +47,7 @@ importers:
         version: 9.2.1(@babel/core@7.25.2)(webpack@5.94.0(webpack-cli@5.1.4))
       core-js:
         specifier: ^3.37.1
-        version: 3.38.1
+        version: 3.42.0
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -1311,8 +1311,8 @@ packages:
   core-js-compat@3.38.1:
     resolution: {integrity: sha512-JRH6gfXxGmrzF3tZ57lFx97YARxCXPaMzPo6jELZhv88pBH5VXpQ+y0znKGlFnzuaihqhLbefxSJxWJMPtfDzw==}
 
-  core-js@3.38.1:
-    resolution: {integrity: sha512-OP35aUorbU3Zvlx7pjsFdu1rGNnD4pgw/CWoYzRY3t2EzoVT7shKHY1dlAy3f41cGIO7ZDPQimhGFTlEYkG/Hw==}
+  core-js@3.42.0:
+    resolution: {integrity: sha512-Sz4PP4ZA+Rq4II21qkNqOEDTDrCvcANId3xpIgB34NDkWc3UduWj2dqEtN9yZIq8Dk3HyPI33x9sqqU5C8sr0g==}
 
   create-jest@29.7.0:
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
@@ -4273,7 +4273,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.3
 
-  core-js@3.38.1: {}
+  core-js@3.42.0: {}
 
   create-jest@29.7.0(@types/node@22.10.1):
     dependencies:
