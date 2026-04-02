@@ -116,6 +116,7 @@ const addressFormats: AddressFormats = {
     french: {
       array: [
         ['honorific', 'firstName', 'lastName'],
+        ['companyName'],
         ['careOf'],
         ['address1', 'address2'],
         ['city', 'province'],
