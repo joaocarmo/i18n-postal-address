@@ -4,6 +4,7 @@ const objectInitialState: AddressObject = {
   address1: '',
   address2: '',
   addressNum: '',
+  careOf: '',
   city: '',
   companyName: '',
   country: '',
