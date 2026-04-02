@@ -1,0 +1,216 @@
+import { readFileSync, writeFileSync } from 'node:fs'
+
+const INPUT_PATH = 'scripts/.cache/google-formats.json'
+const OUTPUT_PATH = 'scripts/.cache/transformed-formats.json'
+
+type AddressFormatPart = string | { attribute: string; transforms: string[] }
+
+interface GoogleAddressData {
+  key: string
+  fmt?: string
+  lfmt?: string
+  upper?: string
+  state_name_type?: string
+  locality_name_type?: string
+  sublocality_name_type?: string
+}
+
+interface TransformedFormat {
+  default: {
+    array: AddressFormatPart[][]
+  }
+}
+
+const STATE_TYPE_MAP: Record<string, string> = {
+  state: 'state',
+  province: 'province',
+  prefecture: 'prefecture',
+  do_si: 'do',
+  oblast: 'region',
+  emirate: 'region',
+  county: 'region',
+  department: 'region',
+  district: 'region',
+  island: 'region',
+  parish: 'region',
+  area: 'region',
+}
+
+const SUBLOCALITY_TYPE_MAP: Record<string, string> = {
+  district: 'gu',
+  neighborhood: 'dong',
+  suburb: 'address2',
+  townland: 'address2',
+  village_township: 'address2',
+}
+
+const UPPER_CODE_TO_TOKEN: Record<string, string> = {
+  N: '%N',
+  O: '%O',
+  A: '%A',
+  D: '%D',
+  C: '%C',
+  S: '%S',
+  Z: '%Z',
+}
+
+function resolveField(
+  token: string,
+  data: GoogleAddressData,
+): string | null {
+  switch (token) {
+    case '%C':
+      return 'city'
+    case '%S':
+      return STATE_TYPE_MAP[data.state_name_type ?? 'state'] ?? 'state'
+    case '%Z':
+      return 'postalCode'
+    case '%D':
+      return (
+        SUBLOCALITY_TYPE_MAP[data.sublocality_name_type ?? 'suburb'] ??
+        'address2'
+      )
+    default:
+      return null
+  }
+}
+
+function shouldUppercase(token: string, upperStr: string): boolean {
+  for (const [code, tok] of Object.entries(UPPER_CODE_TO_TOKEN)) {
+    if (tok === token && upperStr.includes(code)) return true
+  }
+  return false
+}
+
+function wrapField(
+  field: string,
+  transforms: string[],
+): AddressFormatPart {
+  if (transforms.length === 0) return field
+  return { attribute: field, transforms }
+}
+
+function parseFmtLine(
+  segment: string,
+  data: GoogleAddressData,
+): AddressFormatPart[] {
+  const parts: AddressFormatPart[] = []
+  const upperStr = data.upper ?? ''
+
+  // Tokenize: extract %X tokens and literal text between them
+  const tokenRegex = /%[A-Z]/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  const tokens: { token: string; trailingLiteral: string }[] = []
+
+  while ((match = tokenRegex.exec(segment)) !== null) {
+    // Skip text before first token (usually empty)
+    const nextStart = tokenRegex.lastIndex
+    const nextMatch = tokenRegex.exec(segment)
+    const trailingEnd = nextMatch ? nextMatch.index : segment.length
+    const trailing = segment.slice(nextStart, trailingEnd).trim()
+    tokenRegex.lastIndex = nextStart // reset for next iteration
+
+    tokens.push({ token: match[0], trailingLiteral: trailing })
+  }
+
+  for (const { token, trailingLiteral } of tokens) {
+    if (token === '%X') continue // skip sorting code
+
+    if (token === '%N') {
+      parts.push(
+        'honorific',
+        'firstName',
+        'secondName',
+        'lastName',
+      )
+      continue
+    }
+
+    if (token === '%O') {
+      parts.push('companyName')
+      continue
+    }
+
+    if (token === '%A') {
+      // %A on a line adds address1; address2 added as separate line by caller
+      parts.push('address1')
+      continue
+    }
+
+    const field = resolveField(token, data)
+    if (!field) continue
+
+    const transforms: string[] = []
+    if (shouldUppercase(token, upperStr)) transforms.push('capitalize')
+    if (trailingLiteral.startsWith(',')) transforms.push('addCommaAfter')
+
+    parts.push(wrapField(field, transforms))
+  }
+
+  return parts
+}
+
+function transformCountry(data: GoogleAddressData): TransformedFormat | null {
+  // Prefer Latin format for non-Latin script countries
+  const fmt = data.lfmt ?? data.fmt
+  if (!fmt) return null
+
+  const lines = fmt.split('%n')
+  const result: AddressFormatPart[][] = []
+
+  for (const line of lines) {
+    if (!line.trim()) continue
+
+    // Check if this line contains %A — if so, expand to address1 + address2
+    if (line.includes('%A')) {
+      const parts = parseFmtLine(line, data)
+      if (parts.length > 0) {
+        // Split: address1 with any other fields on that line, address2 on its own
+        const address1Line = parts.filter((p) => p !== 'address2')
+        if (address1Line.length > 0) result.push(address1Line)
+        result.push(['address2'])
+      }
+      continue
+    }
+
+    const parts = parseFmtLine(line, data)
+    if (parts.length > 0) result.push(parts)
+  }
+
+  // Add country line if not already present
+  const hasCountry = result.some((line) =>
+    line.some(
+      (p) =>
+        p === 'country' ||
+        (typeof p === 'object' && p.attribute === 'country'),
+    ),
+  )
+  if (!hasCountry) {
+    result.push([{ attribute: 'country', transforms: ['capitalize'] }])
+  }
+
+  return { default: { array: result } }
+}
+
+function main() {
+  const raw = readFileSync(INPUT_PATH, 'utf-8')
+  const googleData: Record<string, GoogleAddressData> = JSON.parse(raw)
+
+  const transformed: Record<string, TransformedFormat> = {}
+  let count = 0
+
+  for (const [cc, data] of Object.entries(googleData)) {
+    const result = transformCountry(data)
+    if (result) {
+      transformed[cc] = result
+      count++
+    }
+  }
+
+  writeFileSync(OUTPUT_PATH, JSON.stringify(transformed, null, 2))
+  console.log(`Transformed ${count} countries → ${OUTPUT_PATH}`)
+}
+
+main()

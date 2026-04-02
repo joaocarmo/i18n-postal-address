@@ -68,3 +68,6 @@ typings/
 
 # libpostal history
 *.history
+
+# Script cache (fetched/generated data)
+scripts/.cache/
