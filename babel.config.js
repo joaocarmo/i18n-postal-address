@@ -7,11 +7,8 @@ module.exports = {
         modules: 'umd',
         useBuiltIns: 'usage',
         targets: {
-          browsers:
-            process.env.NODE_ENV === 'development'
-              ? 'last 2 versions'
-              : '> 0.25%, not dead',
-          node: '12',
+          browsers: 'baseline widely available',
+          node: '20',
         },
       },
     ],
