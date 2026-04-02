@@ -32,11 +32,9 @@ COPY --from=builder /app /app
 
 RUN ./scripts/install-libpostal.sh
 
-RUN pnpm install --frozen-lockfile
-
 RUN rm -rf ./lib/__mocks__
 
-RUN npm rebuild
+RUN pnpm rebuild node-postal
 
 # For manual testing in a vanilla environment
 FROM node:24 AS tester-vanilla
