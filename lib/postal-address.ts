@@ -437,6 +437,21 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public getAddressFormat({
+    country,
+    type = 'default',
+  }: {
+    country: string
+    type?: FormatTypes
+  }): AcceptAddressFormat | null {
+    const { addressFormats } = this
+    const formatsAvailable = addressFormats[country] || addressFormats?.US
+
+    const outputType = formatsAvailable?.[type] || formatsAvailable?.default
+
+    return outputType?.array ?? null
+  }
+
   public toArray(): AddressOutputFormat {
     return this.output('array') || []
   }
