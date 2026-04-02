@@ -22,6 +22,7 @@ assert('String parses to object correctly', myStringParser.toObject(), {
   address1: 'Barboncino 781 Franklin Ave',
   address2: 'Crown Heights Brooklyn',
   addressNum: '',
+  careOf: '',
   city: '',
   companyName: '',
   country: '',

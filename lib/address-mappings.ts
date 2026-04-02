@@ -27,6 +27,7 @@ const libpostalMap: ParserMap<PostalLabels> = {
   ],
   address2: ['near', 'suburb', 'city_district', 'state_district', 'island'],
   addressNum: ['po_box'],
+  careOf: [],
   city: ['city'],
   companyName: [],
   country: [

@@ -4,7 +4,9 @@
 ![Tests](https://github.com/joaocarmo/i18n-postal-address/workflows/Tests/badge.svg)
 
 A JavaScript library to produce international postal addresses formatted by
-region for Node.js and the web.
+region for Node.js and the web. Supports **199 countries** with format data
+sourced from [Google's Address Data Service][google-address-data] and aligned
+with [UPU S42][upu-s42] postal standards.
 
 **Try it out in the [playground]!**
 
@@ -60,7 +62,7 @@ var myAddress = new PostalAddress()
 With a bundler (e.g. webpack) or in Node.js you can just require / import it.
 
 ```js
-import PostalAddress from 'i18n-postal-address'
+import PostalAddress, { addressFormats } from 'i18n-postal-address'
 
 // Define myAddress
 const myAddress = new PostalAddress()
@@ -98,8 +100,8 @@ console.log(myAddressPersonal.toString())
 [ [ 'Mr.', 'John', 'Lopes' ],
   [ 'Pestana' ],
   [ 'Rua do Pastel, 19' ],
-  [ '2700-242', 'Aveiro' ],
-  [ 'Portugal' ] ]
+  [ '2700-242', 'AVEIRO' ],
+  [ 'PORTUGAL' ] ]
 ```
 
 `toString()`
@@ -108,8 +110,8 @@ console.log(myAddressPersonal.toString())
 Mr. John Lopes
 Pestana
 Rua do Pastel, 19
-2700-242 Aveiro
-Portugal
+2700-242 AVEIRO
+PORTUGAL
 ```
 
 ## Available Class Methods
@@ -120,6 +122,7 @@ Portugal
 setAddress1(string)
 setAddress2(string)
 setAddressNum(string)
+setCareOf(string)
 setCity(string)
 setCompanyName(string)
 setCountry(string)
@@ -162,6 +165,33 @@ const postalAddress = new PostalAddress()
 postalAddress.setFormat({ country, type, useTransforms })
 ```
 
+### Querying Address Formats
+
+You can retrieve the format definition for any country programmatically.
+
+```js
+const postalAddress = new PostalAddress()
+
+// Get the format for a country (returns the array of address parts)
+const format = postalAddress.getAddressFormat({ country: 'KR' })
+// => [['lastName', 'firstName', 'honorific'], ['companyName'], ...]
+
+// Get a specific format type
+const businessFormat = postalAddress.getAddressFormat({
+  country: 'NO',
+  type: 'business',
+})
+```
+
+You can also import the full format definitions directly:
+
+```js
+import { addressFormats } from 'i18n-postal-address'
+
+// Access any country's format
+const usFormat = addressFormats.US.default.array
+```
+
 ### Custom Formats
 
 Additional formats can be added or existing ones can be replaced
@@ -198,6 +228,7 @@ postalAddress.addFormat({
 address1
 address2
 addressNum
+careOf
 city
 companyName
 country
@@ -281,6 +312,14 @@ Need to present postal addresses for different regions worldwide stored in
 individual parts (company name, address, postal code, city, county, country,
 ...).
 
+### Data Sources
+
+Address formats are sourced from [Google's Address Data Service][google-address-data]
+(the same data that powers Chrome autofill and Android address input) and aligned
+with the [UPU S42][upu-s42] international addressing standard. The library includes
+tooling scripts to fetch, transform, and diff Google's data against the built-in
+format definitions.
+
 ### Inspiration
 
 **Disclaimer:** It doesn't mean this library tries to recreate any of these
@@ -308,9 +347,21 @@ pnpm test:unit
 pnpm test:functional
 ```
 
+### Updating Address Formats
+
+To compare the built-in formats against Google's latest data:
+
+```sh
+pnpm formats:update
+```
+
+This fetches Google's address data, transforms it to the library's format, and
+prints a diff showing matches, differences, and missing countries.
+
 <!-- References -->
 
 [codepen]: https://codepen.io/joaocarmo/pen/bGeOVQw
+[google-address-data]: https://chromium-i18n.appspot.com/ssl-address
 [install-libpostal]: ./scripts/install-libpostal.sh
 [libpostal]: https://github.com/openvenues/libpostal
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -319,3 +370,4 @@ pnpm test:functional
 [playground]: https://joaocarmo.com/i18n-postal-address-playground
 [qad]: http://i18napis.appspot.com/address
 [skypack]: https://skypack.dev
+[upu-s42]: https://www.upu.int/en/Postal-Solutions/Programmes-Services/Addressing-Solutions

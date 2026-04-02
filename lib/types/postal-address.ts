@@ -15,6 +15,7 @@ export default interface PostalAddressInterface {
   setAddress1(newValue: string): this
   setAddress2(newValue: string): this
   setAddressNum(newValue: string): this
+  setCareOf(newValue: string): this
   setCity(newValue: string): this
   setCompanyName(newValue: string): this
   setCountry(newValue: string): this

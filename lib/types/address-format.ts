@@ -2,6 +2,7 @@ export type AddressParts =
   | 'address1'
   | 'address2'
   | 'addressNum'
+  | 'careOf'
   | 'city'
   | 'companyName'
   | 'country'

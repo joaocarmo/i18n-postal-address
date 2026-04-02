@@ -5,8 +5,8 @@ import { addCommaAfter } from '../address-transforms'
 import type { AddFormatArgs } from '../types/address-format'
 
 const expectedOutputPT = `\
-Portugal
-Porto
+PORTUGAL
+PORTO
 Happy Park
 Edifício 4, Piso 2
 SmartShoes Portugal, Lda.`
@@ -17,7 +17,7 @@ Austin TX 78752`
 
 const expectedOutputUSWithTransforms = `\
 123 Nevermore Rd
-Austin, TX 78752`
+AUSTIN, TX 78752`
 
 const customFormatOverwrite: AddFormatArgs = {
   country: 'RU',
@@ -229,6 +229,7 @@ describe('Initial Value [full non-empty]', () => {
     address1: 'Happy Park',
     address2: 'Edifício 4, Piso 2',
     addressNum: '',
+    careOf: '',
     city: 'Porto',
     companyName: 'SmartShoes Portugal, Lda.',
     country: 'Portugal',
@@ -260,7 +261,7 @@ John Pestana
 SmartShoes Portugal, Lda.
 Happy Park
 Edifício 4, Piso 2
-Porto, 4000-123
+PORTO, 4000-123
 PORTUGAL\
 `)
   })
@@ -271,7 +272,7 @@ PORTUGAL\
       ['SmartShoes Portugal, Lda.'],
       ['Happy Park'],
       ['Edifício 4, Piso 2'],
-      ['Porto,', '4000-123'],
+      ['PORTO,', '4000-123'],
       ['PORTUGAL'],
     ])
   })
@@ -304,7 +305,7 @@ John Pestana
 SmartShoes Portugal, Lda.
 Happy Park
 Edifício 4, Piso 2
-Porto, 4000-123
+PORTO, 4000-123
 PORTUGAL\
 `)
   })
@@ -315,7 +316,7 @@ PORTUGAL\
       ['SmartShoes Portugal, Lda.'],
       ['Happy Park'],
       ['Edifício 4, Piso 2'],
-      ['Porto,', '4000-123'],
+      ['PORTO,', '4000-123'],
       ['PORTUGAL'],
     ])
   })
@@ -347,7 +348,7 @@ describe('Korean Address Format', () => {
       ['Kim', 'Seojun'],
       ['Samsung'],
       ['Seoul', 'Gangnam-gu', 'Seolleung-dong', '114'],
-      ['06010', 'South Korea'],
+      ['06010', 'SOUTH KOREA'],
     ])
   })
 
@@ -368,8 +369,46 @@ describe('Korean Address Format', () => {
     expect(output).toEqual([
       ['Kim', 'Seojun'],
       ['Seoul', 'Gangnam-gu', 'Seolleung-dong'],
-      ['06010', 'South Korea'],
+      ['06010', 'SOUTH KOREA'],
     ])
+  })
+})
+
+describe('Care Of', () => {
+  it('should include care-of line when set', () => {
+    const myAddress = new PostalAddress()
+    myAddress
+      .setFirstName('John')
+      .setLastName('Doe')
+      .setCareOf('c/o Jane Smith')
+      .setAddress1('123 Main St')
+      .setCity('Austin')
+      .setState('TX')
+      .setPostalCode('78752')
+      .setFormat({ country: 'US' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['John', 'Doe'],
+      ['c/o Jane Smith'],
+      ['123 Main St'],
+      ['AUSTIN,', 'TX', '78752'],
+    ])
+  })
+
+  it('should omit care-of line when empty', () => {
+    const myAddress = new PostalAddress()
+    myAddress
+      .setFirstName('John')
+      .setLastName('Doe')
+      .setAddress1('123 Main St')
+      .setCity('Austin')
+      .setState('TX')
+      .setPostalCode('78752')
+      .setFormat({ country: 'US' })
+
+    const output = myAddress.toArray()
+    const hasCareOf = output.some((line) => line.includes('c/o'))
+    expect(hasCareOf).toBe(false)
   })
 })
 
@@ -381,8 +420,12 @@ describe('getAddressFormat', () => {
     expect(format).toEqual([
       ['lastName', 'firstName', 'honorific'],
       ['companyName'],
+      ['careOf'],
       ['do', 'si', 'dong', 'gu', 'addressNum'],
-      ['postalCode', 'country'],
+      [
+        'postalCode',
+        { attribute: 'country', transforms: [expect.any(Function)] },
+      ],
     ])
   })
 
