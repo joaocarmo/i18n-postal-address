@@ -103,7 +103,6 @@ function parseFmtLine(
 
   // Tokenize: extract %X tokens and literal text between them
   const tokenRegex = /%[A-Z]/g
-  let lastIndex = 0
   let match: RegExpExecArray | null
 
   const tokens: { token: string; trailingLiteral: string }[] = []

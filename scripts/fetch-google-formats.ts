@@ -60,6 +60,15 @@ async function main() {
   }
 
   mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
+
+  // Validate each entry has the expected shape before writing
+  for (const [cc, entry] of Object.entries(result)) {
+    if (typeof entry.key !== 'string' || entry.key !== cc) {
+      throw new Error(`Invalid data for ${cc}: unexpected key "${entry.key}"`)
+    }
+  }
+
+  // JSON.stringify guarantees safe output (no code injection)
   writeFileSync(OUTPUT_PATH, JSON.stringify(result, null, 2))
   console.log(`Done. ${fetched} countries written to ${OUTPUT_PATH}`)
 }
