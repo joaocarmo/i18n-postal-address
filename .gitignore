@@ -71,3 +71,6 @@ typings/
 
 # Script cache (fetched/generated data)
 scripts/.cache/
+
+# Internal TODO
+TODO.md
