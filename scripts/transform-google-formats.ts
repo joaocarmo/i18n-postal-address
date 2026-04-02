@@ -37,12 +37,20 @@ const STATE_TYPE_MAP: Record<string, string> = {
 }
 
 const SUBLOCALITY_TYPE_MAP: Record<string, string> = {
-  district: 'gu',
-  neighborhood: 'dong',
+  district: 'address2',
+  neighborhood: 'address2',
   suburb: 'address2',
   townland: 'address2',
   village_township: 'address2',
 }
+
+// Korea-specific sublocality mapping (overrides generic)
+const KOREAN_SUBLOCALITY_MAP: Record<string, string> = {
+  district: 'gu',
+  neighborhood: 'dong',
+}
+
+const KOREAN_COUNTRIES = new Set(['KR', 'KP'])
 
 const UPPER_CODE_TO_TOKEN: Record<string, string> = {
   N: '%N',
@@ -62,11 +70,13 @@ function resolveField(token: string, data: GoogleAddressData): string | null {
       return STATE_TYPE_MAP[data.state_name_type ?? 'state'] ?? 'state'
     case '%Z':
       return 'postalCode'
-    case '%D':
-      return (
-        SUBLOCALITY_TYPE_MAP[data.sublocality_name_type ?? 'suburb'] ??
-        'address2'
-      )
+    case '%D': {
+      const sublocalityType = data.sublocality_name_type ?? 'suburb'
+      if (KOREAN_COUNTRIES.has(data.key)) {
+        return KOREAN_SUBLOCALITY_MAP[sublocalityType] ?? 'address2'
+      }
+      return SUBLOCALITY_TYPE_MAP[sublocalityType] ?? 'address2'
+    }
     default:
       return null
   }

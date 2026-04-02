@@ -85,7 +85,18 @@ function main() {
     if (google && existing) {
       const gNorm = normalizeFormat(google)
       const eNorm = normalizeFormat(existing)
-      if (gNorm === eNorm) {
+      // Also compare ignoring companyName lines (business-only field)
+      const gNoCompany = normalizeFormat(
+        google.filter(
+          (line) => !(line.length === 1 && line[0] === 'companyName'),
+        ),
+      )
+      const eNoCompany = normalizeFormat(
+        existing.filter(
+          (line) => !(line.length === 1 && line[0] === 'companyName'),
+        ),
+      )
+      if (gNorm === eNorm || gNoCompany === eNoCompany) {
         matches.push(cc)
       } else {
         differs.push(cc)
