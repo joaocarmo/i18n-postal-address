@@ -102,7 +102,7 @@ describe('transformCountry', () => {
     ])
   })
 
-  it('should use lfmt when available', () => {
+  it('should use lfmt when available and map Korean fields correctly', () => {
     const data = {
       key: 'KR',
       fmt: '%S %C%D%n%A%n%O%n%N%n%Z',
@@ -113,14 +113,17 @@ describe('transformCountry', () => {
     const result = transformCountry(data)
 
     expect(result).not.toBeNull()
-    const lines = result!.default.array
-
-    // lfmt puts name first (Latin order)
-    expect(lines[0]).toEqual([
-      'honorific',
-      'firstName',
-      'secondName',
-      'lastName',
+    expect(result!.default.array).toEqual([
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['gu'],
+      ['city'],
+      ['do'],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: ['capitalize'] }],
     ])
   })
 
