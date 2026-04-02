@@ -9,6 +9,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   eslintConfigPrettier,
   {
+    name: 'i18n-postal-address/ignores',
     ignores: [
       'dist',
       'node_modules',
@@ -20,6 +21,7 @@ export default tseslint.config(
     ],
   },
   {
+    name: 'i18n-postal-address/typescript-parser',
     languageOptions: {
       parserOptions: {
         project: true,
