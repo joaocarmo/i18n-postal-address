@@ -187,6 +187,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public setCareOf(newValue: string): this {
+    this.setProperty('careOf', newValue)
+    return this
+  }
+
   public setCity(newValue: string): this {
     this.setProperty('city', newValue)
 
