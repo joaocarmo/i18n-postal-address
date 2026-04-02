@@ -34,7 +34,7 @@ RUN ./scripts/install-libpostal.sh
 
 RUN rm -rf ./lib/__mocks__
 
-RUN pnpm rebuild node-postal
+RUN cd node_modules/node-postal && node-gyp rebuild
 
 # For manual testing in a vanilla environment
 FROM node:24 AS tester-vanilla
