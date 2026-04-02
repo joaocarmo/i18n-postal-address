@@ -186,25 +186,22 @@ export function transformCountry(
   // Deduplicate: keep only one standalone ['address2'] line,
   // and remove address2 from inline positions if it also appears standalone
   let seenAddress2 = false
-  for (let i = result.length - 1; i >= 0; i--) {
-    const line = result[i]
+  const deduped = result.reduceRight<AddressFormatPart[][]>((acc, line) => {
     const isStandaloneAddress2 = line.length === 1 && line[0] === 'address2'
     if (isStandaloneAddress2) {
-      if (seenAddress2) {
-        result.splice(i, 1)
-      } else {
-        seenAddress2 = true
-      }
-    } else if (seenAddress2 && line.length > 1) {
-      const filtered = line.filter((p) => p !== 'address2')
-      if (filtered.length !== line.length) {
-        result[i] = filtered
-      }
+      if (seenAddress2) return acc
+      seenAddress2 = true
+      return [line, ...acc]
     }
-  }
+    if (seenAddress2 && line.length > 1) {
+      const filtered = line.filter((p) => p !== 'address2')
+      return [filtered, ...acc]
+    }
+    return [line, ...acc]
+  }, [])
 
   // Inject careOf before the first address line
-  const firstAddressIdx = result.findIndex((line) =>
+  const firstAddressIdx = deduped.findIndex((line) =>
     line.some(
       (p) =>
         p === 'address1' ||
@@ -213,22 +210,27 @@ export function transformCountry(
           (p.attribute === 'address1' || p.attribute === 'address2')),
     ),
   )
-  if (firstAddressIdx !== -1) {
-    result.splice(firstAddressIdx, 0, ['careOf'])
-  }
+  const withCareOf =
+    firstAddressIdx !== -1
+      ? [
+          ...deduped.slice(0, firstAddressIdx),
+          ['careOf'] as AddressFormatPart[],
+          ...deduped.slice(firstAddressIdx),
+        ]
+      : deduped
 
   // Add country line if not already present
-  const hasCountry = result.some((line) =>
+  const hasCountry = withCareOf.some((line) =>
     line.some(
       (p) =>
         p === 'country' || (typeof p === 'object' && p.attribute === 'country'),
     ),
   )
-  if (!hasCountry) {
-    result.push([{ attribute: 'country', transforms: ['capitalize'] }])
-  }
+  const final = hasCountry
+    ? withCareOf
+    : [...withCareOf, [{ attribute: 'country', transforms: ['capitalize'] }]]
 
-  return { default: { array: result } }
+  return { default: { array: final } }
 }
 
 function main() {
