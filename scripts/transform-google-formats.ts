@@ -230,4 +230,6 @@ function main() {
   console.log(`Transformed ${count} countries → ${OUTPUT_PATH}`)
 }
 
-main()
+if (require.main === module) {
+  main()
+}
