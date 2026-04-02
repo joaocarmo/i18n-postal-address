@@ -328,6 +328,51 @@ PORTUGAL\
   })
 })
 
+describe('Korean Address Format', () => {
+  it('should output a valid formatted postal address (KR) with Korean-specific fields', () => {
+    const myAddress = new PostalAddress()
+    myAddress
+      .setLastName('Kim')
+      .setFirstName('Seojun')
+      .setCompanyName('Samsung')
+      .setDo('Seoul')
+      .setSi('Gangnam-gu')
+      .setDong('Seolleung-dong')
+      .setAddressNum('114')
+      .setPostalCode('06010')
+      .setCountry('South Korea')
+      .setFormat({ country: 'KR' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['Kim', 'Seojun'],
+      ['Samsung'],
+      ['Seoul', 'Gangnam-gu', 'Seolleung-dong', '114'],
+      ['06010', 'South Korea'],
+    ])
+  })
+
+  it('should output a valid formatted postal address (KR) with generic fields via propagation', () => {
+    const myAddress = new PostalAddress()
+    myAddress
+      .setLastName('Kim')
+      .setFirstName('Seojun')
+      .setProvince('Seoul')
+      .setCity('Gangnam-gu')
+      .setAddress1('Seolleung-dong')
+      .setPostalCode('06010')
+      .setCountry('South Korea')
+      .setFormat({ country: 'KR' })
+
+    const output = myAddress.toArray()
+
+    expect(output).toEqual([
+      ['Kim', 'Seojun'],
+      ['Seoul', 'Gangnam-gu', 'Seolleung-dong'],
+      ['06010', 'South Korea'],
+    ])
+  })
+})
+
 describe('Propagation', () => {
   it('Propagation of changes to related properties can be disabled', () => {
     const myAddress = new PostalAddress()
