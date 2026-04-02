@@ -52,10 +52,9 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
         ['address1'],
         ['address2'],
-        ['city'],
+        [{ attribute: 'city', transforms: [addCommaAfter] }, 'region'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -64,9 +63,9 @@ const addressFormats: AddressFormats = {
   BG: {
     default: {
       array: [
-        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['address1', 'address2'],
+        ['address1'],
+        ['address2'],
         ['postalCode', 'city'],
         ['state'],
         [{ attribute: 'country', transforms: [capitalize] }],
@@ -77,9 +76,9 @@ const addressFormats: AddressFormats = {
   BR: {
     default: {
       array: [
-        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['address1', 'address2'],
+        ['address1'],
+        ['address2'],
         ['postalCode', 'city', 'state'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
@@ -150,12 +149,10 @@ const addressFormats: AddressFormats = {
   DE: {
     default: {
       array: [
-        ['companyName'],
         ['honorific', 'title', 'firstName', 'lastName'],
         ['address1'],
         ['address2'],
-        [''],
-        ['countryAlpha2', 'postalCode', 'city'],
+        ['postalCode', 'city'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -165,10 +162,9 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'title', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
         ['address1'],
         ['address2'],
-        ['countryAlpha2', 'postalCode', 'city'],
+        ['postalCode', 'city'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -179,9 +175,9 @@ const addressFormats: AddressFormats = {
       array: [
         ['honorific', 'firstName', 'secondName', 'firstLastName'],
         ['secondLastName'],
-        ['companyName'],
         ['address1', 'address2'],
         ['postalCode', 'city'],
+        ['state'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -190,8 +186,7 @@ const addressFormats: AddressFormats = {
   FI: {
     default: {
       array: [
-        ['title', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -203,11 +198,10 @@ const addressFormats: AddressFormats = {
   FR: {
     default: {
       array: [
-        ['honorific', 'firstName', 'lastName'],
-        ['companyName'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
-        ['postalCode', 'city'],
+        ['postalCode', { attribute: 'city', transforms: [capitalize] }],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -216,8 +210,7 @@ const addressFormats: AddressFormats = {
   GR: {
     default: {
       array: [
-        ['title', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -267,10 +260,9 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'lastName'],
-        ['companyName'],
-        ['address1', 'address2'],
-        [''],
-        ['countryAlpha2', 'postalCode', 'city', 'province'],
+        ['address1'],
+        ['address2'],
+        ['postalCode', 'city', 'province'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -303,11 +295,11 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
-        ['state', { attribute: 'country', transforms: [capitalize] }],
+        ['state'],
+        [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
   },
@@ -325,8 +317,7 @@ const addressFormats: AddressFormats = {
     },
     default: {
       array: [
-        ['title', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -348,8 +339,9 @@ const addressFormats: AddressFormats = {
     },
     personal: {
       array: [
-        ['jobTitle', 'firstName', 'lastName'],
-        ['address1', 'address2'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['address1'],
+        ['address2'],
         [
           'postalCode',
           {
@@ -420,10 +412,9 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
         ['address1'],
         ['address2'],
-        [{ attribute: 'country', transforms: [capitalize] }, 'postalCode'],
+        ['postalCode'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -442,8 +433,9 @@ const addressFormats: AddressFormats = {
     },
     personal: {
       array: [
-        ['jobTitle', 'firstName', 'lastName'],
-        ['address1', 'address2'],
+        ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['address1'],
+        ['address2'],
         [
           'postalCode',
           {
@@ -460,10 +452,9 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
-        ['companyName'],
         ['address1'],
         ['address2'],
-        [{ attribute: 'postalCode', transforms: [addCommaAfter] }, 'city'],
+        ['postalCode', 'city', 'state'],
         [{ attribute: 'country', transforms: [capitalize] }],
       ],
     },
@@ -1267,7 +1258,7 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
         ['state'],
-        [{ attribute: 'city', transforms: [addCommaAfter] }, 'dong'],
+        [{ attribute: 'city', transforms: [addCommaAfter] }, 'address2'],
         ['address1'],
         ['address2'],
         ['postalCode'],
@@ -1758,7 +1749,6 @@ const addressFormats: AddressFormats = {
         ['companyName'],
         ['address1'],
         ['address2'],
-        ['dong'],
         [
           { attribute: 'postalCode', transforms: [capitalize] },
           { attribute: 'city', transforms: [capitalize, addCommaAfter] },
