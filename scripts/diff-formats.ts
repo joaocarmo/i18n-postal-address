@@ -1,8 +1,10 @@
 import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import addressFormats from '../lib/address-formats'
 
-const TRANSFORMED_PATH = 'scripts/.cache/transformed-formats.json'
-const PROPOSED_PATH = 'scripts/.cache/proposed-formats.json'
+const SCRIPT_DIR = __dirname
+const TRANSFORMED_PATH = resolve(SCRIPT_DIR, '.cache/transformed-formats.json')
+const PROPOSED_PATH = resolve(SCRIPT_DIR, '.cache/proposed-formats.json')
 
 type FormatPart = string | { attribute: string; transforms?: string[] }
 

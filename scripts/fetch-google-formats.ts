@@ -1,8 +1,9 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { dirname } from 'node:path'
+import { resolve } from 'node:path'
 
+const SCRIPT_DIR = __dirname
 const BASE_URL = 'https://chromium-i18n.appspot.com/ssl-address/data'
-const OUTPUT_PATH = 'scripts/.cache/google-formats.json'
+const OUTPUT_PATH = resolve(SCRIPT_DIR, '.cache/google-formats.json')
 const DELAY_MS = 50
 
 interface GoogleAddressData {
@@ -59,7 +60,7 @@ async function main() {
     await sleep(DELAY_MS)
   }
 
-  mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
+  mkdirSync(resolve(SCRIPT_DIR, '.cache'), { recursive: true })
 
   // Validate each entry has the expected shape before writing
   for (const [cc, entry] of Object.entries(result)) {

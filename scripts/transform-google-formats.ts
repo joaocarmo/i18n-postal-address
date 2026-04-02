@@ -1,7 +1,9 @@
 import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
-const INPUT_PATH = 'scripts/.cache/google-formats.json'
-const OUTPUT_PATH = 'scripts/.cache/transformed-formats.json'
+const SCRIPT_DIR = __dirname
+const INPUT_PATH = resolve(SCRIPT_DIR, '.cache/google-formats.json')
+const OUTPUT_PATH = resolve(SCRIPT_DIR, '.cache/transformed-formats.json')
 
 type AddressFormatPart = string | { attribute: string; transforms: string[] }
 
