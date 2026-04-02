@@ -291,10 +291,10 @@ const addressFormats: AddressFormats = {
   KR: {
     default: {
       array: [
-        ['country'],
-        ['do', 'si', 'dong', 'gu', 'addressNum'],
-        ['companyName'],
         ['lastName', 'firstName', 'honorific'],
+        ['companyName'],
+        ['do', 'si', 'dong', 'gu', 'addressNum'],
+        ['postalCode', 'country'],
       ],
     },
   },
