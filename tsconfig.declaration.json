@@ -3,8 +3,9 @@
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "isolatedModules": false,
-    "module": "amd",
+    "module": "esnext",
     "noEmit": false,
+    "rootDir": "./lib",
     "outDir": "dist"
   },
   "exclude": ["node_modules", "dist/**/*", "lib/__tests__/**/*"],
