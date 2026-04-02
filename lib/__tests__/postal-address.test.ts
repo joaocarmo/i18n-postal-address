@@ -373,6 +373,70 @@ describe('Korean Address Format', () => {
   })
 })
 
+describe('getAddressFormat', () => {
+  it('should return the format array for a known country', () => {
+    const myAddress = new PostalAddress()
+    const format = myAddress.getAddressFormat({ country: 'KR' })
+
+    expect(format).toEqual([
+      ['lastName', 'firstName', 'honorific'],
+      ['companyName'],
+      ['do', 'si', 'dong', 'gu', 'addressNum'],
+      ['postalCode', 'country'],
+    ])
+  })
+
+  it('should return the format for a specific type', () => {
+    const myAddress = new PostalAddress()
+    const format = myAddress.getAddressFormat({
+      country: 'US',
+      type: 'business',
+    })
+
+    expect(format).not.toBeNull()
+    expect(Array.isArray(format)).toBe(true)
+  })
+
+  it('should fall back to default type when requested type does not exist', () => {
+    const myAddress = new PostalAddress()
+    const defaultFormat = myAddress.getAddressFormat({ country: 'KR' })
+    const nonExistentType = myAddress.getAddressFormat({
+      country: 'KR',
+      type: 'business',
+    })
+
+    expect(nonExistentType).toEqual(defaultFormat)
+  })
+
+  it('should fall back to US format for unknown countries', () => {
+    const myAddress = new PostalAddress()
+    const unknownFormat = myAddress.getAddressFormat({ country: 'ZZ' })
+    const usFormat = myAddress.getAddressFormat({ country: 'US' })
+
+    expect(unknownFormat).toEqual(usFormat)
+  })
+
+  it('should include custom formats added via addFormat', () => {
+    const myAddress = new PostalAddress()
+    const customFormat = [
+      ['lastName', 'firstName'],
+      ['city', 'postalCode'],
+    ]
+    myAddress.addFormat({
+      country: 'XX',
+      format: customFormat,
+      type: 'personal',
+    })
+
+    const format = myAddress.getAddressFormat({
+      country: 'XX',
+      type: 'personal',
+    })
+
+    expect(format).toEqual(customFormat)
+  })
+})
+
 describe('Propagation', () => {
   it('Propagation of changes to related properties can be disabled', () => {
     const myAddress = new PostalAddress()
