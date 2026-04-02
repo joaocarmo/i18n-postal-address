@@ -52,6 +52,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         [{ attribute: 'city', transforms: [addCommaAfter] }, 'region'],
@@ -64,6 +65,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -76,6 +78,7 @@ const addressFormats: AddressFormats = {
   BR: {
     default: {
       array: [
+        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
@@ -113,6 +116,7 @@ const addressFormats: AddressFormats = {
   CH: {
     default: {
       array: [
+        ['companyName'],
         ['honorific', 'firstName', 'lastName'],
         ['address1', 'address2'],
         ['postalCode', 'city'],
@@ -150,6 +154,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'title', 'firstName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -162,6 +167,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'title', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -175,6 +181,7 @@ const addressFormats: AddressFormats = {
       array: [
         ['honorific', 'firstName', 'secondName', 'firstLastName'],
         ['secondLastName'],
+        ['companyName'],
         ['address1', 'address2'],
         ['postalCode', 'city'],
         ['state'],
@@ -186,6 +193,7 @@ const addressFormats: AddressFormats = {
   FI: {
     default: {
       array: [
+        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
@@ -198,6 +206,7 @@ const addressFormats: AddressFormats = {
   FR: {
     default: {
       array: [
+        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
@@ -211,6 +220,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -247,6 +257,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'lastName', 'firstName'],
+        ['companyName'],
         ['city'],
         ['address1', 'address2'],
         ['postalCode'],
@@ -260,6 +271,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city', 'province'],
@@ -295,6 +307,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city'],
@@ -317,6 +330,7 @@ const addressFormats: AddressFormats = {
     },
     default: {
       array: [
+        ['companyName'],
         ['honorific', 'firstName', 'secondName', 'lastName'],
         ['address1'],
         ['address2'],
@@ -412,6 +426,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode'],
@@ -452,6 +467,7 @@ const addressFormats: AddressFormats = {
     default: {
       array: [
         ['honorific', 'firstName', 'secondName', 'lastName'],
+        ['companyName'],
         ['address1'],
         ['address2'],
         ['postalCode', 'city', 'state'],
