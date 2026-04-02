@@ -183,6 +183,26 @@ export function transformCountry(
     if (parts.length > 0) result.push(parts)
   }
 
+  // Deduplicate: keep only one standalone ['address2'] line,
+  // and remove address2 from inline positions if it also appears standalone
+  let seenAddress2 = false
+  for (let i = result.length - 1; i >= 0; i--) {
+    const line = result[i]
+    const isStandaloneAddress2 = line.length === 1 && line[0] === 'address2'
+    if (isStandaloneAddress2) {
+      if (seenAddress2) {
+        result.splice(i, 1)
+      } else {
+        seenAddress2 = true
+      }
+    } else if (seenAddress2 && line.length > 1) {
+      const filtered = line.filter((p) => p !== 'address2')
+      if (filtered.length !== line.length) {
+        result[i] = filtered
+      }
+    }
+  }
+
   // Inject careOf before the first address line
   const firstAddressIdx = result.findIndex((line) =>
     line.some(
