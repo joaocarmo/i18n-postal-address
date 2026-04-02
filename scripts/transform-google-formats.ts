@@ -52,14 +52,14 @@ const KOREAN_SUBLOCALITY_MAP: Record<string, string> = {
 
 const KOREAN_COUNTRIES = new Set(['KR', 'KP'])
 
-const UPPER_CODE_TO_TOKEN: Record<string, string> = {
-  N: '%N',
-  O: '%O',
-  A: '%A',
-  D: '%D',
-  C: '%C',
-  S: '%S',
-  Z: '%Z',
+const TOKEN_TO_UPPER_CODE: Record<string, string> = {
+  '%N': 'N',
+  '%O': 'O',
+  '%A': 'A',
+  '%D': 'D',
+  '%C': 'C',
+  '%S': 'S',
+  '%Z': 'Z',
 }
 
 function resolveField(token: string, data: GoogleAddressData): string | null {
@@ -83,10 +83,8 @@ function resolveField(token: string, data: GoogleAddressData): string | null {
 }
 
 function shouldUppercase(token: string, upperStr: string): boolean {
-  for (const [code, tok] of Object.entries(UPPER_CODE_TO_TOKEN)) {
-    if (tok === token && upperStr.includes(code)) return true
-  }
-  return false
+  const code = TOKEN_TO_UPPER_CODE[token]
+  return code !== undefined && upperStr.includes(code)
 }
 
 function wrapField(field: string, transforms: string[]): AddressFormatPart {
@@ -94,31 +92,37 @@ function wrapField(field: string, transforms: string[]): AddressFormatPart {
   return { attribute: field, transforms }
 }
 
-function parseFmtLine(
+interface TokenMatch {
+  token: string
+  trailingLiteral: string
+}
+
+function tokenize(segment: string): TokenMatch[] {
+  const matches: { token: string; index: number }[] = []
+  const tokenRegex = /%[A-Z]/g
+  let match: RegExpExecArray | null
+
+  while ((match = tokenRegex.exec(segment)) !== null) {
+    matches.push({ token: match[0], index: match.index })
+  }
+
+  return matches.map((m, i) => {
+    const tokenEnd = m.index + 2
+    const nextStart =
+      i + 1 < matches.length ? matches[i + 1].index : segment.length
+    const trailing = segment.slice(tokenEnd, nextStart).trim()
+    return { token: m.token, trailingLiteral: trailing }
+  })
+}
+
+export function parseFmtLine(
   segment: string,
   data: GoogleAddressData,
 ): AddressFormatPart[] {
   const parts: AddressFormatPart[] = []
   const upperStr = data.upper ?? ''
 
-  // Tokenize: extract %X tokens and literal text between them
-  const tokenRegex = /%[A-Z]/g
-  let match: RegExpExecArray | null
-
-  const tokens: { token: string; trailingLiteral: string }[] = []
-
-  while ((match = tokenRegex.exec(segment)) !== null) {
-    // Skip text before first token (usually empty)
-    const nextStart = tokenRegex.lastIndex
-    const nextMatch = tokenRegex.exec(segment)
-    const trailingEnd = nextMatch ? nextMatch.index : segment.length
-    const trailing = segment.slice(nextStart, trailingEnd).trim()
-    tokenRegex.lastIndex = nextStart // reset for next iteration
-
-    tokens.push({ token: match[0], trailingLiteral: trailing })
-  }
-
-  for (const { token, trailingLiteral } of tokens) {
+  for (const { token, trailingLiteral } of tokenize(segment)) {
     if (token === '%X') continue // skip sorting code
 
     if (token === '%N') {
@@ -150,7 +154,9 @@ function parseFmtLine(
   return parts
 }
 
-function transformCountry(data: GoogleAddressData): TransformedFormat | null {
+export function transformCountry(
+  data: GoogleAddressData,
+): TransformedFormat | null {
   // Prefer Latin format for non-Latin script countries
   const fmt = data.lfmt ?? data.fmt
   if (!fmt) return null
@@ -175,6 +181,20 @@ function transformCountry(data: GoogleAddressData): TransformedFormat | null {
 
     const parts = parseFmtLine(line, data)
     if (parts.length > 0) result.push(parts)
+  }
+
+  // Inject careOf before the first address line
+  const firstAddressIdx = result.findIndex((line) =>
+    line.some(
+      (p) =>
+        p === 'address1' ||
+        p === 'address2' ||
+        (typeof p === 'object' &&
+          (p.attribute === 'address1' || p.attribute === 'address2')),
+    ),
+  )
+  if (firstAddressIdx !== -1) {
+    result.splice(firstAddressIdx, 0, ['careOf'])
   }
 
   // Add country line if not already present
