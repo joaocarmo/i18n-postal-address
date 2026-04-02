@@ -54,10 +54,7 @@ const UPPER_CODE_TO_TOKEN: Record<string, string> = {
   Z: '%Z',
 }
 
-function resolveField(
-  token: string,
-  data: GoogleAddressData,
-): string | null {
+function resolveField(token: string, data: GoogleAddressData): string | null {
   switch (token) {
     case '%C':
       return 'city'
@@ -82,10 +79,7 @@ function shouldUppercase(token: string, upperStr: string): boolean {
   return false
 }
 
-function wrapField(
-  field: string,
-  transforms: string[],
-): AddressFormatPart {
+function wrapField(field: string, transforms: string[]): AddressFormatPart {
   if (transforms.length === 0) return field
   return { attribute: field, transforms }
 }
@@ -119,12 +113,7 @@ function parseFmtLine(
     if (token === '%X') continue // skip sorting code
 
     if (token === '%N') {
-      parts.push(
-        'honorific',
-        'firstName',
-        'secondName',
-        'lastName',
-      )
+      parts.push('honorific', 'firstName', 'secondName', 'lastName')
       continue
     }
 
@@ -183,8 +172,7 @@ function transformCountry(data: GoogleAddressData): TransformedFormat | null {
   const hasCountry = result.some((line) =>
     line.some(
       (p) =>
-        p === 'country' ||
-        (typeof p === 'object' && p.attribute === 'country'),
+        p === 'country' || (typeof p === 'object' && p.attribute === 'country'),
     ),
   )
   if (!hasCountry) {

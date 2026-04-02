@@ -55,7 +55,9 @@ function printFormat(label: string, format: FormatPart[][]) {
 }
 
 function getExistingDefaultArray(cc: string): FormatPart[][] | null {
-  const country = (addressFormats as Record<string, Record<string, { array?: FormatPart[][] }>>)[cc]
+  const country = (
+    addressFormats as Record<string, Record<string, { array?: FormatPart[][] }>>
+  )[cc]
   if (!country) return null
   const defaultFmt = country.default
   if (!defaultFmt?.array) return null
