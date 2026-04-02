@@ -5,6 +5,7 @@ const SCRIPT_DIR = __dirname
 const BASE_URL = 'https://chromium-i18n.appspot.com/ssl-address/data'
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '.cache/google-formats.json')
 const DELAY_MS = 50
+const MAX_RETRIES = 2
 
 interface GoogleAddressData {
   id: string
@@ -32,10 +33,17 @@ interface GoogleAddressData {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-async function fetchJson<T>(url: string): Promise<T> {
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}: ${url}`)
-  return res.json() as Promise<T>
+async function fetchJson<T>(url: string, retries = MAX_RETRIES): Promise<T> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch(url)
+    if (res.ok) return res.json() as Promise<T>
+    if (attempt < retries && res.status >= 500) {
+      await sleep(DELAY_MS * (attempt + 1))
+      continue
+    }
+    throw new Error(`${res.status} ${res.statusText}: ${url}`)
+  }
+  throw new Error(`Failed after ${retries} retries: ${url}`)
 }
 
 async function main() {
