@@ -9,8 +9,8 @@ importers:
   .:
     optionalDependencies:
       node-postal:
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.3.0
+        version: 1.3.0
     devDependencies:
       '@babel/core':
         specifier: ^7.29.0
@@ -2089,8 +2089,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  nan@2.20.0:
-    resolution: {integrity: sha512-bk3gXBZDGILuuo/6sKtr0DQmSThYHLtNCdSdXk9YkxD/jK6X2vmCyyXBBxyqZ4XcnzTyYEAThfX3DCEnLf6igw==}
+  nan@2.26.2:
+    resolution: {integrity: sha512-0tTvBTYkt3tdGw22nrAy50x7gpbGCCFH3AFcyS5WiUu7Eu4vWlri1woE6qHBSfy11vksDqkiwjOnlR7WV8G1Hw==}
 
   napi-postinstall@0.3.4:
     resolution: {integrity: sha512-PHI5f1O0EP5xJ9gQmFGMS6IZcrVvTjpXjz7Na41gTE7eE2hK11lg04CECCYEEjdc17EV4DO+fkGEtt7TpTaTiQ==}
@@ -2106,8 +2106,8 @@ packages:
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
 
-  node-postal@1.2.0:
-    resolution: {integrity: sha512-SfaaE5ey8mklK55mafRu+HS+cQp49WIqtyl6wwqXSfF6vXXO15jHzP0+KwL27dJluk0JJGFqPB999JGPba2kDA==}
+  node-postal@1.3.0:
+    resolution: {integrity: sha512-txzW8xa9mP68mSEM2YKoGc2VydJyY2ZYWVY/HSvbrsNNpoZcZTeQwSIXs004yNJNJ0Gdw0LOcEInVsXgNzvPdQ==}
 
   node-releases@2.0.37:
     resolution: {integrity: sha512-1h5gKZCF+pO/o3Iqt5Jp7wc9rH3eJJ0+nh/CIoiRwjRxde/hAHyLPXYN4V3CqKAbiZPSeJFSWHmJsbkicta0Eg==}
@@ -5071,7 +5071,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nan@2.20.0:
+  nan@2.26.2:
     optional: true
 
   napi-postinstall@0.3.4: {}
@@ -5082,10 +5082,10 @@ snapshots:
 
   node-int64@0.4.0: {}
 
-  node-postal@1.2.0:
+  node-postal@1.3.0:
     dependencies:
       bindings: 1.5.0
-      nan: 2.20.0
+      nan: 2.26.2
     optional: true
 
   node-releases@2.0.37: {}
