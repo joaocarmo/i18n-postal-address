@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
     "target": "esnext"
   },
