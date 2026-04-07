@@ -12,9 +12,9 @@ import type {
   FormatTypes,
   OutputFormat,
   ParserInterface,
+  PostalAddressOptions,
   Validator,
 } from './types/address-format.js'
-import allAddressFormats from './address-formats.js'
 import allAddressParsers from './address-parsers.js'
 import {
   constructInitialObject,
@@ -57,7 +57,8 @@ class PostalAddress implements PostalAddressInterface {
    */
   private propagateToRelatedProperties: boolean = true
 
-  public constructor(presetState?: Partial<AddressObject>) {
+  public constructor(options: PostalAddressOptions = {}) {
+    const { formats = {} } = options
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -67,9 +68,7 @@ class PostalAddress implements PostalAddressInterface {
     // Transform input data or keep it as is
     this.useTransforms = true
     // The object properties that can be set
-    this.object = constructInitialObject(
-      typeof presetState === 'object' ? presetState : undefined,
-    )
+    this.object = constructInitialObject()
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
@@ -79,12 +78,12 @@ class PostalAddress implements PostalAddressInterface {
     }
     // Allowed values
     this.allowed = {
-      formatForCountry: Object.keys(allAddressFormats),
+      formatForCountry: Object.keys(formats),
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
       outputFormat: ['array', 'string'],
     }
     // Address formats
-    this.addressFormats = allAddressFormats
+    this.addressFormats = formats
     // Parsers
     this.addressParsers = allAddressParsers
   }

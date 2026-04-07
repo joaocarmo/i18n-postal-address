@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import PostalAddress from '../dist/index.js'
+import addressFormats from '../dist/address-formats.js'
 
 const console = ((_console) => ({
   log: (...args) => {
@@ -9,7 +10,7 @@ const console = ((_console) => ({
   },
 }))(globalThis.console)
 
-const myAddressPersonal = new PostalAddress()
+const myAddressPersonal = new PostalAddress({ formats: addressFormats })
 
 myAddressPersonal
   .setAddress1('Rua do Pastel, 19')
@@ -25,7 +26,7 @@ myAddressPersonal
     type: 'personal',
   })
 
-const myAddressBusiness = new PostalAddress()
+const myAddressBusiness = new PostalAddress({ formats: addressFormats })
 
 myAddressBusiness
   .setAddress1('Happy Park')
@@ -56,7 +57,7 @@ console.log(myAddressPersonal.output())
 console.log(myAddressBusiness.toString())
 
 // prettier-ignore
-const myCustomAddress = new PostalAddress().addFormat({
+const myCustomAddress = new PostalAddress({ formats: addressFormats }).addFormat({
   country: 'GB',
   format: [
     ['address1'],

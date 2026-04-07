@@ -100,3 +100,7 @@ export type ClassProperties = {
   formatForType: FormatTypes
   outputFormat: OutputFormat
 }
+
+export interface PostalAddressOptions {
+  formats?: AddressFormats
+}
