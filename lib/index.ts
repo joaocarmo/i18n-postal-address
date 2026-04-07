@@ -1,6 +1,6 @@
-import PostalAddress from './postal-address'
-import addressFormats from './address-formats'
-import type * as PostalAddressType from './types/address-format'
+import PostalAddress from './postal-address.js'
+import addressFormats from './address-formats.js'
+import type * as PostalAddressType from './types/address-format.js'
 
 // Export the PostalAddress main class
 export default PostalAddress

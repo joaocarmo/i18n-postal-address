@@ -6,7 +6,7 @@ import type {
   AvailableAddressFormat,
   FormatTypes,
   OutputFormat,
-} from './address-format'
+} from './address-format.js'
 
 export default interface PostalAddressInterface {
   addFormat({ country, format, parser, type }: AddFormatArgs): this

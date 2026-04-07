@@ -1,5 +1,5 @@
-import PostalAddressError from './postal-address-error'
-import type PostalAddressInterface from './types/postal-address'
+import PostalAddressError from './postal-address-error.js'
+import type PostalAddressInterface from './types/postal-address.js'
 import type {
   AcceptAddressFormat,
   AddFormatArgs,
@@ -13,16 +13,16 @@ import type {
   OutputFormat,
   ParserInterface,
   Validator,
-} from './types/address-format'
-import allAddressFormats from './address-formats'
-import allAddressParsers from './address-parsers'
+} from './types/address-format.js'
+import allAddressFormats from './address-formats.js'
+import allAddressParsers from './address-parsers.js'
 import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
   parseValidator,
-} from './utils'
-import untypedCountries from './data/countries.json'
+} from './utils.js'
+import untypedCountries from './data/countries.json' with { type: 'json' }
 
 const countries: Record<string, string> = untypedCountries
 

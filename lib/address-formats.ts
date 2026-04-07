@@ -1,5 +1,5 @@
-import type { AddressFormats } from './types/address-format'
-import { addCommaAfter, capitalize } from './address-transforms'
+import type { AddressFormats } from './types/address-format.js'
+import { addCommaAfter, capitalize } from './address-transforms.js'
 
 const addressFormats: AddressFormats = {
   // Argentina

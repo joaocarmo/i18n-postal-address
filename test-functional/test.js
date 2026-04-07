@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const PostalAddress = require('../dist/postal-address.node').default
+import PostalAddress from '../dist/index.js'
 
 const console = ((_console) => ({
   log: (...args) => {
@@ -7,7 +7,7 @@ const console = ((_console) => ({
     _console.log(divider)
     _console.log(...args)
   },
-}))(global.console)
+}))(globalThis.console)
 
 const myAddressPersonal = new PostalAddress()
 

@@ -10,22 +10,13 @@ export default tseslint.config(
   eslintConfigPrettier,
   {
     name: 'i18n-postal-address/ignores',
-    ignores: [
-      'dist',
-      'node_modules',
-      'test-functional',
-      'babel.config.js',
-      'eslint.config.mjs',
-      'jest.config.js',
-      'webpack.config.js',
-      'scripts',
-    ],
+    ignores: ['dist', 'node_modules', 'test-functional', 'scripts'],
   },
   {
     name: 'i18n-postal-address/typescript-parser',
     languageOptions: {
       parserOptions: {
-        project: true,
+        project: './tsconfig.eslint.json',
         tsconfigRootDir: import.meta.dirname,
       },
     },
