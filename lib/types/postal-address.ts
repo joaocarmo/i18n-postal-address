@@ -6,7 +6,6 @@ import type {
   AvailableAddressFormat,
   FormatTypes,
   OutputFormat,
-  Parsers,
 } from './address-format'
 
 export default interface PostalAddressInterface {
@@ -39,7 +38,6 @@ export default interface PostalAddressInterface {
   setTitle(newValue: string): this
   setPropagation(propagate: boolean): this
   setOutputFormat(string: OutputFormat): this
-  setStringParser(parser: Parsers): this
   setFormat({
     country,
     type,

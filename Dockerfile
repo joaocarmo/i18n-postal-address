@@ -26,15 +26,7 @@ RUN corepack enable
 
 WORKDIR /app
 
-RUN apt install -y curl autoconf automake libtool pkg-config
-
 COPY --from=builder /app /app
-
-RUN ./scripts/install-libpostal.sh
-
-RUN rm -rf ./lib/__mocks__
-
-RUN cd node_modules/node-postal && npx node-gyp rebuild
 
 # For manual testing in a vanilla environment
 FROM node:24 AS tester-vanilla
@@ -49,24 +41,3 @@ RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
   echo "{\"license\": \"MIT\", \"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"} }" > package.json
 
 RUN pnpm install --frozen-lockfile
-
-# For manual testing in an environment with libpostal
-FROM node:24 AS tester-libpostal
-
-RUN corepack enable
-
-WORKDIR /app
-
-RUN apt install -y curl autoconf automake libtool pkg-config
-
-COPY --from=builder /app/build /app/build
-COPY --from=builder /app/scripts /app/scripts
-
-RUN PACKAGE_TAR_PATH="./build/$(ls ./build)" && \
-  echo "{\"license\": \"MIT\", \"dependencies\": {\"i18n-postal-address\": \"file:$PACKAGE_TAR_PATH\"} }" > package.json
-
-RUN pnpm install
-
-RUN ./scripts/install-libpostal.sh
-
-RUN pnpm add node-postal

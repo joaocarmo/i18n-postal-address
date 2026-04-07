@@ -253,60 +253,9 @@ state
 title
 ```
 
-## Experimental string parsing
-
-If you're interested in parsing a string into an object, you can use the new
-experimental support for parsing addresses using some existing libraries.
-However, note that these are optional and not required for the primary
-functionality of this library.
-
-### libpostal
-
-This is the most complete and comprehensive library for parsing addresses. You
-need to be using the **node** version as it's not supported on the web.
-
-#### Optional Requirements for libpostal Support
-
-If you wish to utilize the `libpostal` experimental features, follow these
-steps:
-
-1. Install [libpostal][libpostal] following their installation instructions, or
-   execute [this script][install-libpostal] if you're on a \*nix machine.
-2. Install [node-postal][node-postal] as an **optional** dependency in your
-   project, _after installing libpostal_. This is not required for the core
-   functionality but only if you want to use the `libpostal` features.
-
-Remember, these steps are optional and are only for users interested in the
-experimental string parsing feature.
-
-#### Experimental usage
-
-Notice the import is slightly different, you should import this library as
-`i18n-postal-address/strings`.
-
-```js
-const PostalAddress = require('i18n-postal-address/strings').default
-
-const postalAddress = new PostalAddress()
-
-postalAddress.fromString(
-  'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
-)
-
-console.log(postalAddress.toString())
-```
-
-```txt
-Barboncino 781 Franklin Ave
-Crown Heights Brooklyn
-NY 11238
-```
-
 ## Background
 
 ### Why
-
-The [libpostal][libpostal] library is not available on the web.
 
 Need to present postal addresses for different regions worldwide stored in
 individual parts (company name, address, postal code, city, county, country,
@@ -362,10 +311,7 @@ prints a diff showing matches, differences, and missing countries.
 
 [codepen]: https://codepen.io/joaocarmo/pen/bGeOVQw
 [google-address-data]: https://chromium-i18n.appspot.com/ssl-address
-[install-libpostal]: ./scripts/install-libpostal.sh
-[libpostal]: https://github.com/openvenues/libpostal
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
-[node-postal]: https://github.com/openvenues/node-postal
 [pa]: https://schema.org/PostalAddress
 [playground]: https://joaocarmo.com/i18n-postal-address-playground
 [qad]: http://i18napis.appspot.com/address
