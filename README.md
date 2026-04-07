@@ -22,49 +22,9 @@ pnpm add i18n-postal-address
 
 ## Usage
 
-### As an ESM module (web)
-
-Load **i18n-postal-address** directly from [skypack][skypack] (CDN).
-
-```html
-<script type="module">
-  import PostalAddress from 'https://cdn.skypack.dev/i18n-postal-address'
-</script>
-```
-
-Demo available in [codepen][codepen].
-
-### On the web (self-hosted)
-
-It's exposed through the _window_ global object as explained below.
-
-`index.html`
-
-```html
-<head>
-  <script type="text/javascript" src="./postal-address.js"></script>
-  <script type="text/javascript" src="./app.js"></script>
-</head>
-```
-
-`app.js`
-
-```js
-// Define myAddress
-var PostalAddress = window.PostalAddress.default
-var myAddress = new PostalAddress()
-
-// ...
-```
-
-### With a bundler / Node.js
-
-With a bundler (e.g. webpack) or in Node.js you can just require / import it.
-
 ```js
 import PostalAddress, { addressFormats } from 'i18n-postal-address'
 
-// Define myAddress
 const myAddress = new PostalAddress()
 ```
 
@@ -309,11 +269,9 @@ prints a diff showing matches, differences, and missing countries.
 
 <!-- References -->
 
-[codepen]: https://codepen.io/joaocarmo/pen/bGeOVQw
 [google-address-data]: https://chromium-i18n.appspot.com/ssl-address
 [msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
 [pa]: https://schema.org/PostalAddress
 [playground]: https://joaocarmo.com/i18n-postal-address-playground
 [qad]: http://i18napis.appspot.com/address
-[skypack]: https://skypack.dev
 [upu-s42]: https://www.upu.int/en/Postal-Solutions/Programmes-Services/Addressing-Solutions
