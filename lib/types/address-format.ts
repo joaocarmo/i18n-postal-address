@@ -100,9 +100,3 @@ export type ClassProperties = {
   formatForType: FormatTypes
   outputFormat: OutputFormat
 }
-
-export type ParserOutput = Partial<{
-  [key in AddressParts]: string
-}>
-
-export type Parsers = '' | 'libpostal'

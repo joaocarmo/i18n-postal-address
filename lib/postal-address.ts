@@ -12,7 +12,6 @@ import type {
   FormatTypes,
   OutputFormat,
   ParserInterface,
-  Parsers,
   Validator,
 } from './types/address-format'
 import allAddressFormats from './address-formats'
@@ -21,7 +20,6 @@ import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
-  parseStringToObject,
   parseValidator,
 } from './utils'
 import untypedCountries from './data/countries.json'
@@ -53,15 +51,13 @@ class PostalAddress implements PostalAddressInterface {
     [key in AvailableAddressFormat]: ParserInterface<key> | null
   }
 
-  private stringParser: Parsers = STRING_PARSER_DEFAULT
-
   /**
    * If `true`, changes to one property will propagate to related properties.
    * Default is `true`.
    */
   private propagateToRelatedProperties: boolean = true
 
-  public constructor(presetState?: Partial<AddressObject> | string) {
+  public constructor(presetState?: Partial<AddressObject>) {
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
@@ -71,10 +67,9 @@ class PostalAddress implements PostalAddressInterface {
     // Transform input data or keep it as is
     this.useTransforms = true
     // The object properties that can be set
-    this.object =
-      typeof presetState === 'string'
-        ? parseStringToObject(presetState, this.stringParser)
-        : constructInitialObject(presetState)
+    this.object = constructInitialObject(
+      typeof presetState === 'object' ? presetState : undefined,
+    )
     // Validator functions
     this.validators = {
       formatForCountry: (value) =>
@@ -334,11 +329,6 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setStringParser(parser: Parsers): this {
-    this.stringParser = parser
-    return this
-  }
-
   public setPropagation(propagate: boolean): this {
     this.propagateToRelatedProperties = propagate
     return this
@@ -432,12 +422,6 @@ class PostalAddress implements PostalAddressInterface {
 
   public fromObject(presetState: Partial<AddressObject>): this {
     this.object = constructInitialObject(presetState)
-
-    return this
-  }
-
-  public fromString(address: string): this {
-    this.object = parseStringToObject(address, this.stringParser)
 
     return this
   }

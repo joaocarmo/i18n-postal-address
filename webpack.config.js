@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const webpack = require('webpack')
 const babelOptions = require('./babel.config')
 
 const mode = process.env.NODE_ENV || 'development'
@@ -33,12 +32,6 @@ const commonConfig = {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      STRING_PARSER_DEFAULT: JSON.stringify(''),
-      STRING_PARSER_ENABLED: false,
-    }),
-  ],
 }
 
 const webConfig = {
@@ -46,12 +39,6 @@ const webConfig = {
   target: 'web',
   output: {
     ...commonConfig.output,
-  },
-  resolve: {
-    ...commonConfig.resolve,
-    alias: {
-      'node-postal$': path.resolve(__dirname, 'lib/__mocks__/node-postal.ts'),
-    },
   },
 }
 
@@ -62,30 +49,7 @@ const nodeConfig = {
     ...commonConfig.output,
     filename: 'postal-address.node.js',
   },
-  resolve: {
-    ...commonConfig.resolve,
-    alias: {
-      'node-postal$': path.resolve(__dirname, 'lib/__mocks__/node-postal.ts'),
-    },
-  },
   externalsPresets: { node: true },
 }
 
-const nodeConfigStrings = {
-  ...nodeConfig,
-  output: {
-    ...commonConfig.output,
-    filename: 'postal-address.strings.node.js',
-  },
-  externals: {
-    'node-postal': 'commonjs2 node-postal',
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      STRING_PARSER_DEFAULT: JSON.stringify('libpostal'),
-      STRING_PARSER_ENABLED: true,
-    }),
-  ],
-}
-
-module.exports = [webConfig, nodeConfig, nodeConfigStrings]
+module.exports = [webConfig, nodeConfig]
