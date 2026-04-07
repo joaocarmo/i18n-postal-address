@@ -32,9 +32,6 @@ importers:
       '@types/node':
         specifier: ^24.12.0
         version: 24.12.2
-      '@types/node-postal':
-        specifier: ^1.1.3
-        version: 1.1.3
       babel-jest:
         specifier: ^30.3.0
         version: 30.3.0(@babel/core@7.29.0)
@@ -77,10 +74,6 @@ importers:
       webpack-cli:
         specifier: ^7.0.2
         version: 7.0.2(webpack@5.105.4)
-    optionalDependencies:
-      node-postal:
-        specifier: ^1.3.0
-        version: 1.3.0
 
 packages:
 
@@ -1097,9 +1090,6 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node-postal@1.1.3':
-    resolution: {integrity: sha512-ake/U8TW0RM+C0CS8wYx+eNQMa6zkJT/306Gx3kBrEOw6pAl2Hg0ku3RTjjSyKQ5UJxfsSt2YX6TvQPH+1Vmzw==}
-
   '@types/node@24.12.2':
     resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
 
@@ -1476,9 +1466,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bindings@1.5.0:
-    resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
-
   brace-expansion@1.1.13:
     resolution: {integrity: sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==}
 
@@ -1793,9 +1780,6 @@ packages:
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
     engines: {node: '>=16.0.0'}
-
-  file-uri-to-path@1.0.0:
-    resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
 
   find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
@@ -2261,9 +2245,6 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  nan@2.26.2:
-    resolution: {integrity: sha512-0tTvBTYkt3tdGw22nrAy50x7gpbGCCFH3AFcyS5WiUu7Eu4vWlri1woE6qHBSfy11vksDqkiwjOnlR7WV8G1Hw==}
-
   napi-postinstall@0.3.4:
     resolution: {integrity: sha512-PHI5f1O0EP5xJ9gQmFGMS6IZcrVvTjpXjz7Na41gTE7eE2hK11lg04CECCYEEjdc17EV4DO+fkGEtt7TpTaTiQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -2277,9 +2258,6 @@ packages:
 
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
-
-  node-postal@1.3.0:
-    resolution: {integrity: sha512-txzW8xa9mP68mSEM2YKoGc2VydJyY2ZYWVY/HSvbrsNNpoZcZTeQwSIXs004yNJNJ0Gdw0LOcEInVsXgNzvPdQ==}
 
   node-releases@2.0.37:
     resolution: {integrity: sha512-1h5gKZCF+pO/o3Iqt5Jp7wc9rH3eJJ0+nh/CIoiRwjRxde/hAHyLPXYN4V3CqKAbiZPSeJFSWHmJsbkicta0Eg==}
@@ -4021,8 +3999,6 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node-postal@1.1.3': {}
-
   '@types/node@24.12.2':
     dependencies:
       undici-types: 7.16.0
@@ -4430,11 +4406,6 @@ snapshots:
 
   baseline-browser-mapping@2.10.13: {}
 
-  bindings@1.5.0:
-    dependencies:
-      file-uri-to-path: 1.0.0
-    optional: true
-
   brace-expansion@1.1.13:
     dependencies:
       balanced-match: 1.0.2
@@ -4739,9 +4710,6 @@ snapshots:
   file-entry-cache@8.0.0:
     dependencies:
       flat-cache: 4.0.1
-
-  file-uri-to-path@1.0.0:
-    optional: true
 
   find-up@4.1.0:
     dependencies:
@@ -5355,9 +5323,6 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nan@2.26.2:
-    optional: true
-
   napi-postinstall@0.3.4: {}
 
   natural-compare@1.4.0: {}
@@ -5365,12 +5330,6 @@ snapshots:
   neo-async@2.6.2: {}
 
   node-int64@0.4.0: {}
-
-  node-postal@1.3.0:
-    dependencies:
-      bindings: 1.5.0
-      nan: 2.26.2
-    optional: true
 
   node-releases@2.0.37: {}
 
