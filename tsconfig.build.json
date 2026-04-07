@@ -3,8 +3,6 @@
   "compilerOptions": {
     "noEmit": false,
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
     "rootDir": "./lib",
     "outDir": "./dist",
     "module": "nodenext",
