@@ -1,9 +1,9 @@
-import objectInitialState from './object-initial-state'
+import objectInitialState from './object-initial-state.js'
 import type {
   AcceptAddressFormat,
   AddressObject,
   Validator,
-} from './types/address-format'
+} from './types/address-format.js'
 
 export const allowedTokens = Object.keys(objectInitialState)
 

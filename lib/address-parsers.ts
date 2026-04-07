@@ -2,7 +2,7 @@ import type {
   AddressFormatPart,
   AddressOutputFormat,
   ParserInterface,
-} from './types/address-format'
+} from './types/address-format.js'
 
 const arrayParser: ParserInterface<'array'> = (
   object,
