@@ -2859,8 +2859,6 @@ export const ZM: CountryFormat = {
   },
 }
 
-// Category C: Sovereign nations with established postal systems
-
 export const AO: CountryFormat = {
   default: {
     array: [
@@ -3086,16 +3084,13 @@ export {
 export { HR as RS, HR as SI }
 export { KR as KP }
 
-// Overseas territories — use parent country format
 export { NL as AW, NL as BQ, NL as CW, NL as SX }
 export { NZ as CK, NZ as NU, NZ as TK }
 export { GB as MS }
 
-// Regional defaults — GB-heritage (name first, no postal code)
 export { BW as AG, BW as DM, BW as GD, BW as GM, BW as LC }
 export { BW as SB, BW as SL, BW as SS, BW as TO, BW as VU, BW as WS }
 
-// Regional defaults — FR-heritage (company first, no postal code)
 export {
   CM as BI,
   CM as BJ,
