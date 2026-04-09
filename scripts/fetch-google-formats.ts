@@ -1,7 +1,8 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const SCRIPT_DIR = __dirname
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const BASE_URL = 'https://chromium-i18n.appspot.com/ssl-address/data'
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '.cache/google-formats.json')
 const DELAY_MS = 50

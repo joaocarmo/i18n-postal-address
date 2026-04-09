@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const SCRIPT_DIR = __dirname
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const INPUT_PATH = resolve(SCRIPT_DIR, '.cache/google-formats.json')
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '.cache/transformed-formats.json')
 
@@ -254,6 +255,6 @@ function main() {
   console.log(`Transformed ${count} countries → ${OUTPUT_PATH}`)
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main()
 }
