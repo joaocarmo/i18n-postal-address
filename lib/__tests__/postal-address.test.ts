@@ -51,14 +51,7 @@ Porto 4000-123`
 
 describe('Postal Address', () => {
   it('should be a valid constructor', () => {
-    expect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const myAddressPersonal = new PostalAddress({ formats: addressFormats })
-    }).not.toThrow()
-    expect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const myAddressBusiness = new PostalAddress({ formats: addressFormats })
-    }).not.toThrow()
+    expect(() => new PostalAddress({ formats: addressFormats })).not.toThrow()
   })
 
   it('should output a valid formatted postal address (PT)', () => {
