@@ -15,6 +15,7 @@ export type AddressParts =
   | 'givenName'
   | 'gu'
   | 'honorificPrefix'
+  | 'honorificSuffix'
   | 'jobTitle'
   | 'postalCode'
   | 'prefecture'

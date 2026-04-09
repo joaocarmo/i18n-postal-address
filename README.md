@@ -121,6 +121,7 @@ setFirstFamilyName(string)
 setGivenName(string)
 setGu(string)
 setHonorificPrefix(string)
+setHonorificSuffix(string)
 setJobTitle(string)
 setPostalCode(string)
 setPrefecture(string)
@@ -237,6 +238,7 @@ firstFamilyName
 givenName
 gu
 honorificPrefix
+honorificSuffix
 jobTitle
 postalCode
 prefecture

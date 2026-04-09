@@ -340,6 +340,7 @@ describe('Initial Value [full non-empty]', () => {
     givenName: 'John',
     gu: '',
     honorificPrefix: '',
+    honorificSuffix: '',
     jobTitle: '',
     familyName: 'Pestana',
     postalCode: '4000-123',
@@ -530,6 +531,51 @@ describe('Care Of', () => {
   })
 })
 
+describe('Honorific Suffix', () => {
+  it('should place suffix after familyName in US format', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setGivenName('John')
+      .setFamilyName('Smith')
+      .setHonorificSuffix('Jr.')
+      .setAddress1('123 Main St')
+      .setCity('Austin')
+      .setState('TX')
+      .setPostalCode('78752')
+
+    expect(myAddress.toArray()).toEqual([
+      ['John', 'Smith', 'Jr.'],
+      ['123 Main St'],
+      ['AUSTIN,', 'TX', '78752'],
+    ])
+  })
+
+  it('should place suffix before familyName in Hungarian format', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setHonorificSuffix('ifj.')
+      .setFamilyName('Kovács')
+      .setGivenName('János')
+      .setAddress1('Fő utca 1')
+      .setCity('Budapest')
+      .setPostalCode('1011')
+      .setFormat({ country: 'HU' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['ifj.', 'Kovács', 'János'],
+      ['BUDAPEST'],
+      ['Fő utca 1'],
+      ['1011'],
+    ])
+  })
+})
+
 describe('getAddressFormat', () => {
   it('should return the format array for a known country', () => {
     const myAddress = new PostalAddress({
@@ -539,7 +585,7 @@ describe('getAddressFormat', () => {
     const format = myAddress.getAddressFormat({ country: 'KR' })
 
     expect(format).toEqual([
-      ['familyName', 'givenName', 'honorificPrefix'],
+      ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
       ['do', 'si', 'dong', 'gu', 'addressNum'],
