@@ -82,10 +82,6 @@ export interface ParserInterface<T extends keyof AddressOutputFormats> {
   ): AddressOutputFormats[T]
 }
 
-export interface Validator<K = string> {
-  (string: K): boolean
-}
-
 export type OutputFormat = keyof AddressOutputFormats
 
 export type FormatTypes =

@@ -13,14 +13,12 @@ import type {
   OutputFormat,
   ParserInterface,
   PostalAddressOptions,
-  Validator,
 } from './types/address-format.js'
 import allAddressParsers from './address-parsers.js'
 import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
-  parseValidator,
 } from './utils.js'
 import untypedCountries from './data/countries.json' with { type: 'json' }
 
@@ -36,10 +34,6 @@ class PostalAddress implements PostalAddressInterface {
   private useTransforms: boolean
 
   private object: AddressObject
-
-  private validators: {
-    [key in keyof ClassProperties]: Validator<ClassProperties[key]>
-  }
 
   private allowed: {
     [key in keyof ClassProperties]: ClassProperties[key][]
@@ -87,13 +81,6 @@ class PostalAddress implements PostalAddressInterface {
     this.useTransforms = true
     // The object properties that can be set
     this.object = constructInitialObject()
-    // Validator functions
-    this.validators = {
-      formatForCountry: (value) =>
-        this.allowed.formatForCountry.includes(value),
-      formatForType: (value) => this.allowed.formatForType.includes(value),
-      outputFormat: (value) => this.allowed.outputFormat.includes(value),
-    }
     // Allowed values
     this.allowed = {
       formatForCountry: formatKeys,
@@ -351,11 +338,10 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public setOutputFormat(format: OutputFormat): this {
-    this.outputFormat = parseValidator(
-      this.outputFormat,
-      format,
-      this.validators.outputFormat,
-    )
+    if (!this.allowed.outputFormat.includes(format)) {
+      throw new PostalAddressError(`Output format "${format}" is not valid`)
+    }
+    this.outputFormat = format
     return this
   }
 
