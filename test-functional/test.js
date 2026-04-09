@@ -14,7 +14,7 @@ const console = ((_console) => ({
 
 const myAddressPersonal = new PostalAddress({
   formats: addressFormats,
-  country: 'US',
+  defaultFormat: 'US',
 })
 
 myAddressPersonal
@@ -33,7 +33,7 @@ myAddressPersonal
 
 const myAddressBusiness = new PostalAddress({
   formats: addressFormats,
-  country: 'US',
+  defaultFormat: 'US',
 })
 
 myAddressBusiness
@@ -65,7 +65,7 @@ console.log(myAddressPersonal.output())
 console.log(myAddressBusiness.toString())
 
 // prettier-ignore
-const myCustomAddress = new PostalAddress({ formats: addressFormats, country: 'US' }).addFormat({
+const myCustomAddress = new PostalAddress({ formats: addressFormats, defaultFormat: 'US' }).addFormat({
   country: 'GB',
   format: [
     ['address1'],
