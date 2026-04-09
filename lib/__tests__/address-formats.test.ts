@@ -1,4 +1,4 @@
-import addressFormats from '../address-formats'
+import { addressFormats } from '../index'
 
 describe('Address Formats', () => {
   it('should contain a "default" key', () => {

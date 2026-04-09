@@ -25,7 +25,29 @@ pnpm add i18n-postal-address
 ```js
 import PostalAddress, { addressFormats } from 'i18n-postal-address'
 
-const myAddress = new PostalAddress()
+// Load all country formats
+const myAddress = new PostalAddress({
+  formats: addressFormats,
+  defaultFormat: 'US',
+})
+```
+
+### Tree-shakeable imports
+
+Import only the countries you need to reduce bundle size:
+
+```js
+import PostalAddress from 'i18n-postal-address'
+import { US, PT } from 'i18n-postal-address/formats'
+
+// Multiple formats require a defaultFormat
+const myAddress = new PostalAddress({
+  formats: { US, PT },
+  defaultFormat: 'US',
+})
+
+// Single format auto-defaults
+const ptAddress = new PostalAddress({ formats: { PT } })
 ```
 
 ## Example
@@ -33,7 +55,12 @@ const myAddress = new PostalAddress()
 The methods can be chained one after the other for a cleaner code.
 
 ```js
-const myAddressPersonal = new PostalAddress()
+import PostalAddress, { addressFormats } from 'i18n-postal-address'
+
+const myAddressPersonal = new PostalAddress({
+  formats: addressFormats,
+  defaultFormat: 'US',
+})
 
 myAddressPersonal
   .setAddress1('Rua do Pastel, 19')
@@ -120,7 +147,10 @@ These affect the output format
   useTransforms: true | false
 */
 
-const postalAddress = new PostalAddress()
+const postalAddress = new PostalAddress({
+  formats: addressFormats,
+  defaultFormat: 'US',
+})
 
 postalAddress.setFormat({ country, type, useTransforms })
 ```
@@ -130,7 +160,10 @@ postalAddress.setFormat({ country, type, useTransforms })
 You can retrieve the format definition for any country programmatically.
 
 ```js
-const postalAddress = new PostalAddress()
+const postalAddress = new PostalAddress({
+  formats: addressFormats,
+  defaultFormat: 'US',
+})
 
 // Get the format for a country (returns the array of address parts)
 const format = postalAddress.getAddressFormat({ country: 'KR' })
@@ -170,7 +203,10 @@ Additional formats can be added or existing ones can be replaced
 
 const addCommaAfter = (value) => `${value},`
 
-const postalAddress = new PostalAddress()
+const postalAddress = new PostalAddress({
+  formats: addressFormats,
+  defaultFormat: 'US',
+})
 
 postalAddress.addFormat({
   country: 'PT',

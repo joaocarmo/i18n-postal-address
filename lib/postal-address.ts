@@ -6,29 +6,21 @@ import type {
   AddressFormats,
   AddressObject,
   AddressOutputFormat,
-  AddressOutputFormats,
-  AvailableAddressFormat,
   ClassProperties,
   FormatTypes,
-  OutputFormat,
-  ParserInterface,
-  Validator,
+  PostalAddressOptions,
 } from './types/address-format.js'
-import allAddressFormats from './address-formats.js'
-import allAddressParsers from './address-parsers.js'
+import arrayParser from './address-parsers.js'
 import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
-  parseValidator,
 } from './utils.js'
 import untypedCountries from './data/countries.json' with { type: 'json' }
 
 const countries: Record<string, string> = untypedCountries
 
 class PostalAddress implements PostalAddressInterface {
-  private outputFormat: OutputFormat
-
   private formatForCountry: string
 
   private formatForType: FormatTypes
@@ -37,19 +29,11 @@ class PostalAddress implements PostalAddressInterface {
 
   private object: AddressObject
 
-  private validators: {
-    [key in keyof ClassProperties]: Validator<ClassProperties[key]>
-  }
-
   private allowed: {
     [key in keyof ClassProperties]: ClassProperties[key][]
   }
 
   private addressFormats: AddressFormats
-
-  private addressParsers: {
-    [key in AvailableAddressFormat]: ParserInterface<key> | null
-  }
 
   /**
    * If `true`, changes to one property will propagate to related properties.
@@ -57,89 +41,56 @@ class PostalAddress implements PostalAddressInterface {
    */
   private propagateToRelatedProperties: boolean = true
 
-  public constructor(presetState?: Partial<AddressObject>) {
-    // Possible values: 'array' | 'string'
-    this.outputFormat = 'array'
-    // 2-letter country code
-    this.formatForCountry = 'US'
-    // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
+  public constructor(options: PostalAddressOptions) {
+    const { formats, defaultFormat } = options
+    const formatKeys = Object.keys(formats)
+
+    if (formatKeys.length === 0) {
+      throw new PostalAddressError('At least one format must be provided')
+    }
+
+    if (formatKeys.length >= 2 && !defaultFormat) {
+      throw new PostalAddressError(
+        'Multiple formats provided, but no default format specified',
+      )
+    }
+
+    if (defaultFormat && !formatKeys.includes(defaultFormat)) {
+      throw new PostalAddressError(
+        `Default format "${defaultFormat}" is not in the provided formats`,
+      )
+    }
+
+    this.formatForCountry = defaultFormat ?? formatKeys[0]
     this.formatForType = 'default'
-    // Transform input data or keep it as is
     this.useTransforms = true
-    // The object properties that can be set
-    this.object = constructInitialObject(
-      typeof presetState === 'object' ? presetState : undefined,
-    )
-    // Validator functions
-    this.validators = {
-      formatForCountry: (value) =>
-        this.allowed.formatForCountry.includes(value),
-      formatForType: (value) => this.allowed.formatForType.includes(value),
-      outputFormat: (value) => this.allowed.outputFormat.includes(value),
-    }
-    // Allowed values
+    this.object = constructInitialObject()
     this.allowed = {
-      formatForCountry: Object.keys(allAddressFormats),
+      formatForCountry: formatKeys,
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
-      outputFormat: ['array', 'string'],
     }
-    // Address formats
-    this.addressFormats = allAddressFormats
-    // Parsers
-    this.addressParsers = allAddressParsers
+    this.addressFormats = formats
   }
 
-  private getFormat<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): AcceptAddressFormat | null {
-    const { outputFormat, formatForCountry, formatForType, addressFormats } =
-      this
-
-    const format = overrideFormat || outputFormat
-    let formatsAvailable = addressFormats[formatForCountry]
+  private getFormat(): AcceptAddressFormat | null {
+    const { formatForCountry, formatForType, addressFormats } = this
+    const formatsAvailable = addressFormats[formatForCountry]
 
     if (!formatsAvailable) {
-      // Default to the US format
-      formatsAvailable = addressFormats?.US
+      return null
     }
 
     const outputType =
       formatsAvailable?.[formatForType] || formatsAvailable?.default
 
-    if (outputType?.[format]) {
-      return outputType[format]
-    }
-
-    if (outputType?.array) {
-      return outputType.array
-    }
-
-    return null
+    return outputType?.array ?? null
   }
 
-  private getParser<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): ParserInterface<T> | null {
-    const { outputFormat, addressParsers } = this
-    const format = overrideFormat || outputFormat
+  private format(): AddressOutputFormat | null {
+    const format = this.getFormat()
 
-    if (addressParsers[format]) {
-      return addressParsers[format]
-    }
-
-    return null
-  }
-
-  public output<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): AddressOutputFormats[T] | null {
-    const { useTransforms } = this
-
-    const outputFormat = this.getFormat(overrideFormat)
-    const outputParser = this.getParser(overrideFormat)
-
-    if (typeof outputParser === 'function' && outputFormat) {
-      return outputParser(this.object, outputFormat, useTransforms)
+    if (format) {
+      return arrayParser(this.object, format, this.useTransforms)
     }
 
     return null
@@ -334,15 +285,6 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setOutputFormat(format: OutputFormat): this {
-    this.outputFormat = parseValidator(
-      this.outputFormat,
-      format,
-      this.validators.outputFormat,
-    )
-    return this
-  }
-
   public setFormat({
     country,
     type,
@@ -353,18 +295,18 @@ class PostalAddress implements PostalAddressInterface {
     useTransforms?: boolean
   }): this {
     if (typeof country === 'string') {
-      this.formatForCountry = parseValidator(
-        this.formatForCountry,
-        country,
-        this.validators.formatForCountry,
-      )
+      if (!this.allowed.formatForCountry.includes(country)) {
+        throw new PostalAddressError(
+          `Country "${country}" is not in the provided formats`,
+        )
+      }
+      this.formatForCountry = country
     }
     if (typeof type === 'string') {
-      this.formatForType = parseValidator(
-        this.formatForType,
-        type,
-        this.validators.formatForType,
-      )
+      if (!this.allowed.formatForType.includes(type)) {
+        throw new PostalAddressError(`Format type "${type}" is not valid`)
+      }
+      this.formatForType = type
     }
     if (typeof useTransforms === 'boolean') {
       this.useTransforms = useTransforms
@@ -434,7 +376,7 @@ class PostalAddress implements PostalAddressInterface {
     type?: FormatTypes
   }): AcceptAddressFormat | null {
     const { addressFormats } = this
-    const formatsAvailable = addressFormats[country] || addressFormats?.US
+    const formatsAvailable = addressFormats[country]
 
     const outputType = formatsAvailable?.[type] || formatsAvailable?.default
 
@@ -442,7 +384,7 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public toArray(): AddressOutputFormat {
-    return this.output('array') || []
+    return this.format() || []
   }
 
   public toObject(): AddressObject {
@@ -457,13 +399,6 @@ class PostalAddress implements PostalAddressInterface {
     }
 
     return ''
-  }
-
-  /**
-   * @deprecated Use `toObject` instead.
-   */
-  public raw(): AddressObject {
-    return this.toObject()
   }
 }
 

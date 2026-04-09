@@ -1,15 +1,21 @@
 import type {
+  AcceptAddressFormat,
   AddFormatArgs,
   AddressObject,
   AddressOutputFormat,
-  AddressOutputFormats,
-  AvailableAddressFormat,
   FormatTypes,
-  OutputFormat,
 } from './address-format.js'
 
 export default interface PostalAddressInterface {
   addFormat({ country, format, parser, type }: AddFormatArgs): this
+  fromObject(presetState: Partial<AddressObject>): this
+  getAddressFormat({
+    country,
+    type,
+  }: {
+    country: string
+    type?: FormatTypes
+  }): AcceptAddressFormat | null
   setAddress(newValue: string): this
   setAddress1(newValue: string): this
   setAddress2(newValue: string): this
@@ -37,7 +43,6 @@ export default interface PostalAddressInterface {
   setState(newValue: string): this
   setTitle(newValue: string): this
   setPropagation(propagate: boolean): this
-  setOutputFormat(string: OutputFormat): this
   setFormat({
     country,
     type,
@@ -47,10 +52,6 @@ export default interface PostalAddressInterface {
     type?: FormatTypes
     useTransforms?: boolean
   }): this
-  output<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): AddressOutputFormats[T] | null
-  raw(): AddressObject
   toArray(): AddressOutputFormat
   toObject(): AddressObject
   toString(): string

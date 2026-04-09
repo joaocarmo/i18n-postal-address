@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import addressFormats from '../lib/address-formats'
+import * as formats from '../lib/formats/index'
+
+const addressFormats = { ...formats }
 
 const SCRIPT_DIR = __dirname
 const TRANSFORMED_PATH = resolve(SCRIPT_DIR, '.cache/transformed-formats.json')
