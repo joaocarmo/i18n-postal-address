@@ -2859,6 +2859,217 @@ export const ZM: CountryFormat = {
   },
 }
 
+export const AO: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const BW: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const BZ: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const CM: CountryFormat = {
+  default: {
+    array: [
+      ['companyName'],
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const FJ: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const GH: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['city', 'postalCode'],
+      [{ attribute: 'region', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const LY: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const PS: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }, 'postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const QA: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const SY: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const TL: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['city', 'postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const TT: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }, 'postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const UG: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['postalCode', { attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const YE: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const ZW: CountryFormat = {
+  default: {
+    array: [
+      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
 export {
   AR as BO,
   AR as CL,
@@ -2872,3 +3083,29 @@ export {
 }
 export { HR as RS, HR as SI }
 export { KR as KP }
+
+export { NL as AW, NL as BQ, NL as CW, NL as SX }
+export { NZ as CK, NZ as NU, NZ as TK }
+export { GB as MS }
+
+export { BW as AG, BW as DM, BW as GD, BW as GM, BW as LC }
+export { BW as SB, BW as SL, BW as SS, BW as TO, BW as VU, BW as WS }
+
+export {
+  CM as BI,
+  CM as BJ,
+  CM as CD,
+  CM as CF,
+  CM as CG,
+  CM as DJ,
+  CM as ER,
+  CM as GA,
+  CM as GQ,
+  CM as KM,
+  CM as ML,
+  CM as MR,
+  CM as RW,
+  CM as ST,
+  CM as TD,
+  CM as TG,
+}
