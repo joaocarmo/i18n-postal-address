@@ -52,7 +52,6 @@ console.log(myAddressPersonal.output())
 
 myAddressPersonal.setFormat({
   country: 'US',
-  type: '',
   useTransforms: true,
 })
 

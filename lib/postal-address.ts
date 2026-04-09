@@ -369,18 +369,18 @@ class PostalAddress implements PostalAddressInterface {
     useTransforms?: boolean
   }): this {
     if (typeof country === 'string') {
-      this.formatForCountry = parseValidator(
-        this.formatForCountry,
-        country,
-        this.validators.formatForCountry,
-      )
+      if (!this.allowed.formatForCountry.includes(country)) {
+        throw new PostalAddressError(
+          `Country "${country}" is not in the provided formats`,
+        )
+      }
+      this.formatForCountry = country
     }
     if (typeof type === 'string') {
-      this.formatForType = parseValidator(
-        this.formatForType,
-        type,
-        this.validators.formatForType,
-      )
+      if (!this.allowed.formatForType.includes(type)) {
+        throw new PostalAddressError(`Format type "${type}" is not valid`)
+      }
+      this.formatForType = type
     }
     if (typeof useTransforms === 'boolean') {
       this.useTransforms = useTransforms
