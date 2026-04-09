@@ -255,4 +255,6 @@ function main() {
   console.log(`Transformed ${count} countries → ${OUTPUT_PATH}`)
 }
 
-main()
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main()
+}
