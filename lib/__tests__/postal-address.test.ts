@@ -574,6 +574,31 @@ describe('Honorific Suffix', () => {
       ['1011'],
     ])
   })
+
+  it('should place suffix after secondFamilyName in Argentine format', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setGivenName('Gabriel')
+      .setFirstFamilyName('García')
+      .setSecondFamilyName('Marcos')
+      .setHonorificSuffix('h.')
+      .setAddress1('Av. Corrientes 1234')
+      .setCity('Buenos Aires')
+      .setPostalCode('C1043')
+      .setState('CABA')
+      .setFormat({ country: 'AR' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['Gabriel', 'García'],
+      ['Marcos', 'h.'],
+      ['Av. Corrientes 1234'],
+      ['C1043', 'BUENOS AIRES'],
+      ['CABA'],
+    ])
+  })
 })
 
 describe('getAddressFormat', () => {
