@@ -48,18 +48,18 @@ myAddressBusiness
     type: 'business',
   })
 
-console.log(myAddressPersonal.output())
+console.log(myAddressPersonal.toArray())
 
 myAddressPersonal.setFormat({
   country: 'US',
   useTransforms: true,
 })
 
-console.log(myAddressPersonal.output())
+console.log(myAddressPersonal.toArray())
 
 myAddressPersonal.setFormat({ useTransforms: false })
 
-console.log(myAddressPersonal.output())
+console.log(myAddressPersonal.toArray())
 
 console.log(myAddressBusiness.toString())
 

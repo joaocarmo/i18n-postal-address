@@ -6,15 +6,12 @@ import type {
   AddressFormats,
   AddressObject,
   AddressOutputFormat,
-  AddressOutputFormats,
-  AvailableAddressFormat,
   ClassProperties,
   FormatTypes,
-  OutputFormat,
   ParserInterface,
   PostalAddressOptions,
 } from './types/address-format.js'
-import allAddressParsers from './address-parsers.js'
+import arrayParser from './address-parsers.js'
 import {
   constructInitialObject,
   containsValidTokens,
@@ -25,8 +22,6 @@ import untypedCountries from './data/countries.json' with { type: 'json' }
 const countries: Record<string, string> = untypedCountries
 
 class PostalAddress implements PostalAddressInterface {
-  private outputFormat: OutputFormat
-
   private formatForCountry: string
 
   private formatForType: FormatTypes
@@ -41,9 +36,7 @@ class PostalAddress implements PostalAddressInterface {
 
   private addressFormats: AddressFormats
 
-  private addressParsers: {
-    [key in AvailableAddressFormat]: ParserInterface<key> | null
-  }
+  private addressParser: ParserInterface
 
   /**
    * If `true`, changes to one property will propagate to related properties.
@@ -71,35 +64,20 @@ class PostalAddress implements PostalAddressInterface {
       )
     }
 
-    // Possible values: 'array' | 'string'
-    this.outputFormat = 'array'
-    // 2-letter country code
     this.formatForCountry = defaultFormat ?? formatKeys[0]
-    // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
     this.formatForType = 'default'
-    // Transform input data or keep it as is
     this.useTransforms = true
-    // The object properties that can be set
     this.object = constructInitialObject()
-    // Allowed values
     this.allowed = {
       formatForCountry: formatKeys,
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
-      outputFormat: ['array', 'string'],
     }
-    // Address formats
     this.addressFormats = formats
-    // Parsers
-    this.addressParsers = allAddressParsers
+    this.addressParser = arrayParser
   }
 
-  private getFormat<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): AcceptAddressFormat | null {
-    const { outputFormat, formatForCountry, formatForType, addressFormats } =
-      this
-
-    const format = overrideFormat || outputFormat
+  private getFormat(): AcceptAddressFormat | null {
+    const { formatForCountry, formatForType, addressFormats } = this
     const formatsAvailable = addressFormats[formatForCountry]
 
     if (!formatsAvailable) {
@@ -109,40 +87,14 @@ class PostalAddress implements PostalAddressInterface {
     const outputType =
       formatsAvailable?.[formatForType] || formatsAvailable?.default
 
-    if (outputType?.[format]) {
-      return outputType[format]
-    }
-
-    if (outputType?.array) {
-      return outputType.array
-    }
-
-    return null
+    return outputType?.array ?? null
   }
 
-  private getParser<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): ParserInterface<T> | null {
-    const { outputFormat, addressParsers } = this
-    const format = overrideFormat || outputFormat
+  private format(): AddressOutputFormat | null {
+    const format = this.getFormat()
 
-    if (addressParsers[format]) {
-      return addressParsers[format]
-    }
-
-    return null
-  }
-
-  public output<T extends AvailableAddressFormat>(
-    overrideFormat: T,
-  ): AddressOutputFormats[T] | null {
-    const { useTransforms } = this
-
-    const outputFormat = this.getFormat(overrideFormat)
-    const outputParser = this.getParser(overrideFormat)
-
-    if (typeof outputParser === 'function' && outputFormat) {
-      return outputParser(this.object, outputFormat, useTransforms)
+    if (format) {
+      return this.addressParser(this.object, format, this.useTransforms)
     }
 
     return null
@@ -337,14 +289,6 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setOutputFormat(format: OutputFormat): this {
-    if (!this.allowed.outputFormat.includes(format)) {
-      throw new PostalAddressError(`Output format "${format}" is not valid`)
-    }
-    this.outputFormat = format
-    return this
-  }
-
   public setFormat({
     country,
     type,
@@ -444,7 +388,7 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public toArray(): AddressOutputFormat {
-    return this.output('array') || []
+    return this.format() || []
   }
 
   public toObject(): AddressObject {

@@ -47,12 +47,9 @@ export type AddressFormatPart = keyof AddressObject | AddressFormatOptions
 
 export interface AddressFormat {
   array?: AddressFormatPart[][]
-  string?: string
 }
 
 export type AcceptAddressFormat = AddressFormat[keyof AddressFormat]
-
-export type AvailableAddressFormat = keyof AddressFormat
 
 export interface AddFormatArgs {
   country: string
@@ -69,20 +66,13 @@ export interface AddressFormats {
 
 export type AddressOutputFormat = string[][]
 
-export type AddressOutputFormats = {
-  array: AddressOutputFormat
-  string: string
-}
-
-export interface ParserInterface<T extends keyof AddressOutputFormats> {
+export interface ParserInterface {
   (
     object: AddressObject,
     format: AcceptAddressFormat,
     useTransforms: boolean,
-  ): AddressOutputFormats[T]
+  ): AddressOutputFormat
 }
-
-export type OutputFormat = keyof AddressOutputFormats
 
 export type FormatTypes =
   | 'business'
@@ -94,7 +84,6 @@ export type FormatTypes =
 export type ClassProperties = {
   formatForCountry: string
   formatForType: FormatTypes
-  outputFormat: OutputFormat
 }
 
 export interface PostalAddressOptions {
