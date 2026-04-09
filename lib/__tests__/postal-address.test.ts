@@ -23,7 +23,7 @@ AUSTIN, TX 78752`
 const customFormatOverwrite: AddFormatArgs = {
   country: 'RU',
   format: [
-    [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],
+    [{ attribute: 'familyName', transforms: [addCommaAfter] }, 'givenName'],
     ['city', 'postalCode'],
     ['country'],
   ],
@@ -108,14 +108,14 @@ describe('Constructor', () => {
     addr.addFormat({
       country: 'US',
       format: [
-        ['firstName', 'lastName'],
+        ['givenName', 'familyName'],
         ['address1'],
         ['city', 'state', 'postalCode'],
       ],
     })
 
     // 4. Default remains PT
-    addr.setFirstName('John').setLastName('Doe')
+    addr.setGivenName('John').setFamilyName('Doe')
     const outputBeforeSwitch = addr.toString()
     expect(outputBeforeSwitch).toContain('Lisboa')
 
@@ -123,7 +123,7 @@ describe('Constructor', () => {
     // 5.1. We can now switch to US (opposed to 2.1)
     addr.setFormat({ country: 'US' })
     const outputAfterSwitch = addr.toArray()
-    // US custom format puts firstName/lastName on first line
+    // US custom format puts givenName/familyName on first line
     expect(outputAfterSwitch[0]).toEqual(['John', 'Doe'])
   })
 
@@ -223,7 +223,7 @@ describe('Custom Formats', () => {
       {
         country: 'PT',
         format: [
-          [{ attribute: 'lastName' }, 'firstName'],
+          [{ attribute: 'familyName' }, 'givenName'],
           ['town', 'postalCode'],
           ['country'],
         ],
@@ -268,7 +268,7 @@ describe('Custom Formats', () => {
 
     expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
 
-    myAddressBusiness.setFirstName('John').setLastName('Pestana')
+    myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputOverwrite)
   })
@@ -299,7 +299,7 @@ describe('Custom Formats', () => {
 
     expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
 
-    myAddressBusiness.setFirstName('John').setLastName('Pestana')
+    myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputNew)
   })
@@ -336,19 +336,19 @@ describe('Initial Value [full non-empty]', () => {
     countryAlpha2: 'PT',
     do: '',
     dong: 'Happy Park',
-    firstLastName: '',
-    firstName: 'John',
+    firstFamilyName: '',
+    givenName: 'John',
     gu: '',
-    honorific: '',
+    honorificPrefix: '',
     jobTitle: '',
-    lastName: 'Pestana',
+    familyName: 'Pestana',
     postalCode: '4000-123',
     prefecture: '',
     province: '',
     region: '',
     republic: '',
-    secondLastName: 'Pestana',
-    secondName: '',
+    secondFamilyName: 'Pestana',
+    additionalName: '',
     si: 'Porto',
     state: '',
     title: '',
@@ -394,10 +394,10 @@ describe('Initial Value [partial non-empty]', () => {
     country: 'Portugal',
     countryAlpha2: 'PT',
     dong: 'Happy Park',
-    firstName: 'John',
-    lastName: 'Pestana',
+    givenName: 'John',
+    familyName: 'Pestana',
     postalCode: '4000-123',
-    secondLastName: 'Pestana',
+    secondFamilyName: 'Pestana',
     si: 'Porto',
   }
   const myAddress = new PostalAddress({
@@ -442,8 +442,8 @@ describe('Korean Address Format', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setLastName('Kim')
-      .setFirstName('Seojun')
+      .setFamilyName('Kim')
+      .setGivenName('Seojun')
       .setCompanyName('Samsung')
       .setDo('Seoul')
       .setSi('Gangnam-gu')
@@ -467,8 +467,8 @@ describe('Korean Address Format', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setLastName('Kim')
-      .setFirstName('Seojun')
+      .setFamilyName('Kim')
+      .setGivenName('Seojun')
       .setProvince('Seoul')
       .setCity('Gangnam-gu')
       .setAddress1('Seolleung-dong')
@@ -493,8 +493,8 @@ describe('Care Of', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setFirstName('John')
-      .setLastName('Doe')
+      .setGivenName('John')
+      .setFamilyName('Doe')
       .setCareOf('c/o Jane Smith')
       .setAddress1('123 Main St')
       .setCity('Austin')
@@ -516,8 +516,8 @@ describe('Care Of', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setFirstName('John')
-      .setLastName('Doe')
+      .setGivenName('John')
+      .setFamilyName('Doe')
       .setAddress1('123 Main St')
       .setCity('Austin')
       .setState('TX')
@@ -539,7 +539,7 @@ describe('getAddressFormat', () => {
     const format = myAddress.getAddressFormat({ country: 'KR' })
 
     expect(format).toEqual([
-      ['lastName', 'firstName', 'honorific'],
+      ['familyName', 'givenName', 'honorificPrefix'],
       ['companyName'],
       ['careOf'],
       ['do', 'si', 'dong', 'gu', 'addressNum'],
@@ -594,7 +594,7 @@ describe('getAddressFormat', () => {
       defaultFormat: 'US',
     })
     const customFormat = [
-      ['lastName', 'firstName'],
+      ['familyName', 'givenName'],
       ['city', 'postalCode'],
     ]
     myAddress.addFormat({
@@ -619,14 +619,14 @@ describe('Propagation', () => {
       defaultFormat: 'US',
     })
 
-    myAddress.setLastName('Smith')
-    expect(myAddress.toObject().lastName).toBe('Smith')
-    expect(myAddress.toObject().secondLastName).toBe('Smith')
+    myAddress.setFamilyName('Smith')
+    expect(myAddress.toObject().familyName).toBe('Smith')
+    expect(myAddress.toObject().secondFamilyName).toBe('Smith')
 
     myAddress.setPropagation(false)
 
-    myAddress.setLastName('Doe')
-    expect(myAddress.toObject().lastName).toBe('Doe')
-    expect(myAddress.toObject().secondLastName).toBe('Smith')
+    myAddress.setFamilyName('Doe')
+    expect(myAddress.toObject().familyName).toBe('Doe')
+    expect(myAddress.toObject().secondFamilyName).toBe('Smith')
   })
 })

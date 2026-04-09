@@ -16,6 +16,7 @@ export default interface PostalAddressInterface {
     country: string
     type?: FormatTypes
   }): AcceptAddressFormat | null
+  setAdditionalName(newValue: string): this
   setAddress(newValue: string): this
   setAddress1(newValue: string): this
   setAddress2(newValue: string): this
@@ -26,19 +27,18 @@ export default interface PostalAddressInterface {
   setCountry(newValue: string): this
   setDo(newValue: string): this
   setDong(newValue: string): this
-  setFirstLastName(newValue: string): this
-  setFirstName(newValue: string): this
+  setFamilyName(newValue: string): this
+  setFirstFamilyName(newValue: string): this
+  setGivenName(newValue: string): this
   setGu(newValue: string): this
-  setHonorific(newValue: string): this
+  setHonorificPrefix(newValue: string): this
   setJobTitle(newValue: string): this
-  setLastName(newValue: string): this
   setPostalCode(newValue: string): this
   setPrefecture(newValue: string): this
   setProvince(newValue: string): this
   setRegion(newValue: string): this
   setRepublic(newValue: string): this
-  setSecondLastName(newValue: string): this
-  setSecondName(newValue: string): this
+  setSecondFamilyName(newValue: string): this
   setSi(newValue: string): this
   setState(newValue: string): this
   setTitle(newValue: string): this
@@ -55,4 +55,17 @@ export default interface PostalAddressInterface {
   toArray(): AddressOutputFormat
   toObject(): AddressObject
   toString(): string
+
+  /** @deprecated Use `setGivenName` instead */
+  setFirstName(newValue: string): this
+  /** @deprecated Use `setFamilyName` instead */
+  setLastName(newValue: string): this
+  /** @deprecated Use `setAdditionalName` instead */
+  setSecondName(newValue: string): this
+  /** @deprecated Use `setFirstFamilyName` instead */
+  setFirstLastName(newValue: string): this
+  /** @deprecated Use `setSecondFamilyName` instead */
+  setSecondLastName(newValue: string): this
+  /** @deprecated Use `setHonorificPrefix` instead */
+  setHonorific(newValue: string): this
 }

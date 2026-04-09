@@ -21,11 +21,11 @@ myAddressPersonal
   .setAddress1('Rua do Pastel, 19')
   .setCity('Aveiro')
   .setCountry('Brazil')
-  .setFirstName('John')
-  .setHonorific('Mr.')
-  .setLastName('Pestana')
+  .setGivenName('John')
+  .setHonorificPrefix('Mr.')
+  .setFamilyName('Pestana')
   .setPostalCode('2700-242')
-  .setSecondName('Lopes')
+  .setAdditionalName('Lopes')
   .setFormat({
     country: 'NO',
     type: 'personal',

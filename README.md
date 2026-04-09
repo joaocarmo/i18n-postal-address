@@ -66,11 +66,11 @@ myAddressPersonal
   .setAddress1('Rua do Pastel, 19')
   .setCity('Aveiro')
   .setCountry('Portugal')
-  .setFirstName('John')
-  .setHonorific('Mr.')
-  .setLastName('Pestana')
+  .setGivenName('John')
+  .setHonorificPrefix('Mr.')
+  .setFamilyName('Pestana')
   .setPostalCode('2700-242')
-  .setSecondName('Lopes')
+  .setAdditionalName('Lopes')
   .setFormat({
     country: 'AR',
     type: 'personal',
@@ -106,6 +106,7 @@ PORTUGAL
 ### Address Attributes
 
 ```js
+setAdditionalName(string)
 setAddress1(string)
 setAddress2(string)
 setAddressNum(string)
@@ -115,19 +116,18 @@ setCompanyName(string)
 setCountry(string)
 setDo(string)
 setDong(string)
-setFirstLastName(string)
-setFirstName(string)
+setFamilyName(string)
+setFirstFamilyName(string)
+setGivenName(string)
 setGu(string)
-setHonorific(string)
+setHonorificPrefix(string)
 setJobTitle(string)
-setLastName(string)
 setPostalCode(string)
 setPrefecture(string)
 setProvince(string)
 setRegion(string)
 setRepublic(string)
-setSecondLastName(string)
-setSecondName(string)
+setSecondFamilyName(string)
 setSi(string)
 setState(string)
 setTitle(string)
@@ -167,7 +167,7 @@ const postalAddress = new PostalAddress({
 
 // Get the format for a country (returns the array of address parts)
 const format = postalAddress.getAddressFormat({ country: 'KR' })
-// => [['lastName', 'firstName', 'honorific'], ['companyName'], ...]
+// => [['familyName', 'givenName', 'honorificPrefix'], ['companyName'], ...]
 
 // Get a specific format type
 const businessFormat = postalAddress.getAddressFormat({
@@ -211,7 +211,7 @@ const postalAddress = new PostalAddress({
 postalAddress.addFormat({
   country: 'PT',
   format: [
-    [{ attribute: 'lastName', transforms: [addCommaAfter] }, 'firstName'],
+    [{ attribute: 'familyName', transforms: [addCommaAfter] }, 'givenName'],
     ['city', 'postalCode'],
     ['country'],
   ],
@@ -221,6 +221,7 @@ postalAddress.addFormat({
 #### Valid attributes
 
 ```txt
+additionalName
 address1
 address2
 addressNum
@@ -231,19 +232,18 @@ country
 countryAlpha2
 do
 dong
-firstLastName
-firstName
+familyName
+firstFamilyName
+givenName
 gu
-honorific
+honorificPrefix
 jobTitle
-lastName
 postalCode
 prefecture
 province
 region
 republic
-secondLastName
-secondName
+secondFamilyName
 si
 state
 title

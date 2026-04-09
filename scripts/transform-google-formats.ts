@@ -129,7 +129,7 @@ export function parseFmtLine(
     if (token === '%X') continue // skip sorting code
 
     if (token === '%N') {
-      parts.push('honorific', 'firstName', 'secondName', 'lastName')
+      parts.push('honorificPrefix', 'givenName', 'additionalName', 'familyName')
       continue
     }
 
