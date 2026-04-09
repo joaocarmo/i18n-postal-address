@@ -53,14 +53,10 @@ Happy Park
 Porto 4000-123`
 
 describe('Constructor', () => {
-  it('should not throw with no options', () => {
-    expect(() => new PostalAddress()).not.toThrow()
-  })
-
-  it('should produce empty output with no formats', () => {
-    const addr = new PostalAddress()
-    expect(addr.toString()).toBe('')
-    expect(addr.toArray()).toEqual([])
+  it('should throw when no formats are provided', () => {
+    expect(() => new PostalAddress({ formats: {} })).toThrow(
+      'At least one format must be provided',
+    )
   })
 
   it('should auto-default to the single format country', () => {
