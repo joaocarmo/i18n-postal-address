@@ -4,7 +4,7 @@
 ![Tests](https://github.com/joaocarmo/i18n-postal-address/workflows/Tests/badge.svg)
 
 A JavaScript library to produce international postal addresses formatted by
-region for Node.js and the web. Supports **199 countries** with format data
+region for Node.js and the web. Supports **249 countries and territories** with format data
 sourced from [Google's Address Data Service][google-address-data] and aligned
 with [UPU S42][upu-s42] postal standards.
 
