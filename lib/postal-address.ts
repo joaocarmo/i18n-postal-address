@@ -58,11 +58,19 @@ class PostalAddress implements PostalAddressInterface {
   private propagateToRelatedProperties: boolean = true
 
   public constructor(options: PostalAddressOptions = {}) {
-    const { formats = {} } = options
+    const { formats = {}, country } = options
+    const formatKeys = Object.keys(formats)
+
+    if (formatKeys.length >= 2 && !country) {
+      throw new PostalAddressError(
+        'Multiple formats provided, but no default country specified',
+      )
+    }
+
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
-    this.formatForCountry = 'US'
+    this.formatForCountry = country ?? formatKeys[0] ?? ''
     // Possible values: 'business' | 'english' | 'default' | 'french' | 'personal'
     this.formatForType = 'default'
     // Transform input data or keep it as is
@@ -78,7 +86,7 @@ class PostalAddress implements PostalAddressInterface {
     }
     // Allowed values
     this.allowed = {
-      formatForCountry: Object.keys(formats),
+      formatForCountry: formatKeys,
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
       outputFormat: ['array', 'string'],
     }
