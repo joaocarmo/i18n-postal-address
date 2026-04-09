@@ -8,8 +8,8 @@ export type CountryFormat = {
 export const AR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'firstLastName'],
-      ['secondLastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName'],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -23,7 +23,7 @@ export const AR: CountryFormat = {
 export const AU: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -41,8 +41,8 @@ export const AU: CountryFormat = {
 export const AT: CountryFormat = {
   default: {
     array: [
-      ['honorific'],
-      ['firstName', 'secondName', 'lastName'],
+      ['honorificPrefix'],
+      ['givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -56,7 +56,7 @@ export const AT: CountryFormat = {
 export const BS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -70,7 +70,7 @@ export const BS: CountryFormat = {
 export const BG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -86,7 +86,7 @@ export const BR: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -98,7 +98,7 @@ export const BR: CountryFormat = {
 
 const _caEnglish: AddressFormat = {
   array: [
-    ['honorific', 'firstName', 'lastName'],
+    ['honorificPrefix', 'givenName', 'familyName'],
     ['companyName'],
     ['careOf'],
     ['address1', 'address2'],
@@ -115,7 +115,7 @@ export const CA: CountryFormat = {
   english: _caEnglish,
   french: {
     array: [
-      ['honorific', 'firstName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -131,7 +131,7 @@ export const CH: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'familyName'],
       ['careOf'],
       ['address1', 'address2'],
       ['postalCode', 'city'],
@@ -148,7 +148,7 @@ export const CN: CountryFormat = {
       ['careOf'],
       ['address1', 'address2'],
       ['companyName'],
-      ['lastName', 'firstName', 'honorific'],
+      ['familyName', 'givenName', 'honorificPrefix'],
     ],
   },
 }
@@ -156,7 +156,7 @@ export const CN: CountryFormat = {
 export const CZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -170,7 +170,7 @@ export const CZ: CountryFormat = {
 export const DE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'title', 'firstName', 'lastName'],
+      ['honorificPrefix', 'title', 'givenName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -184,7 +184,7 @@ export const DE: CountryFormat = {
 export const DK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'title', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'title', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -198,8 +198,8 @@ export const DK: CountryFormat = {
 export const ES: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'firstLastName'],
-      ['secondLastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName'],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -214,7 +214,7 @@ export const FI: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -228,7 +228,7 @@ export const FR: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -241,7 +241,7 @@ export const FR: CountryFormat = {
 export const GR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -255,7 +255,7 @@ export const GR: CountryFormat = {
 export const HR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -269,7 +269,7 @@ export const HR: CountryFormat = {
 export const HU: CountryFormat = {
   business: {
     array: [
-      ['honorific', 'lastName', 'firstName', 'secondName'],
+      ['honorificPrefix', 'familyName', 'givenName', 'additionalName'],
       ['companyName'],
       ['postalCode', { attribute: 'city', transforms: [capitalize] }],
       ['careOf'],
@@ -281,7 +281,7 @@ export const HU: CountryFormat = {
   },
   default: {
     array: [
-      ['honorific', 'lastName', 'firstName'],
+      ['honorificPrefix', 'familyName', 'givenName'],
       ['companyName'],
       [{ attribute: 'city', transforms: [capitalize] }],
       ['careOf'],
@@ -296,7 +296,7 @@ export const HU: CountryFormat = {
 export const IT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -319,7 +319,7 @@ export const JP: CountryFormat = {
       ['careOf'],
       ['address1', 'address2'],
       ['companyName'],
-      ['lastName', 'firstName', 'honorific'],
+      ['familyName', 'givenName', 'honorificPrefix'],
     ],
   },
 }
@@ -327,7 +327,7 @@ export const JP: CountryFormat = {
 export const KR: CountryFormat = {
   default: {
     array: [
-      ['lastName', 'firstName', 'honorific'],
+      ['familyName', 'givenName', 'honorificPrefix'],
       ['companyName'],
       ['careOf'],
       ['do', 'si', 'dong', 'gu', 'addressNum'],
@@ -339,7 +339,7 @@ export const KR: CountryFormat = {
 export const MY: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -355,7 +355,7 @@ export const NL: CountryFormat = {
   business: {
     array: [
       ['companyName'],
-      ['t.a.v.', 'title', 'firstName', 'secondName', 'lastName'],
+      ['t.a.v.', 'title', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -366,7 +366,7 @@ export const NL: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -378,7 +378,7 @@ export const NL: CountryFormat = {
 
 const _noPersonal: AddressFormat = {
   array: [
-    ['honorific', 'firstName', 'secondName', 'lastName'],
+    ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
     ['careOf'],
     ['address1'],
     ['address2'],
@@ -399,7 +399,7 @@ export const NO: CountryFormat = {
       ['companyName'],
       ['careOf'],
       ['address1'],
-      ['firstName', 'lastName'],
+      ['givenName', 'familyName'],
       ['address2'],
       ['postalCode', 'city'],
       [{ attribute: 'country', transforms: [capitalize] }],
@@ -412,7 +412,7 @@ export const NO: CountryFormat = {
 export const PL: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -426,7 +426,7 @@ export const PL: CountryFormat = {
 export const PT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -440,7 +440,7 @@ export const PT: CountryFormat = {
 export const RO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -466,8 +466,8 @@ export const RU: CountryFormat = {
       ['address1'],
       ['address2'],
       ['companyName'],
-      ['lastName'],
-      ['firstName', 'secondName'],
+      ['familyName'],
+      ['givenName', 'additionalName'],
     ],
   },
 }
@@ -475,7 +475,7 @@ export const RU: CountryFormat = {
 export const SG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -488,7 +488,7 @@ export const SG: CountryFormat = {
 
 const _sePersonal: AddressFormat = {
   array: [
-    ['honorific', 'firstName', 'secondName', 'lastName'],
+    ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
     ['careOf'],
     ['address1'],
     ['address2'],
@@ -507,7 +507,7 @@ export const SE: CountryFormat = {
   business: {
     array: [
       ['companyName'],
-      ['firstName', 'lastName'],
+      ['givenName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -522,7 +522,7 @@ export const SE: CountryFormat = {
 export const TR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -536,7 +536,7 @@ export const TR: CountryFormat = {
 export const US: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -559,7 +559,7 @@ export const US: CountryFormat = {
 export const AC: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -574,7 +574,7 @@ export const AC: CountryFormat = {
 export const AD: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -588,7 +588,7 @@ export const AD: CountryFormat = {
 export const AE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -602,7 +602,7 @@ export const AE: CountryFormat = {
 export const AF: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -617,7 +617,7 @@ export const AF: CountryFormat = {
 export const AI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -632,7 +632,7 @@ export const AI: CountryFormat = {
 export const AL: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -647,7 +647,7 @@ export const AL: CountryFormat = {
 export const AM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -663,7 +663,7 @@ export const AM: CountryFormat = {
 export const AS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -682,7 +682,7 @@ export const AX: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -695,7 +695,7 @@ export const AX: CountryFormat = {
 export const AZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -709,7 +709,7 @@ export const AZ: CountryFormat = {
 export const BA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -723,7 +723,7 @@ export const BA: CountryFormat = {
 export const BB: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -741,7 +741,7 @@ export const BB: CountryFormat = {
 export const BD: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -756,7 +756,7 @@ export const BE: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -769,7 +769,7 @@ export const BE: CountryFormat = {
 export const BF: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -783,7 +783,7 @@ export const BF: CountryFormat = {
 export const BH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -798,7 +798,7 @@ export const BL: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -811,7 +811,7 @@ export const BL: CountryFormat = {
 export const BM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -825,7 +825,7 @@ export const BM: CountryFormat = {
 export const BN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -839,7 +839,7 @@ export const BN: CountryFormat = {
 export const BT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -854,7 +854,7 @@ export const BY: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -869,7 +869,7 @@ export const CC: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -886,7 +886,7 @@ export const CC: CountryFormat = {
 export const CI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1', 'city'],
@@ -899,7 +899,7 @@ export const CI: CountryFormat = {
 export const CR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -914,7 +914,7 @@ export const CR: CountryFormat = {
 export const CU: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -929,7 +929,7 @@ export const CU: CountryFormat = {
 export const CV: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -945,7 +945,7 @@ export const CX: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -962,7 +962,7 @@ export const CX: CountryFormat = {
 export const CY: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -976,7 +976,7 @@ export const CY: CountryFormat = {
 export const DO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -990,7 +990,7 @@ export const DO: CountryFormat = {
 export const DZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1004,7 +1004,7 @@ export const DZ: CountryFormat = {
 export const EE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1018,7 +1018,7 @@ export const EE: CountryFormat = {
 export const EG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1034,7 +1034,7 @@ export const EG: CountryFormat = {
 export const EH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1048,7 +1048,7 @@ export const EH: CountryFormat = {
 export const ET: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1062,7 +1062,7 @@ export const ET: CountryFormat = {
 export const FK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1077,7 +1077,7 @@ export const FK: CountryFormat = {
 export const FM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1095,7 +1095,7 @@ export const FM: CountryFormat = {
 export const FO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1109,7 +1109,7 @@ export const FO: CountryFormat = {
 export const GB: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1124,7 +1124,7 @@ export const GB: CountryFormat = {
 export const GE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1139,7 +1139,7 @@ export const GF: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1152,7 +1152,7 @@ export const GF: CountryFormat = {
 export const GG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1167,7 +1167,7 @@ export const GG: CountryFormat = {
 export const GI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1181,7 +1181,7 @@ export const GI: CountryFormat = {
 export const GL: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1195,7 +1195,7 @@ export const GL: CountryFormat = {
 export const GN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['postalCode', 'address1', 'city'],
@@ -1209,7 +1209,7 @@ export const GP: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1222,7 +1222,7 @@ export const GP: CountryFormat = {
 export const GS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1237,7 +1237,7 @@ export const GS: CountryFormat = {
 export const GT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1251,7 +1251,7 @@ export const GT: CountryFormat = {
 export const GU: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1265,7 +1265,7 @@ export const GU: CountryFormat = {
 export const GW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1279,7 +1279,7 @@ export const GW: CountryFormat = {
 export const HK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1295,7 +1295,7 @@ export const HM: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1312,7 +1312,7 @@ export const HM: CountryFormat = {
 export const HN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1327,7 +1327,7 @@ export const HN: CountryFormat = {
 export const HT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1341,7 +1341,7 @@ export const HT: CountryFormat = {
 export const ID: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1356,7 +1356,7 @@ export const ID: CountryFormat = {
 export const IE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1372,7 +1372,7 @@ export const IE: CountryFormat = {
 export const IL: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1386,7 +1386,7 @@ export const IL: CountryFormat = {
 export const IM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1401,7 +1401,7 @@ export const IM: CountryFormat = {
 export const IN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1416,7 +1416,7 @@ export const IN: CountryFormat = {
 export const IO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1432,7 +1432,7 @@ export const IQ: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1450,7 +1450,7 @@ export const IR: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['state'],
       [{ attribute: 'city', transforms: [addCommaAfter] }],
       ['careOf'],
@@ -1465,7 +1465,7 @@ export const IR: CountryFormat = {
 export const IS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1479,7 +1479,7 @@ export const IS: CountryFormat = {
 export const JE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1494,7 +1494,7 @@ export const JE: CountryFormat = {
 export const JM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1509,7 +1509,7 @@ export const JM: CountryFormat = {
 export const JO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1523,7 +1523,7 @@ export const JO: CountryFormat = {
 export const KE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1538,7 +1538,7 @@ export const KE: CountryFormat = {
 export const KG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1552,7 +1552,7 @@ export const KG: CountryFormat = {
 export const KH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1566,7 +1566,7 @@ export const KH: CountryFormat = {
 export const KI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1581,7 +1581,7 @@ export const KI: CountryFormat = {
 export const KN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1595,7 +1595,7 @@ export const KN: CountryFormat = {
 export const KW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1609,7 +1609,7 @@ export const KW: CountryFormat = {
 export const KY: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1630,7 +1630,7 @@ export const KZ: CountryFormat = {
       ['address1'],
       ['address2'],
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -1639,7 +1639,7 @@ export const KZ: CountryFormat = {
 export const LA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1653,7 +1653,7 @@ export const LA: CountryFormat = {
 export const LB: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1668,7 +1668,7 @@ export const LI: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1681,7 +1681,7 @@ export const LI: CountryFormat = {
 export const LK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1696,7 +1696,7 @@ export const LK: CountryFormat = {
 export const LR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1710,7 +1710,7 @@ export const LR: CountryFormat = {
 export const LS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1725,7 +1725,7 @@ export const LT: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1739,7 +1739,7 @@ export const LU: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1752,7 +1752,7 @@ export const LU: CountryFormat = {
 export const LV: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1767,7 +1767,7 @@ export const LV: CountryFormat = {
 export const MA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1781,7 +1781,7 @@ export const MA: CountryFormat = {
 export const MC: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1795,7 +1795,7 @@ export const MC: CountryFormat = {
 export const MD: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1809,7 +1809,7 @@ export const MD: CountryFormat = {
 export const ME: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1824,7 +1824,7 @@ export const MF: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1837,7 +1837,7 @@ export const MF: CountryFormat = {
 export const MG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1851,7 +1851,7 @@ export const MG: CountryFormat = {
 export const MH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1869,7 +1869,7 @@ export const MH: CountryFormat = {
 export const MK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1883,7 +1883,7 @@ export const MK: CountryFormat = {
 export const MM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1897,7 +1897,7 @@ export const MM: CountryFormat = {
 export const MN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1912,7 +1912,7 @@ export const MN: CountryFormat = {
 export const MO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1925,7 +1925,7 @@ export const MO: CountryFormat = {
 export const MP: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1944,7 +1944,7 @@ export const MQ: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -1957,7 +1957,7 @@ export const MQ: CountryFormat = {
 export const MT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1974,7 +1974,7 @@ export const MT: CountryFormat = {
 export const MU: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -1989,7 +1989,7 @@ export const MU: CountryFormat = {
 export const MV: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2003,7 +2003,7 @@ export const MV: CountryFormat = {
 export const MW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2017,7 +2017,7 @@ export const MW: CountryFormat = {
 export const MX: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2035,7 +2035,7 @@ export const MX: CountryFormat = {
 export const MZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2049,7 +2049,7 @@ export const MZ: CountryFormat = {
 export const NA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2065,7 +2065,7 @@ export const NC: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2078,7 +2078,7 @@ export const NC: CountryFormat = {
 export const NE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2093,7 +2093,7 @@ export const NF: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2110,7 +2110,7 @@ export const NF: CountryFormat = {
 export const NG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2125,7 +2125,7 @@ export const NG: CountryFormat = {
 export const NI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2143,7 +2143,7 @@ export const NI: CountryFormat = {
 export const NP: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2157,7 +2157,7 @@ export const NP: CountryFormat = {
 export const NR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2171,7 +2171,7 @@ export const NR: CountryFormat = {
 export const NZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2185,7 +2185,7 @@ export const NZ: CountryFormat = {
 export const OM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2200,7 +2200,7 @@ export const OM: CountryFormat = {
 export const PA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2215,7 +2215,7 @@ export const PA: CountryFormat = {
 export const PF: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2233,7 +2233,7 @@ export const PF: CountryFormat = {
 export const PG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2247,7 +2247,7 @@ export const PG: CountryFormat = {
 export const PH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2262,7 +2262,7 @@ export const PH: CountryFormat = {
 export const PK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2277,7 +2277,7 @@ export const PM: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2290,7 +2290,7 @@ export const PM: CountryFormat = {
 export const PN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2305,7 +2305,7 @@ export const PN: CountryFormat = {
 export const PR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2319,7 +2319,7 @@ export const PR: CountryFormat = {
 export const PW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2338,7 +2338,7 @@ export const RE: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2351,7 +2351,7 @@ export const RE: CountryFormat = {
 export const SA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2365,7 +2365,7 @@ export const SA: CountryFormat = {
 export const SC: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2380,7 +2380,7 @@ export const SC: CountryFormat = {
 export const SD: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2395,7 +2395,7 @@ export const SD: CountryFormat = {
 export const SH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2410,7 +2410,7 @@ export const SH: CountryFormat = {
 export const SJ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2424,7 +2424,7 @@ export const SJ: CountryFormat = {
 export const SK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2438,7 +2438,7 @@ export const SK: CountryFormat = {
 export const SM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2452,7 +2452,7 @@ export const SM: CountryFormat = {
 export const SN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2466,7 +2466,7 @@ export const SN: CountryFormat = {
 export const SO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2484,7 +2484,7 @@ export const SO: CountryFormat = {
 export const SR: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2499,7 +2499,7 @@ export const SR: CountryFormat = {
 export const SV: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2517,7 +2517,7 @@ export const SV: CountryFormat = {
 export const SZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2532,7 +2532,7 @@ export const SZ: CountryFormat = {
 export const TA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2547,7 +2547,7 @@ export const TA: CountryFormat = {
 export const TC: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2562,7 +2562,7 @@ export const TC: CountryFormat = {
 export const TH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2577,7 +2577,7 @@ export const TH: CountryFormat = {
 export const TJ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2591,7 +2591,7 @@ export const TJ: CountryFormat = {
 export const TM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2605,7 +2605,7 @@ export const TM: CountryFormat = {
 export const TN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2619,7 +2619,7 @@ export const TN: CountryFormat = {
 export const TV: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2634,7 +2634,7 @@ export const TV: CountryFormat = {
 export const TW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2652,7 +2652,7 @@ export const TW: CountryFormat = {
 export const TZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2666,7 +2666,7 @@ export const TZ: CountryFormat = {
 export const UA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2682,7 +2682,7 @@ export const UA: CountryFormat = {
 export const UM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2700,7 +2700,7 @@ export const UM: CountryFormat = {
 export const UZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2715,7 +2715,7 @@ export const UZ: CountryFormat = {
 export const VA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2729,7 +2729,7 @@ export const VA: CountryFormat = {
 export const VC: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2743,7 +2743,7 @@ export const VC: CountryFormat = {
 export const VG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2758,7 +2758,7 @@ export const VG: CountryFormat = {
 export const VI: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2776,7 +2776,7 @@ export const VI: CountryFormat = {
 export const VN: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2792,7 +2792,7 @@ export const WF: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2805,7 +2805,7 @@ export const WF: CountryFormat = {
 export const XK: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2820,7 +2820,7 @@ export const YT: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2833,7 +2833,7 @@ export const YT: CountryFormat = {
 export const ZA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2848,7 +2848,7 @@ export const ZA: CountryFormat = {
 export const ZM: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2862,7 +2862,7 @@ export const ZM: CountryFormat = {
 export const AO: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2876,7 +2876,7 @@ export const AO: CountryFormat = {
 export const BW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2890,7 +2890,7 @@ export const BW: CountryFormat = {
 export const BZ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2905,7 +2905,7 @@ export const CM: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -2918,7 +2918,7 @@ export const CM: CountryFormat = {
 export const FJ: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2932,7 +2932,7 @@ export const FJ: CountryFormat = {
 export const GH: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2947,7 +2947,7 @@ export const GH: CountryFormat = {
 export const LY: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2961,7 +2961,7 @@ export const LY: CountryFormat = {
 export const PS: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2975,7 +2975,7 @@ export const PS: CountryFormat = {
 export const QA: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -2989,7 +2989,7 @@ export const QA: CountryFormat = {
 export const SY: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -3003,7 +3003,7 @@ export const SY: CountryFormat = {
 export const TL: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -3017,7 +3017,7 @@ export const TL: CountryFormat = {
 export const TT: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -3031,7 +3031,7 @@ export const TT: CountryFormat = {
 export const UG: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -3045,7 +3045,7 @@ export const UG: CountryFormat = {
 export const YE: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -3059,7 +3059,7 @@ export const YE: CountryFormat = {
 export const ZW: CountryFormat = {
   default: {
     array: [
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],

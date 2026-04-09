@@ -19,7 +19,12 @@ describe('parseFmtLine', () => {
     const data = { key: 'US' }
     const parts = parseFmtLine('%N', data)
 
-    expect(parts).toEqual(['honorific', 'firstName', 'secondName', 'lastName'])
+    expect(parts).toEqual([
+      'honorificPrefix',
+      'givenName',
+      'additionalName',
+      'familyName',
+    ])
   })
 
   it('should parse organization token', () => {
@@ -88,7 +93,7 @@ describe('transformCountry', () => {
 
     // Should have: name, company, careOf, address1, address2, city/state/zip, country
     expect(lines).toEqual([
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -114,7 +119,7 @@ describe('transformCountry', () => {
 
     expect(result).not.toBeNull()
     expect(result!.default.array).toEqual([
-      ['honorific', 'firstName', 'secondName', 'lastName'],
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
       ['companyName'],
       ['careOf'],
       ['address1'],

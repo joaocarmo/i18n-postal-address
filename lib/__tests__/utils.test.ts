@@ -16,7 +16,7 @@ describe('test the token validator fn', () => {
     [
       'valid',
       [
-        [{ attribute: 'lastName' }, 'firstName'],
+        [{ attribute: 'familyName' }, 'givenName'],
         ['city', 'postalCode'],
         ['country'],
       ],

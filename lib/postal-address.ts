@@ -184,13 +184,13 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setFirstLastName(newValue: string): this {
-    this.setProperty('firstLastName', newValue)
+  public setFirstFamilyName(newValue: string): this {
+    this.setProperty('firstFamilyName', newValue)
     return this
   }
 
-  public setFirstName(newValue: string): this {
-    this.setProperty('firstName', newValue)
+  public setGivenName(newValue: string): this {
+    this.setProperty('givenName', newValue)
     return this
   }
 
@@ -199,8 +199,8 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setHonorific(newValue: string): this {
-    this.setProperty('honorific', newValue)
+  public setHonorificPrefix(newValue: string): this {
+    this.setProperty('honorificPrefix', newValue)
     return this
   }
 
@@ -209,11 +209,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setLastName(newValue: string): this {
-    this.setProperty('lastName', newValue)
+  public setFamilyName(newValue: string): this {
+    this.setProperty('familyName', newValue)
 
     if (this.propagateToRelatedProperties) {
-      this.setProperty('secondLastName', newValue)
+      this.setProperty('secondFamilyName', newValue)
     }
     return this
   }
@@ -247,17 +247,17 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public setSecondLastName(newValue: string): this {
-    this.setProperty('secondLastName', newValue)
+  public setSecondFamilyName(newValue: string): this {
+    this.setProperty('secondFamilyName', newValue)
 
     if (this.propagateToRelatedProperties) {
-      this.setProperty('lastName', newValue)
+      this.setProperty('familyName', newValue)
     }
     return this
   }
 
-  public setSecondName(newValue: string): this {
-    this.setProperty('secondName', newValue)
+  public setAdditionalName(newValue: string): this {
+    this.setProperty('additionalName', newValue)
     return this
   }
 
@@ -283,6 +283,36 @@ class PostalAddress implements PostalAddressInterface {
   public setPropagation(propagate: boolean): this {
     this.propagateToRelatedProperties = propagate
     return this
+  }
+
+  /** @deprecated Use `setGivenName` instead */
+  public setFirstName(newValue: string): this {
+    return this.setGivenName(newValue)
+  }
+
+  /** @deprecated Use `setFamilyName` instead */
+  public setLastName(newValue: string): this {
+    return this.setFamilyName(newValue)
+  }
+
+  /** @deprecated Use `setAdditionalName` instead */
+  public setSecondName(newValue: string): this {
+    return this.setAdditionalName(newValue)
+  }
+
+  /** @deprecated Use `setFirstFamilyName` instead */
+  public setFirstLastName(newValue: string): this {
+    return this.setFirstFamilyName(newValue)
+  }
+
+  /** @deprecated Use `setSecondFamilyName` instead */
+  public setSecondLastName(newValue: string): this {
+    return this.setSecondFamilyName(newValue)
+  }
+
+  /** @deprecated Use `setHonorificPrefix` instead */
+  public setHonorific(newValue: string): this {
+    return this.setHonorificPrefix(newValue)
   }
 
   public setFormat({
