@@ -88,6 +88,16 @@ describe('Constructor', () => {
     ).not.toThrow()
   })
 
+  it('should throw when defaultFormat is not in the provided formats', () => {
+    expect(
+      () =>
+        new PostalAddress({
+          formats: { US: formats.US },
+          defaultFormat: 'XX',
+        }),
+    ).toThrow('Default format "XX" is not in the provided formats')
+  })
+
   it('should reject unknown country via setFormat', () => {
     const addr = new PostalAddress({ formats: { PT: formats.PT } })
     addr.setFormat({ country: 'XX' })

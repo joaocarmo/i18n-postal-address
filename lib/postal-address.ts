@@ -67,6 +67,12 @@ class PostalAddress implements PostalAddressInterface {
       )
     }
 
+    if (defaultFormat && !formatKeys.includes(defaultFormat)) {
+      throw new PostalAddressError(
+        `Default format "${defaultFormat}" is not in the provided formats`,
+      )
+    }
+
     // Possible values: 'array' | 'string'
     this.outputFormat = 'array'
     // 2-letter country code
