@@ -1,7 +1,10 @@
 import PostalAddress from '../postal-address'
 import PostalAddressError from '../postal-address-error'
 import objectInitialState from '../object-initial-state'
-import addressFormats from '../address-formats'
+import type { AddressFormats } from '../types/address-format'
+import * as formats from '../formats/index'
+
+const addressFormats: AddressFormats = { ...formats }
 import { addCommaAfter } from '../address-transforms'
 import type { AddFormatArgs } from '../types/address-format'
 
@@ -49,13 +52,61 @@ const customFormatOutputNew = `\
 Happy Park
 Porto 4000-123`
 
+describe('Constructor', () => {
+  it('should not throw with no options', () => {
+    expect(() => new PostalAddress()).not.toThrow()
+  })
+
+  it('should produce empty output with no formats', () => {
+    const addr = new PostalAddress()
+    expect(addr.toString()).toBe('')
+    expect(addr.toArray()).toEqual([])
+  })
+
+  it('should auto-default to the single format country', () => {
+    const addr = new PostalAddress({ formats: { PT: formats.PT } })
+    addr
+      .setAddress1('Rua do Pastel, 19')
+      .setCity('Lisboa')
+      .setPostalCode('1000')
+    expect(addr.toString()).not.toBe('')
+  })
+
+  it('should throw when multiple formats are provided without a country', () => {
+    expect(
+      () => new PostalAddress({ formats: { US: formats.US, PT: formats.PT } }),
+    ).toThrow('Multiple formats provided, but no default country specified')
+  })
+
+  it('should accept multiple formats with an explicit country', () => {
+    expect(
+      () =>
+        new PostalAddress({
+          formats: { US: formats.US, PT: formats.PT },
+          country: 'US',
+        }),
+    ).not.toThrow()
+  })
+
+  it('should reject unknown country via setFormat', () => {
+    const addr = new PostalAddress({ formats: { PT: formats.PT } })
+    addr.setFormat({ country: 'XX' })
+    expect(addr.toObject().country).toBe('')
+  })
+})
+
 describe('Postal Address', () => {
   it('should be a valid constructor', () => {
-    expect(() => new PostalAddress({ formats: addressFormats })).not.toThrow()
+    expect(
+      () => new PostalAddress({ formats: addressFormats, country: 'US' }),
+    ).not.toThrow()
   })
 
   it('should output a valid formatted postal address (PT)', () => {
-    const myAddressBusiness = new PostalAddress({ formats: addressFormats })
+    const myAddressBusiness = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddressBusiness
       .setAddress1('Happy Park')
       .setAddress2('Edifício 4, Piso 2')
@@ -72,7 +123,10 @@ describe('Postal Address', () => {
   })
 
   it('should output a valid formatted postal address (US)', () => {
-    const myAddressPersonal = new PostalAddress({ formats: addressFormats })
+    const myAddressPersonal = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddressPersonal
       .setAddress1('123 Nevermore Rd')
       .setCity('Austin')
@@ -142,14 +196,20 @@ describe('Custom Formats', () => {
     'test invalid custom format: %s',
     (format, errorMessage) => {
       expect(() => {
-        const myAddressBusiness = new PostalAddress({ formats: addressFormats })
+        const myAddressBusiness = new PostalAddress({
+          formats: addressFormats,
+          country: 'US',
+        })
         myAddressBusiness.addFormat(format as AddFormatArgs)
       }).toThrow(new PostalAddressError(errorMessage))
     },
   )
 
   it('should allow custom formats (overwrite)', () => {
-    const myAddressBusiness = new PostalAddress({ formats: addressFormats })
+    const myAddressBusiness = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddressBusiness
       .setAddress1('Happy Park')
       .setAddress2('Edifício 4, Piso 2')
@@ -174,7 +234,10 @@ describe('Custom Formats', () => {
   })
 
   it('should allow custom formats (new)', () => {
-    const myAddressBusiness = new PostalAddress({ formats: addressFormats })
+    const myAddressBusiness = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddressBusiness
       .setAddress1('Happy Park')
       .setAddress2('Edifício 4, Piso 2')
@@ -203,7 +266,10 @@ describe('Custom Formats', () => {
 })
 
 describe('Initial Value [empty]', () => {
-  const myAddress = new PostalAddress({ formats: addressFormats })
+  const myAddress = new PostalAddress({
+    formats: addressFormats,
+    country: 'US',
+  })
 
   it('should have an empty address (string)', () => {
     expect(myAddress.toString()).toBe('')
@@ -247,9 +313,10 @@ describe('Initial Value [full non-empty]', () => {
     state: '',
     title: '',
   }
-  const myAddress = new PostalAddress({ formats: addressFormats }).fromObject(
-    presetState,
-  )
+  const myAddress = new PostalAddress({
+    formats: addressFormats,
+    country: 'US',
+  }).fromObject(presetState)
 
   it('should have a non-empty address (string)', () => {
     expect(myAddress.toString()).toBe(`\
@@ -293,9 +360,10 @@ describe('Initial Value [partial non-empty]', () => {
     secondLastName: 'Pestana',
     si: 'Porto',
   }
-  const myAddress = new PostalAddress({ formats: addressFormats }).fromObject(
-    presetState,
-  )
+  const myAddress = new PostalAddress({
+    formats: addressFormats,
+    country: 'US',
+  }).fromObject(presetState)
 
   it('should have a non-empty address (string)', () => {
     expect(myAddress.toString()).toBe(`\
@@ -329,7 +397,10 @@ PORTUGAL\
 
 describe('Korean Address Format', () => {
   it('should output a valid formatted postal address (KR) with Korean-specific fields', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddress
       .setLastName('Kim')
       .setFirstName('Seojun')
@@ -351,7 +422,10 @@ describe('Korean Address Format', () => {
   })
 
   it('should output a valid formatted postal address (KR) with generic fields via propagation', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddress
       .setLastName('Kim')
       .setFirstName('Seojun')
@@ -374,7 +448,10 @@ describe('Korean Address Format', () => {
 
 describe('Care Of', () => {
   it('should include care-of line when set', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddress
       .setFirstName('John')
       .setLastName('Doe')
@@ -394,7 +471,10 @@ describe('Care Of', () => {
   })
 
   it('should omit care-of line when empty', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     myAddress
       .setFirstName('John')
       .setLastName('Doe')
@@ -412,7 +492,10 @@ describe('Care Of', () => {
 
 describe('getAddressFormat', () => {
   it('should return the format array for a known country', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     const format = myAddress.getAddressFormat({ country: 'KR' })
 
     expect(format).toEqual([
@@ -428,7 +511,10 @@ describe('getAddressFormat', () => {
   })
 
   it('should return the format for a specific type', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     const format = myAddress.getAddressFormat({
       country: 'US',
       type: 'business',
@@ -439,7 +525,10 @@ describe('getAddressFormat', () => {
   })
 
   it('should fall back to default type when requested type does not exist', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     const defaultFormat = myAddress.getAddressFormat({ country: 'KR' })
     const nonExistentType = myAddress.getAddressFormat({
       country: 'KR',
@@ -450,7 +539,10 @@ describe('getAddressFormat', () => {
   })
 
   it('should fall back to US format for unknown countries', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     const unknownFormat = myAddress.getAddressFormat({ country: 'ZZ' })
     const usFormat = myAddress.getAddressFormat({ country: 'US' })
 
@@ -458,7 +550,10 @@ describe('getAddressFormat', () => {
   })
 
   it('should include custom formats added via addFormat', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
     const customFormat = [
       ['lastName', 'firstName'],
       ['city', 'postalCode'],
@@ -480,7 +575,10 @@ describe('getAddressFormat', () => {
 
 describe('Propagation', () => {
   it('Propagation of changes to related properties can be disabled', () => {
-    const myAddress = new PostalAddress({ formats: addressFormats })
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      country: 'US',
+    })
 
     myAddress.setLastName('Smith')
     expect(myAddress.toObject().lastName).toBe('Smith')

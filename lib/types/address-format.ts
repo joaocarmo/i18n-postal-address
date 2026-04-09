@@ -103,4 +103,5 @@ export type ClassProperties = {
 
 export interface PostalAddressOptions {
   formats?: AddressFormats
+  country?: string
 }
