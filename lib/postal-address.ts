@@ -113,11 +113,10 @@ class PostalAddress implements PostalAddressInterface {
       this
 
     const format = overrideFormat || outputFormat
-    let formatsAvailable = addressFormats[formatForCountry]
+    const formatsAvailable = addressFormats[formatForCountry]
 
     if (!formatsAvailable) {
-      // Default to the US format
-      formatsAvailable = addressFormats?.US
+      return null
     }
 
     const outputType =
@@ -451,7 +450,7 @@ class PostalAddress implements PostalAddressInterface {
     type?: FormatTypes
   }): AcceptAddressFormat | null {
     const { addressFormats } = this
-    const formatsAvailable = addressFormats[country] || addressFormats?.US
+    const formatsAvailable = addressFormats[country]
 
     const outputType = formatsAvailable?.[type] || formatsAvailable?.default
 

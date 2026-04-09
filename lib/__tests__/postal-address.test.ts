@@ -544,15 +544,14 @@ describe('getAddressFormat', () => {
     expect(nonExistentType).toEqual(defaultFormat)
   })
 
-  it('should fall back to US format for unknown countries', () => {
+  it('should return null for unknown countries', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,
       defaultFormat: 'US',
     })
     const unknownFormat = myAddress.getAddressFormat({ country: 'ZZ' })
-    const usFormat = myAddress.getAddressFormat({ country: 'US' })
 
-    expect(unknownFormat).toEqual(usFormat)
+    expect(unknownFormat).toBeNull()
   })
 
   it('should include custom formats added via addFormat', () => {
