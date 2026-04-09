@@ -8,7 +8,6 @@ import type {
   AddressOutputFormat,
   ClassProperties,
   FormatTypes,
-  ParserInterface,
   PostalAddressOptions,
 } from './types/address-format.js'
 import arrayParser from './address-parsers.js'
@@ -35,8 +34,6 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   private addressFormats: AddressFormats
-
-  private addressParser: ParserInterface
 
   /**
    * If `true`, changes to one property will propagate to related properties.
@@ -73,7 +70,6 @@ class PostalAddress implements PostalAddressInterface {
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
     }
     this.addressFormats = formats
-    this.addressParser = arrayParser
   }
 
   private getFormat(): AcceptAddressFormat | null {
@@ -94,7 +90,7 @@ class PostalAddress implements PostalAddressInterface {
     const format = this.getFormat()
 
     if (format) {
-      return this.addressParser(this.object, format, this.useTransforms)
+      return arrayParser(this.object, format, this.useTransforms)
     }
 
     return null
@@ -403,13 +399,6 @@ class PostalAddress implements PostalAddressInterface {
     }
 
     return ''
-  }
-
-  /**
-   * @deprecated Use `toObject` instead.
-   */
-  public raw(): AddressObject {
-    return this.toObject()
   }
 }
 
