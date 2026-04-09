@@ -1,10 +1,11 @@
 import { readFileSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-import * as formats from '../lib/formats/index'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import * as formats from '../lib/formats/index.js'
 
 const addressFormats = { ...formats }
 
-const SCRIPT_DIR = __dirname
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const TRANSFORMED_PATH = resolve(SCRIPT_DIR, '.cache/transformed-formats.json')
 const PROPOSED_PATH = resolve(SCRIPT_DIR, '.cache/proposed-formats.json')
 
