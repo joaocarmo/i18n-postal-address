@@ -17,6 +17,7 @@ const objectInitialState: AddressObject = {
   givenName: '',
   gu: '',
   honorificPrefix: '',
+  honorificSuffix: '',
   jobTitle: '',
   postalCode: '',
   prefecture: '',

@@ -204,6 +204,11 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
+  public setHonorificSuffix(newValue: string): this {
+    this.setProperty('honorificSuffix', newValue)
+    return this
+  }
+
   public setJobTitle(newValue: string): this {
     this.setProperty('jobTitle', newValue)
     return this
