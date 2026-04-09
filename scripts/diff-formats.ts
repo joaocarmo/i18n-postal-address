@@ -90,19 +90,27 @@ function main() {
     if (google && existing) {
       const gNorm = normalizeFormat(google)
       const eNorm = normalizeFormat(existing)
-      // Also compare ignoring lines that may differ by design:
+      // Also compare ignoring fields that may differ by design:
       // - companyName: present in default but not personal types
       // - careOf: injected by transform but may not match position exactly
-      const ignoredFields = new Set(['companyName', 'careOf'])
+      // - honorificSuffix: our value-add, not in Google data
+      const standaloneIgnored = new Set(['companyName', 'careOf'])
+      const inlineIgnored = new Set(['honorificSuffix'])
       const filterIgnored = (format: FormatPart[][]) =>
-        format.filter(
-          (line) =>
-            !(
-              line.length === 1 &&
-              typeof line[0] === 'string' &&
-              ignoredFields.has(line[0])
+        format
+          .filter(
+            (line) =>
+              !(
+                line.length === 1 &&
+                typeof line[0] === 'string' &&
+                standaloneIgnored.has(line[0])
+              ),
+          )
+          .map((line) =>
+            line.filter(
+              (p) => !(typeof p === 'string' && inlineIgnored.has(p)),
             ),
-        )
+          )
       const gFiltered = normalizeFormat(filterIgnored(google))
       const eFiltered = normalizeFormat(filterIgnored(existing))
       if (gNorm === eNorm || gFiltered === eFiltered) {
