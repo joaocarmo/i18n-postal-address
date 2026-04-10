@@ -56,17 +56,4 @@ export default interface PostalAddressInterface {
   toArray(): AddressOutputFormat
   toObject(): AddressObject
   toString(): string
-
-  /** @deprecated Use `setGivenName` instead */
-  setFirstName(newValue: string): this
-  /** @deprecated Use `setFamilyName` instead */
-  setLastName(newValue: string): this
-  /** @deprecated Use `setAdditionalName` instead */
-  setSecondName(newValue: string): this
-  /** @deprecated Use `setFirstFamilyName` instead */
-  setFirstLastName(newValue: string): this
-  /** @deprecated Use `setSecondFamilyName` instead */
-  setSecondLastName(newValue: string): this
-  /** @deprecated Use `setHonorificPrefix` instead */
-  setHonorific(newValue: string): this
 }
