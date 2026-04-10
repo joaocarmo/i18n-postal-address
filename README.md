@@ -20,7 +20,7 @@ npm install i18n-postal-address
 pnpm add i18n-postal-address
 ```
 
-> **Note:** This is an ESM-only package. It requires Node.js >= 20.
+> **Note:** This is an ESM-only package. It requires Node.js >= 18.
 
 ## Usage
 
