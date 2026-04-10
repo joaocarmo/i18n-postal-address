@@ -6,8 +6,7 @@
     "rootDir": "./lib",
     "outDir": "./dist",
     "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolveJsonModule": true
+    "moduleResolution": "nodenext"
   },
   "include": ["lib/**/*.ts"],
   "exclude": ["lib/__tests__/**"]

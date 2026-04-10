@@ -6,7 +6,7 @@
   "author": "João Carmo",
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "type": "module",
   "main": "./dist/index.js",

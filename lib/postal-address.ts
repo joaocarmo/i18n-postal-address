@@ -16,9 +16,7 @@ import {
   containsValidTokens,
   isValidFormat,
 } from './utils.js'
-import untypedCountries from './data/countries.json' with { type: 'json' }
-
-const countries: Record<string, string> = untypedCountries
+import countries from './data/countries.js'
 
 class PostalAddress implements PostalAddressInterface {
   private formatForCountry: string
