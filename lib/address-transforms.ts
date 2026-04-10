@@ -1,13 +1,11 @@
 import type { TransformFunction } from './types/address-format.js'
 
 export const addCommaAfter: TransformFunction = (string) => {
-  const comma = ','
-
   if (string && typeof string === 'string') {
-    return `${string}${comma}`
+    return `${string},`
   }
 
-  return ''
+  return string
 }
 
 export const capitalize: TransformFunction = (string) => {
@@ -15,7 +13,7 @@ export const capitalize: TransformFunction = (string) => {
     return string.toUpperCase()
   }
 
-  return ''
+  return string
 }
 
 export const capitalizeWhenTwo: TransformFunction = (string) => {
@@ -34,5 +32,5 @@ export const pascalCase: TransformFunction = (string) => {
     )
   }
 
-  return ''
+  return string
 }

@@ -5,6 +5,9 @@
   "homepage": "https://joaocarmo.com/i18n-postal-address-playground",
   "author": "João Carmo",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

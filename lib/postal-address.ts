@@ -69,7 +69,7 @@ class PostalAddress implements PostalAddressInterface {
       formatForCountry: formatKeys,
       formatForType: ['business', 'default', 'english', 'french', 'personal'],
     }
-    this.addressFormats = formats
+    this.addressFormats = { ...formats }
   }
 
   private getFormat(): AcceptAddressFormat | null {
@@ -320,12 +320,7 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  public addFormat({
-    country,
-    format,
-    parser = 'array',
-    type = 'default',
-  }: AddFormatArgs): this {
+  public addFormat({ country, format, type = 'default' }: AddFormatArgs): this {
     if (!country) {
       throw new PostalAddressError('Country is not specified, but is required')
     }
@@ -338,30 +333,35 @@ class PostalAddress implements PostalAddressInterface {
       throw new PostalAddressError('Format is not specified, but is required')
     }
 
-    if (!isValidFormat(format, parser)) {
+    if (
+      typeof type === 'string' &&
+      !this.allowed.formatForType.includes(type as FormatTypes)
+    ) {
+      throw new PostalAddressError(`Format type "${type}" is not valid`)
+    }
+
+    if (!isValidFormat(format)) {
       throw new PostalAddressError(
         'Format is invalid, should be an array of arrays of strings or objects',
       )
     }
 
-    if (!containsValidTokens(format, parser)) {
+    if (!containsValidTokens(format)) {
       throw new PostalAddressError('Format contains invalid tokens')
     }
 
-    // Make sure the country code is capitalized
     const countryAlpha2 = country.toUpperCase()
 
-    // Add the format to the list
     this.addressFormats = {
       ...this.addressFormats,
       [countryAlpha2]: {
+        ...this.addressFormats[countryAlpha2],
         [type]: {
-          [parser]: format,
+          array: format,
         },
       },
     }
 
-    // Update the validator
     this.allowed.formatForCountry = Object.keys(this.addressFormats)
 
     return this
@@ -393,7 +393,7 @@ class PostalAddress implements PostalAddressInterface {
   }
 
   public toObject(): AddressObject {
-    return this.object
+    return { ...this.object }
   }
 
   public toString(): string {
