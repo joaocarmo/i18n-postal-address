@@ -303,6 +303,51 @@ describe('Custom Formats', () => {
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputNew)
   })
+
+  it('should merge new format types without overwriting existing ones', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    const defaultBefore = myAddress.getAddressFormat({ country: 'RU' })
+    expect(defaultBefore).not.toBeNull()
+
+    myAddress.addFormat({
+      country: 'RU',
+      format: [
+        ['givenName', 'familyName'],
+        ['city', 'postalCode'],
+      ],
+      type: 'personal',
+    })
+
+    const defaultAfter = myAddress.getAddressFormat({ country: 'RU' })
+    expect(defaultAfter).toEqual(defaultBefore)
+
+    const personal = myAddress.getAddressFormat({
+      country: 'RU',
+      type: 'personal',
+    })
+    expect(personal).toEqual([
+      ['givenName', 'familyName'],
+      ['city', 'postalCode'],
+    ])
+
+    myAddress.addFormat({
+      country: 'RU',
+      format: [['companyName'], ['address1'], ['city', 'postalCode']],
+      type: 'business',
+    })
+
+    expect(myAddress.getAddressFormat({ country: 'RU' })).toEqual(defaultBefore)
+    expect(
+      myAddress.getAddressFormat({ country: 'RU', type: 'personal' }),
+    ).toEqual(personal)
+    expect(
+      myAddress.getAddressFormat({ country: 'RU', type: 'business' }),
+    ).toEqual([['companyName'], ['address1'], ['city', 'postalCode']])
+  })
 })
 
 describe('Initial Value [empty]', () => {

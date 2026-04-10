@@ -20,7 +20,13 @@ npm install i18n-postal-address
 pnpm add i18n-postal-address
 ```
 
+> **Note:** This is an ESM-only package. It requires Node.js >= 20.
+
 ## Usage
+
+The constructor requires a `formats` object. You can load all 249 country
+formats from the bundled data, or import only the countries you need for
+tree-shaking.
 
 ```js
 import PostalAddress, { addressFormats } from 'i18n-postal-address'

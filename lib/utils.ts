@@ -21,11 +21,8 @@ export const constructInitialObject = (
   return initialState
 }
 
-export const containsValidTokens = (
-  format: AcceptAddressFormat,
-  parser = 'array',
-): boolean =>
-  parser === 'array' && Array.isArray(format)
+export const containsValidTokens = (format: AcceptAddressFormat): boolean =>
+  Array.isArray(format)
     ? format.every((row) =>
         row.every((cell) => {
           const attribute = typeof cell === 'object' ? cell.attribute : cell
@@ -34,24 +31,19 @@ export const containsValidTokens = (
       )
     : false
 
-export const isValidFormat = (
-  format: AcceptAddressFormat,
-  parser = 'array',
-): boolean => {
-  if (parser === 'array') {
-    if (Array.isArray(format)) {
-      const [row] = format
+export const isValidFormat = (format: AcceptAddressFormat): boolean => {
+  if (Array.isArray(format)) {
+    const [row] = format
 
-      if (Array.isArray(row)) {
-        const [cell] = row
+    if (Array.isArray(row)) {
+      const [cell] = row
 
-        if (typeof cell === 'string') {
-          return true
-        }
+      if (typeof cell === 'string') {
+        return true
+      }
 
-        if (typeof cell === 'object' && typeof cell.attribute === 'string') {
-          return true
-        }
+      if (typeof cell === 'object' && typeof cell.attribute === 'string') {
+        return true
       }
     }
   }

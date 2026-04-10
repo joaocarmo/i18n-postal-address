@@ -36,7 +36,7 @@ export interface AddressObject extends Address {
 }
 
 export interface TransformFunction {
-  (string: string): string
+  (value: string): string
 }
 
 export interface AddressFormatOptions {
@@ -55,8 +55,7 @@ export type AcceptAddressFormat = AddressFormat[keyof AddressFormat]
 export interface AddFormatArgs {
   country: string
   format: AcceptAddressFormat
-  parser?: string
-  type?: string
+  type?: FormatTypes
 }
 
 export interface AddressFormats {

@@ -7,7 +7,7 @@ import type {
 } from './address-format.js'
 
 export default interface PostalAddressInterface {
-  addFormat({ country, format, parser, type }: AddFormatArgs): this
+  addFormat({ country, format, type }: AddFormatArgs): this
   fromObject(presetState: Partial<AddressObject>): this
   getAddressFormat({
     country,
