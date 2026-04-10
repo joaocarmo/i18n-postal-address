@@ -290,36 +290,6 @@ class PostalAddress implements PostalAddressInterface {
     return this
   }
 
-  /** @deprecated Use `setGivenName` instead */
-  public setFirstName(newValue: string): this {
-    return this.setGivenName(newValue)
-  }
-
-  /** @deprecated Use `setFamilyName` instead */
-  public setLastName(newValue: string): this {
-    return this.setFamilyName(newValue)
-  }
-
-  /** @deprecated Use `setAdditionalName` instead */
-  public setSecondName(newValue: string): this {
-    return this.setAdditionalName(newValue)
-  }
-
-  /** @deprecated Use `setFirstFamilyName` instead */
-  public setFirstLastName(newValue: string): this {
-    return this.setFirstFamilyName(newValue)
-  }
-
-  /** @deprecated Use `setSecondFamilyName` instead */
-  public setSecondLastName(newValue: string): this {
-    return this.setSecondFamilyName(newValue)
-  }
-
-  /** @deprecated Use `setHonorificPrefix` instead */
-  public setHonorific(newValue: string): this {
-    return this.setHonorificPrefix(newValue)
-  }
-
   public setFormat({
     country,
     type,
