@@ -1,36 +1,36 @@
 import type { TransformFunction } from './types/address-format.js'
 
-export const addCommaAfter: TransformFunction = (string) => {
-  if (string && typeof string === 'string') {
-    return `${string},`
+export const addCommaAfter: TransformFunction = (value) => {
+  if (value && typeof value === 'string') {
+    return `${value},`
   }
 
-  return string
+  return value
 }
 
-export const capitalize: TransformFunction = (string) => {
-  if (typeof string === 'string') {
-    return string.toUpperCase()
+export const capitalize: TransformFunction = (value) => {
+  if (typeof value === 'string') {
+    return value.toUpperCase()
   }
 
-  return string
+  return value
 }
 
-export const capitalizeWhenTwo: TransformFunction = (string) => {
-  if (string && typeof string === 'string' && string.length === 2) {
-    return string.toUpperCase()
+export const capitalizeWhenTwo: TransformFunction = (value) => {
+  if (value && typeof value === 'string' && value.length === 2) {
+    return value.toUpperCase()
   }
 
-  return string
+  return value
 }
 
-export const pascalCase: TransformFunction = (string) => {
-  if (typeof string === 'string') {
-    return string.replace(
+export const pascalCase: TransformFunction = (value) => {
+  if (typeof value === 'string') {
+    return value.replace(
       /(\w)(\w*)/g,
       (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase(),
     )
   }
 
-  return string
+  return value
 }

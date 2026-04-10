@@ -36,7 +36,7 @@ export interface AddressObject extends Address {
 }
 
 export interface TransformFunction {
-  (string: string): string
+  (value: string): string
 }
 
 export interface AddressFormatOptions {
