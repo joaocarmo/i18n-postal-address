@@ -9,3 +9,4 @@ export default PostalAddress
 export { addressFormats }
 export { default as PostalAddressError } from './postal-address-error.js'
 export type { PostalAddressType }
+export type { CountryName, CountryAlpha2 } from './data/countries.js'

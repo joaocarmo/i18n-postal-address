@@ -16,7 +16,7 @@ import {
   containsValidTokens,
   isValidFormat,
 } from './utils.js'
-import countries from './data/countries.js'
+import countries, { type CountryName } from './data/countries.js'
 
 class PostalAddress implements PostalAddressInterface {
   private formatForCountry: string
@@ -154,7 +154,7 @@ class PostalAddress implements PostalAddressInterface {
     this.setProperty('country', newValue)
 
     if (this.propagateToRelatedProperties) {
-      const countryAlpha2 = countries[newValue]
+      const countryAlpha2 = countries[newValue as CountryName]
 
       if (countryAlpha2) {
         this.setProperty('countryAlpha2', countryAlpha2)
@@ -333,7 +333,7 @@ class PostalAddress implements PostalAddressInterface {
 
     if (
       typeof type === 'string' &&
-      !this.allowed.formatForType.includes(type as FormatTypes)
+      !this.allowed.formatForType.includes(type)
     ) {
       throw new PostalAddressError(`Format type "${type}" is not valid`)
     }

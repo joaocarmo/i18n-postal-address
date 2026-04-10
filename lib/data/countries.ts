@@ -1,4 +1,4 @@
-const countries: Record<string, string> = {
+const countries = {
   Afghanistan: 'AF',
   'Aland Islands': 'AX',
   Albania: 'AL',
@@ -248,6 +248,9 @@ const countries: Record<string, string> = {
   Yemen: 'YE',
   Zambia: 'ZM',
   Zimbabwe: 'ZW',
-}
+} as const
+
+export type CountryName = keyof typeof countries
+export type CountryAlpha2 = (typeof countries)[CountryName]
 
 export default countries
