@@ -14,16 +14,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./formats": {
       "types": "./dist/formats/index.d.ts",
-      "import": "./dist/formats/index.js"
+      "default": "./dist/formats/index.js"
     }
   },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "pnpm clean && pnpm build:lib",
     "build:lib": "tsc -p tsconfig.build.json",
