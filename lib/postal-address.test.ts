@@ -5,7 +5,7 @@ import { addCommaAfter } from './address-transforms.js'
 import type { AddFormatArgs, FormatTypes } from './types/address-format.js'
 import * as formats from './formats/index.js'
 
-const expectedOutputPT = `\
+const expectedOutputRUWithPTAddress = `\
 PORTUGAL
 4000-123
 PORTO
@@ -143,7 +143,7 @@ describe('Postal Address', () => {
     ).not.toThrow()
   })
 
-  it('should output a valid formatted postal address (PT)', () => {
+  it('should format a Portuguese address with the RU format', () => {
     const myAddressBusiness = new PostalAddress({
       formats: addressFormats,
       defaultFormat: 'US',
@@ -160,7 +160,7 @@ describe('Postal Address', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
   })
 
   it('should output a valid formatted postal address (US)', () => {
@@ -205,6 +205,26 @@ describe('Postal Address', () => {
 
     expect(myAddress.toString()).toBe(
       '中国\n100080\n北京市 海淀区\n中关村大街27号\n王 小明',
+    )
+  })
+
+  it('should output a valid formatted postal address (CN, english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'CN',
+    })
+    myAddress
+      .setProvince('Beijing')
+      .setCity('Haidian')
+      .setAddress1('Zhongguancun Street 27')
+      .setPostalCode('100080')
+      .setFamilyName('Wang')
+      .setGivenName('Xiaoming')
+      .setCountry('China')
+      .setFormat({ country: 'CN', type: 'english' })
+
+    expect(myAddress.toString()).toBe(
+      'Xiaoming Wang\nZhongguancun Street 27\nHaidian\nBEIJING, 100080\nCHINA',
     )
   })
 
@@ -301,11 +321,11 @@ describe('Custom Formats', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.addFormat(customFormatOverwrite)
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
@@ -329,14 +349,14 @@ describe('Custom Formats', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.addFormat(customFormatNew).setFormat({
       country: 'GB',
       type: 'personal',
     })
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
