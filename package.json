@@ -41,8 +41,7 @@
     "formats:fetch": "tsx scripts/fetch-google-formats.ts",
     "formats:transform": "tsx scripts/transform-google-formats.ts",
     "formats:diff": "tsx scripts/diff-formats.ts",
-    "formats:update": "tsx scripts/fetch-google-formats.ts && tsx scripts/transform-google-formats.ts && tsx scripts/diff-formats.ts",
-    "version:set": "node scripts/set-version.mjs"
+    "formats:update": "tsx scripts/fetch-google-formats.ts && tsx scripts/transform-google-formats.ts && tsx scripts/diff-formats.ts"
   },
   "lint-staged": {
     "*.{js,mjs,ts}": [

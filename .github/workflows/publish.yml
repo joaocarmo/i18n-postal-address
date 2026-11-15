@@ -44,7 +44,7 @@ jobs:
       - name: Set the version from the release tag
         env:
           TAG_NAME: ${{ github.event.release.tag_name }}
-        run: pnpm version:set "$TAG_NAME"
+        run: pnpm pkg set version="${TAG_NAME#v}"
 
       - name: Build
         run: pnpm build
