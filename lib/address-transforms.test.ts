@@ -3,7 +3,7 @@ import {
   capitalize,
   capitalizeWhenTwo,
   pascalCase,
-} from './address-transforms'
+} from './address-transforms.js'
 
 describe('Address Transforms: addCommaAfter', () => {
   it('should accept "string" and output "string,"', () => {

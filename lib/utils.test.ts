@@ -3,9 +3,9 @@ import {
   constructInitialObject,
   containsValidTokens,
   isValidFormat,
-} from './utils'
-import objectInitialState from './object-initial-state'
-import type { AddressFormatPart } from './types/address-format'
+} from './utils.js'
+import objectInitialState from './object-initial-state.js'
+import type { AddressFormatPart } from './types/address-format.js'
 
 describe('test the allowed tokens', () => {
   it('should be an array of strings', () => {

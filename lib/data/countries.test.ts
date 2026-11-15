@@ -1,4 +1,4 @@
-import countries from './countries'
+import countries from './countries.js'
 
 describe('Countries', () => {
   it('should be mapped to a 2-letter country code', () => {

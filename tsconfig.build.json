@@ -1,13 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
     "declaration": true,
-    "rootDir": "./lib",
+    "noEmit": false,
+    "outDir": "dist",
+    "rootDir": "lib",
     "target": "ES2022",
-    "outDir": "./dist",
-    "module": "nodenext",
-    "moduleResolution": "nodenext"
+    "types": ["node"]
   },
   "include": ["lib/**/*.ts"],
   "exclude": ["lib/**/*.test.ts"]

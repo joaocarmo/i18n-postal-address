@@ -1,4 +1,4 @@
-import objectInitialState from './object-initial-state'
+import objectInitialState from './object-initial-state.js'
 
 describe('Object Initial State', () => {
   it("should start with all keys' values as empty strings", () => {
