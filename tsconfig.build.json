@@ -10,5 +10,5 @@
     "moduleResolution": "nodenext"
   },
   "include": ["lib/**/*.ts"],
-  "exclude": ["lib/__tests__/**"]
+  "exclude": ["lib/**/*.test.ts"]
 }
