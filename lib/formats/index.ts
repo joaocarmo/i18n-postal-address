@@ -169,9 +169,9 @@ export const CN: CountryFormat = {
     array: [
       [
         'honorificPrefix',
+        'familyName',
         'givenName',
         'additionalName',
-        'familyName',
         'honorificSuffix',
       ],
       ['companyName'],
