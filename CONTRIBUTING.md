@@ -66,7 +66,7 @@ Markdown files keep link references at the end, after a `<!-- References -->` co
 This repo follows the setup of [vcard-creator][vcard-creator], with these deliberate differences:
 
 - `tsconfig.build.json` uses `module: nodenext`, which checks imports the way Node.js resolves them.
-- `clean` uses `rm -rf`, without the `rimraf` dependency.
+- `clean` uses `fs.rmSync()` in a `node -e` one-liner instead of the `rimraf` dependency. It also runs on Windows.
 - `CHANGELOG.md` stays, because it is the only record of versions 0.0.1 to 0.0.7.
 - `.editorconfig` stays.
 - `tsx` runs the `formats:*` scripts, which have no counterpart in vcard-creator.
