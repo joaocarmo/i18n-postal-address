@@ -229,6 +229,8 @@ Additional formats can be added or existing ones can be replaced
     - The objects may contain an array of transforming functions that will be
       applied sequentially over the given attribute with the following signature
         (string) => string
+    - A comma that a transform adds to the last part of a line is dropped, so
+      a separator prints only when another part follows
 */
 
 const addCommaAfter = (value) => `${value},`
