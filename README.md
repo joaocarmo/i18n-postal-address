@@ -149,7 +149,7 @@ These affect the output format
   Input one country and one type,
   Define whether text transformations should be executed
 
-  country: 'CA' | ...
+  country: 'CA' | ... (an ISO 3166-1 alpha-2 code, in any case)
   type: 'business' | 'english' | 'default' | 'french' | 'personal'
   useTransforms: true | false
 */
@@ -167,9 +167,11 @@ postalAddress.setFormat({ country, type, useTransforms })
 ```js
 /*
   On by default. Some setters also fill a related attribute:
-    setCity() also sets si
-    setCountry() also sets countryAlpha2
-    setAddress1() also sets dong
+    setCity() and setSi() set each other
+    setAddress1() and setDong() set each other
+    setDo() and setProvince() set each other
+    setFamilyName() and setSecondFamilyName() set each other
+    setCountry() also sets countryAlpha2, for an English country name
 */
 
 postalAddress.setPropagation(false)
@@ -281,6 +283,8 @@ si
 state
 title
 ```
+
+Only the `KR` and `KP` formats print `addressNum`. Other formats ignore it.
 
 ## Background
 

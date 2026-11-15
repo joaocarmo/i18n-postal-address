@@ -128,6 +128,21 @@ describe('Constructor', () => {
     expect(outputAfterSwitch[0]).toEqual(['John', 'Doe'])
   })
 
+  it('should accept a lowercase country code via setFormat', () => {
+    const addr = new PostalAddress({
+      formats: { PT: formats.PT, US: formats.US },
+      defaultFormat: 'US',
+    })
+    addr
+      .setCity('Lisboa')
+      .setPostalCode('1000-001')
+      .setFormat({ country: 'pt' })
+    expect(addr.toArray()).toEqual(addr.setFormat({ country: 'PT' }).toArray())
+    expect(addr.toArray()).not.toEqual(
+      addr.setFormat({ country: 'US' }).toArray(),
+    )
+  })
+
   it('should throw on unknown country via setFormat', () => {
     const addr = new PostalAddress({ formats: { PT: formats.PT } })
     expect(() => addr.setFormat({ country: 'XX' })).toThrow(
@@ -783,6 +798,17 @@ describe('Upper Case', () => {
 })
 
 describe('getAddressFormat', () => {
+  it('should accept a lowercase country code', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    expect(myAddress.getAddressFormat({ country: 'kr' })).toEqual(
+      myAddress.getAddressFormat({ country: 'KR' }),
+    )
+  })
+
   it('should return the format array for a known country', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,

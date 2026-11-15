@@ -293,12 +293,13 @@ class PostalAddress implements PostalAddressInterface {
     useTransforms?: boolean
   }): this {
     if (typeof country === 'string') {
-      if (!this.allowed.formatForCountry.includes(country)) {
+      const countryAlpha2 = country.toUpperCase()
+      if (!this.allowed.formatForCountry.includes(countryAlpha2)) {
         throw new PostalAddressError(
           `Country "${country}" is not in the provided formats`,
         )
       }
-      this.formatForCountry = country
+      this.formatForCountry = countryAlpha2
     }
     if (typeof type === 'string') {
       if (!this.allowed.formatForType.includes(type)) {
@@ -374,7 +375,7 @@ class PostalAddress implements PostalAddressInterface {
     type?: FormatTypes
   }): AcceptAddressFormat | null {
     const { addressFormats } = this
-    const formatsAvailable = addressFormats[country]
+    const formatsAvailable = addressFormats[country?.toUpperCase()]
 
     const outputType = formatsAvailable?.[type] || formatsAvailable?.default
 
