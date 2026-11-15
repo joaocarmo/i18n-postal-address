@@ -2,7 +2,9 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    include: ['lib/__tests__/**/*.test.ts'],
     globals: true,
+    // Undo vi.spyOn() after each test
+    restoreMocks: true,
+    include: ['lib/**/*.test.ts', 'scripts/**/*.test.ts'],
   },
 })

@@ -1,4 +1,4 @@
-import { addCommaAfter, capitalize } from '../address-transforms'
+import { addCommaAfter, capitalize } from './address-transforms'
 
 describe('Address Transforms: addCommaAfter', () => {
   it('should accept "string" and output "string,"', () => {

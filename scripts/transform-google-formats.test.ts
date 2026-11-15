@@ -1,7 +1,4 @@
-import {
-  parseFmtLine,
-  transformCountry,
-} from '../../scripts/transform-google-formats'
+import { parseFmtLine, transformCountry } from './transform-google-formats'
 
 describe('parseFmtLine', () => {
   it('should parse US format line with comma and multiple tokens', () => {
