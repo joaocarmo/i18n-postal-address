@@ -29,3 +29,4 @@
 
 - [ ] Tests passed
 - [ ] Coding style respected
+- [ ] Checks in [CONTRIBUTING.md](https://github.com/joaocarmo/i18n-postal-address/blob/main/CONTRIBUTING.md) passed

@@ -284,32 +284,10 @@ MSDN > ... > Globalization and Localization >
 
 [PostalAddress][pa]
 
-## Forking / Contributing
+## Contributing
 
-Build
-
-```sh
-pnpm build
-```
-
-Test
-
-```sh
-pnpm test:unit
-
-pnpm test:functional
-```
-
-### Updating Address Formats
-
-To compare the built-in formats against Google's latest data:
-
-```sh
-pnpm formats:update
-```
-
-This fetches Google's address data, transforms it to the library's format, and
-prints a diff showing matches, differences, and missing countries.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, checks, updating the address
+formats and releases.
 
 <!-- References -->
 
