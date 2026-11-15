@@ -5,7 +5,7 @@ import { addCommaAfter } from './address-transforms.js'
 import type { AddFormatArgs, FormatTypes } from './types/address-format.js'
 import * as formats from './formats/index.js'
 
-const expectedOutputPT = `\
+const expectedOutputRUWithPTAddress = `\
 PORTUGAL
 4000-123
 PORTO
@@ -143,7 +143,7 @@ describe('Postal Address', () => {
     ).not.toThrow()
   })
 
-  it('should output a valid formatted postal address (PT)', () => {
+  it('should format a Portuguese address with the RU format', () => {
     const myAddressBusiness = new PostalAddress({
       formats: addressFormats,
       defaultFormat: 'US',
@@ -160,7 +160,7 @@ describe('Postal Address', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
   })
 
   it('should output a valid formatted postal address (US)', () => {
@@ -301,11 +301,11 @@ describe('Custom Formats', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.addFormat(customFormatOverwrite)
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
@@ -329,14 +329,14 @@ describe('Custom Formats', () => {
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.addFormat(customFormatNew).setFormat({
       country: 'GB',
       type: 'personal',
     })
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputPT)
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
 
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
