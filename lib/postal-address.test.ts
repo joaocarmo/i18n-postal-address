@@ -703,6 +703,55 @@ describe('Honorific Suffix', () => {
       ['CABA'],
     ])
   })
+
+  it.each([
+    [
+      'CO',
+      'Bogotá',
+      'Cundinamarca',
+      '110111',
+      [['BOGOTÁ,', 'Cundinamarca,', '110111']],
+    ],
+    ['PE', 'Lima', 'Lima', '15001', [['LIMA', '15001'], ['Lima']]],
+    [
+      'UY',
+      'Montevideo',
+      'Montevideo',
+      '11000',
+      [['11000', 'MONTEVIDEO,', 'MONTEVIDEO']],
+    ],
+    [
+      'VE',
+      'Caracas',
+      'Distrito Capital',
+      '1010',
+      [['CARACAS', '1010,', 'DISTRITO CAPITAL']],
+    ],
+  ])(
+    'should place the locality lines in Google order for %s',
+    (country, city, state, postalCode, localityLines) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setGivenName('Gabriel')
+        .setFirstFamilyName('García')
+        .setSecondFamilyName('Marcos')
+        .setAddress1('Calle 1')
+        .setCity(city)
+        .setState(state)
+        .setPostalCode(postalCode)
+        .setFormat({ country })
+
+      expect(myAddress.toArray()).toEqual([
+        ['Gabriel', 'García'],
+        ['Marcos'],
+        ['Calle 1'],
+        ...localityLines,
+      ])
+    },
+  )
 })
 
 describe('getAddressFormat', () => {

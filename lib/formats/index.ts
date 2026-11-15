@@ -1193,6 +1193,24 @@ export const CI: CountryFormat = {
   },
 }
 
+export const CO: CountryFormat = {
+  default: {
+    array: [
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [
+        { attribute: 'city', transforms: [capitalize, addCommaAfter] },
+        { attribute: 'state', transforms: [addCommaAfter] },
+        'postalCode',
+      ],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
 export const CR: CountryFormat = {
   default: {
     array: [
@@ -3043,6 +3061,21 @@ export const PA: CountryFormat = {
   },
 }
 
+export const PE: CountryFormat = {
+  default: {
+    array: [
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [{ attribute: 'city', transforms: [capitalize] }, 'postalCode'],
+      ['state'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
 export const PF: CountryFormat = {
   default: {
     array: [
@@ -3720,6 +3753,24 @@ export const UM: CountryFormat = {
   },
 }
 
+export const UY: CountryFormat = {
+  default: {
+    array: [
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [
+        'postalCode',
+        { attribute: 'city', transforms: [capitalize, addCommaAfter] },
+        { attribute: 'state', transforms: [capitalize] },
+      ],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
 export const UZ: CountryFormat = {
   default: {
     array: [
@@ -3776,6 +3827,24 @@ export const VC: CountryFormat = {
       ['address1'],
       ['address2'],
       ['city', 'postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+export const VE: CountryFormat = {
+  default: {
+    array: [
+      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
+      ['secondFamilyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [
+        { attribute: 'city', transforms: [capitalize] },
+        { attribute: 'postalCode', transforms: [addCommaAfter] },
+        { attribute: 'state', transforms: [capitalize] },
+      ],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -4249,17 +4318,7 @@ export const ZW: CountryFormat = {
   },
 }
 
-export {
-  AR as BO,
-  AR as CL,
-  AR as CO,
-  AR as EC,
-  AR as GY,
-  AR as PY,
-  AR as PE,
-  AR as UY,
-  AR as VE,
-}
+export { AR as BO, AR as CL, AR as EC, AR as GY, AR as PY }
 export { HR as RS, HR as SI }
 export { KR as KP }
 
