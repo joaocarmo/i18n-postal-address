@@ -1,4 +1,5 @@
 import arrayParser from './address-parsers.js'
+import { addCommaAfter } from './address-transforms.js'
 import objectInitialState from './object-initial-state.js'
 import type {
   AcceptAddressFormat,
@@ -47,5 +48,27 @@ describe('arrayParser', () => {
     expect(
       parse([[{ attribute: 'city', transforms: [toUpperCase] }]], false),
     ).toEqual([['Porto']])
+  })
+
+  const cityWithComma = { attribute: 'city', transforms: [addCommaAfter] }
+
+  it('should keep an added comma when another part follows', () => {
+    expect(parse([[cityWithComma, 'postalCode']])).toEqual([
+      ['Porto,', '4000-123'],
+    ])
+  })
+
+  it('should drop an added comma when no part follows', () => {
+    expect(parse([[cityWithComma, 'state']])).toEqual([['Porto']])
+  })
+
+  it('should keep a comma that is part of the value', () => {
+    expect(
+      arrayParser(
+        { ...object, city: 'Porto,' },
+        [[{ attribute: 'city' }]],
+        true,
+      ),
+    ).toEqual([['Porto,']])
   })
 })
