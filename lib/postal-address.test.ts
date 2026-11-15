@@ -7,6 +7,7 @@ import * as formats from './formats/index.js'
 
 const expectedOutputPT = `\
 PORTUGAL
+4000-123
 PORTO
 Happy Park
 Edifício 4, Piso 2
@@ -271,6 +272,25 @@ describe('Custom Formats', () => {
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputOverwrite)
+  })
+
+  it('should output a valid formatted postal address (CN)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'CN',
+    })
+    myAddress
+      .setProvince('北京市')
+      .setCity('海淀区')
+      .setAddress1('中关村大街27号')
+      .setPostalCode('100080')
+      .setFamilyName('王')
+      .setGivenName('小明')
+      .setCountry('中国')
+
+    expect(myAddress.toString()).toBe(
+      '中国\n100080\n北京市 海淀区\n中关村大街27号\n王 小明',
+    )
   })
 
   it('should allow custom formats (new)', () => {

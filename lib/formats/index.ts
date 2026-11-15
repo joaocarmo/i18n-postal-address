@@ -168,6 +168,7 @@ export const CN: CountryFormat = {
   default: {
     array: [
       [{ attribute: 'country', transforms: [capitalize] }],
+      ['postalCode'],
       ['province', 'city'],
       ['careOf'],
       ['address1', 'address2'],
@@ -572,6 +573,7 @@ export const RU: CountryFormat = {
   default: {
     array: [
       [{ attribute: 'country', transforms: [capitalize] }],
+      ['postalCode'],
       [
         'republic',
         'state',
