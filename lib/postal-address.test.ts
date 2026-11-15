@@ -754,6 +754,34 @@ describe('Honorific Suffix', () => {
   )
 })
 
+describe('Upper Case', () => {
+  it.each([
+    ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
+    ['AU', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
+    ['CA', 'default', [['SPRINGFIELD,', 'IL', 'AB1']]],
+    ['CA', 'french', [['Springfield', 'IL'], ['AB1']]],
+    ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
+    ['NG', 'default', [['SPRINGFIELD', 'AB1'], ['IL']]],
+    ['AR', 'default', [['AB1', 'SPRINGFIELD'], ['il']]],
+  ] as const)(
+    'should print the parts Google asks for in capitals for %s (%s)',
+    (country, type, expected) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setCity('Springfield')
+        .setState('il')
+        .setProvince('il')
+        .setPostalCode('ab1')
+        .setFormat({ country, type })
+
+      expect(myAddress.toArray()).toEqual(expected)
+    },
+  )
+})
+
 describe('getAddressFormat', () => {
   it('should return the format array for a known country', () => {
     const myAddress = new PostalAddress({
