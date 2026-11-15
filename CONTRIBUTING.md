@@ -50,7 +50,7 @@ This fetches Google's data into `scripts/.cache/`, transforms it to the library'
 
 When sources disagree, follow the first that applies:
 
-1. The format that the national postal operator or regulator publishes.
+1. The format that the national postal operator or regulator publishes, or a government standard, such as the order of a romanised name.
 2. A format this library wrote for that country. Keep it unless a higher source contradicts it or it harms delivery.
 3. Google's data. It is the baseline where the library has no format of its own, including the countries that reuse the format of `AR`.
 
