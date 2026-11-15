@@ -224,7 +224,7 @@ describe('Postal Address', () => {
       .setFormat({ country: 'CN', type: 'english' })
 
     expect(myAddress.toString()).toBe(
-      'Xiaoming Wang\nZhongguancun Street 27\nHaidian\nBEIJING, 100080\nCHINA',
+      'Wang Xiaoming\nZhongguancun Street 27\nHaidian\nBEIJING, 100080\nCHINA',
     )
   })
 
