@@ -6,12 +6,12 @@ import type { AddFormatArgs, FormatTypes } from './types/address-format.js'
 import * as formats from './formats/index.js'
 
 const expectedOutputRUWithPTAddress = `\
-PORTUGAL
-4000-123
-PORTO
+SmartShoes Portugal, Lda.
 Happy Park
 Edifício 4, Piso 2
-SmartShoes Portugal, Lda.`
+PORTO
+4000-123
+PORTUGAL`
 
 const expectedOutputUSWithoutTransforms = `\
 123 Nevermore Rd
@@ -243,7 +243,7 @@ describe('Postal Address', () => {
       .setCountry('Russia')
 
     expect(myAddress.toString()).toBe(
-      'RUSSIA\n125009\nМосковская обл. МОСКВА\nул. Тверская, д. 7\nИванов\nИван',
+      'Иванов\nИван\nул. Тверская, д. 7\nМОСКВА\nМосковская обл.\n125009\nRUSSIA',
     )
   })
 })
