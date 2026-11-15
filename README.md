@@ -162,6 +162,8 @@ const postalAddress = new PostalAddress({
 postalAddress.setFormat({ country, type, useTransforms })
 ```
 
+The `english` type of `CN`, `JP`, `KR` and `KP` gives the Latin-script order, for an address written in Latin script. It does not transliterate the values.
+
 ### Propagation
 
 ```js

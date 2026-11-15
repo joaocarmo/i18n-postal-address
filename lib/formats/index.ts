@@ -407,6 +407,21 @@ export const IT: CountryFormat = {
 }
 
 export const JP: CountryFormat = {
+  english: {
+    array: [
+      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      [
+        { attribute: 'city', transforms: [addCommaAfter] },
+        { attribute: 'prefecture', transforms: [capitalize] },
+      ],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
   default: {
     array: [
       [{ attribute: 'country', transforms: [capitalize] }],
@@ -420,6 +435,19 @@ export const JP: CountryFormat = {
 }
 
 export const KR: CountryFormat = {
+  english: {
+    array: [
+      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      ['companyName'],
+      ['careOf'],
+      ['addressNum', 'dong'],
+      ['gu'],
+      ['si'],
+      ['do'],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
   default: {
     array: [
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
