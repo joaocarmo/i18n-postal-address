@@ -1,4 +1,4 @@
-import PostalAddressError from './postal-address-error'
+import PostalAddressError from './postal-address-error.js'
 
 describe('PostalAddressError', () => {
   it('should set the name and the message', () => {

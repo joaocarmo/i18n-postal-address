@@ -1,6 +1,9 @@
-import arrayParser from './address-parsers'
-import objectInitialState from './object-initial-state'
-import type { AcceptAddressFormat, AddressObject } from './types/address-format'
+import arrayParser from './address-parsers.js'
+import objectInitialState from './object-initial-state.js'
+import type {
+  AcceptAddressFormat,
+  AddressObject,
+} from './types/address-format.js'
 
 const object: AddressObject = {
   ...objectInitialState,

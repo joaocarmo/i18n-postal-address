@@ -1,9 +1,9 @@
-import PostalAddress, { addressFormats } from './index'
-import PostalAddressError from './postal-address-error'
-import objectInitialState from './object-initial-state'
-import { addCommaAfter } from './address-transforms'
-import type { AddFormatArgs, FormatTypes } from './types/address-format'
-import * as formats from './formats/index'
+import PostalAddress, { addressFormats } from './index.js'
+import PostalAddressError from './postal-address-error.js'
+import objectInitialState from './object-initial-state.js'
+import { addCommaAfter } from './address-transforms.js'
+import type { AddFormatArgs, FormatTypes } from './types/address-format.js'
+import * as formats from './formats/index.js'
 
 const expectedOutputPT = `\
 PORTUGAL
