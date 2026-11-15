@@ -18,10 +18,12 @@ pnpm pretty
 
 `pnpm test:unit` runs the unit tests without coverage, so a filtered run such as `pnpm test:unit lib/utils.test.ts` works.
 
-CI runs the smoke test on Node.js 18 and 20, the oldest version `engines` allows and the next major's minimum. `tsconfig.build.json` targets ES2022 so that `dist/` runs there.
+CI runs the smoke test on Node.js 18 and 22, the oldest version `engines` allows and the next major's minimum. `tsconfig.build.json` targets ES2022 so that `dist/` runs there.
 
 ## Design rules
 
+- The library formats a complete mailing label from structured parts: the recipient block ordered per country, the format variants and formats checked against the postal operators. Keep these over a smaller package, a bare function or Google's literal text.
+- The library does not validate addresses, parse address strings or rename its attributes to another model. Form libraries and geocoding services do the first 2. A rename would break every caller.
 - Semantic versioning:
   - patch: a bug fix, including a fix to a country's format;
   - minor: new API, a new country or format type, or a deprecation;
@@ -43,6 +45,35 @@ pnpm formats:update
 ```
 
 This fetches Google's data into `scripts/.cache/`, transforms it to the library's format and prints a diff that shows matches, differences and missing countries. It changes no file in `lib/`. Apply the changes you want to `lib/formats/index.ts` by hand, and add a test for each country you change.
+
+### Sources
+
+When sources disagree, follow the first that applies:
+
+1. The format that the national postal operator or regulator publishes, or a government standard, such as the order of a romanised name.
+2. A format this library wrote for that country. Keep it unless a higher source contradicts it or it harms delivery.
+3. Google's data. It is the baseline where the library has no format of its own, including the countries that reuse the format of `AR`.
+
+Cite the source of each format change in the PR. A change that only matches Google, against a format written for that country, needs another reason.
+
+The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, because the country prints on its own line. They also leave out the sorting code, such as CEDEX. Add either when a caller asks.
+
+### Deliberate differences from Google
+
+`pnpm formats:update` reports these differences. They stay:
+
+- Name lines: the library splits the name into more parts and orders them per country, such as `title` in `DE` and 2 surnames in `AR` and `ES`.
+- `CN`, `JP`, `KP` and `KR` default to the local order. The script compares them with Google's Latin-script format.
+- Level-1 attributes: some formats read another attribute than Google's `state`, such as `province` in `IT`.
+- `TT`: TTPost prints the postal code on the city line.
+- `RO`: Poșta Română prints the postal code and locality, then the county.
+- `BR`: Correios accept the postal code, city and state on 1 line.
+- `ES`: the postal code and city on 1 line, then the province, as in common practice. Correos publishes no layout.
+- `EC`: the regulator's example prints the postal code and city on 1 line.
+- The city in capitals in `AR`, the countries that reuse its format, `NO` and `SE`. Capitals never harm sorting.
+- A `state` line in `BG`, `HU`, `PY` and `EC`. It prints only when it is set.
+
+Other reports, such as `address1` and `address2` on 1 line in `AR`, `CH`, `ES` and `HU`, are not reviewed yet.
 
 ## Release
 
