@@ -718,7 +718,7 @@ describe('Honorific Suffix', () => {
       'Montevideo',
       'Montevideo',
       '11000',
-      [['11000', 'MONTEVIDEO', 'MONTEVIDEO']],
+      [['11000', 'MONTEVIDEO,', 'MONTEVIDEO']],
     ],
     [
       'VE',

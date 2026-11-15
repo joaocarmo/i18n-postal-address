@@ -3763,7 +3763,7 @@ export const UY: CountryFormat = {
       ['address1', 'address2'],
       [
         'postalCode',
-        { attribute: 'city', transforms: [capitalize] },
+        { attribute: 'city', transforms: [capitalize, addCommaAfter] },
         { attribute: 'state', transforms: [capitalize] },
       ],
       [{ attribute: 'country', transforms: [capitalize] }],
