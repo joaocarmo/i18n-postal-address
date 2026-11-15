@@ -74,3 +74,6 @@ TODO.md
 
 # pnpm store when no global store can be hard linked
 .pnpm-store/
+
+# Coverage reports
+coverage/

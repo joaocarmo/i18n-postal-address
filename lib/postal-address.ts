@@ -73,11 +73,6 @@ class PostalAddress implements PostalAddressInterface {
   private getFormat(): AcceptAddressFormat | null {
     const { formatForCountry, formatForType, addressFormats } = this
     const formatsAvailable = addressFormats[formatForCountry]
-
-    if (!formatsAvailable) {
-      return null
-    }
-
     const outputType =
       formatsAvailable?.[formatForType] || formatsAvailable?.default
 

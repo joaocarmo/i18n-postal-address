@@ -19,3 +19,14 @@ describe('Address Transforms: capitalize', () => {
     expect(capitalize('')).toBe('')
   })
 })
+
+describe('Address Transforms: values that are not strings', () => {
+  it.each([addCommaAfter, capitalize])(
+    'should return the value unchanged from %o',
+    (transform) => {
+      const value = 42 as unknown as string
+
+      expect(transform(value)).toBe(value)
+    },
+  )
+})

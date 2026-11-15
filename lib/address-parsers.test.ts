@@ -1,0 +1,48 @@
+import arrayParser from './address-parsers'
+import objectInitialState from './object-initial-state'
+import type { AcceptAddressFormat, AddressObject } from './types/address-format'
+
+const object: AddressObject = {
+  ...objectInitialState,
+  city: 'Porto',
+  postalCode: '4000-123',
+}
+
+const parse = (format: unknown, useTransforms = true) =>
+  arrayParser(object, format as AcceptAddressFormat, useTransforms)
+
+describe('arrayParser', () => {
+  it('should return no lines when the format is not an array', () => {
+    expect(parse('city')).toEqual([])
+  })
+
+  it('should skip lines that are not arrays', () => {
+    expect(parse(['city', ['postalCode']])).toEqual([['4000-123']])
+  })
+
+  it('should skip parts that are neither strings nor objects', () => {
+    expect(parse([[42, 'city']])).toEqual([['Porto']])
+  })
+
+  it('should skip object parts without a string attribute', () => {
+    expect(parse([[{ attribute: 42 }, 'city']])).toEqual([['Porto']])
+  })
+
+  it('should skip transforms that are not functions', () => {
+    expect(
+      parse([[{ attribute: 'city', transforms: ['capitalize'] }]]),
+    ).toEqual([['Porto']])
+  })
+
+  it('should accept an object part without transforms', () => {
+    expect(parse([[{ attribute: 'city' }]])).toEqual([['Porto']])
+  })
+
+  it('should not apply the transforms when they are disabled', () => {
+    const toUpperCase = (value: string) => value.toUpperCase()
+
+    expect(
+      parse([[{ attribute: 'city', transforms: [toUpperCase] }]], false),
+    ).toEqual([['Porto']])
+  })
+})

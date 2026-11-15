@@ -2,7 +2,7 @@ import PostalAddress, { addressFormats } from './index'
 import PostalAddressError from './postal-address-error'
 import objectInitialState from './object-initial-state'
 import { addCommaAfter } from './address-transforms'
-import type { AddFormatArgs } from './types/address-format'
+import type { AddFormatArgs, FormatTypes } from './types/address-format'
 import * as formats from './formats/index'
 
 const expectedOutputPT = `\
@@ -744,5 +744,132 @@ describe('Propagation', () => {
     myAddress.setFamilyName('Doe')
     expect(myAddress.toObject().familyName).toBe('Doe')
     expect(myAddress.toObject().secondFamilyName).toBe('Smith')
+  })
+})
+
+describe('Setters', () => {
+  const setters = [
+    ['setAddress', 'address1'],
+    ['setAdditionalName', 'additionalName'],
+    ['setGu', 'gu'],
+    ['setHonorificPrefix', 'honorificPrefix'],
+    ['setJobTitle', 'jobTitle'],
+    ['setPrefecture', 'prefecture'],
+    ['setRegion', 'region'],
+    ['setRepublic', 'republic'],
+    ['setTitle', 'title'],
+  ] as const
+
+  it.each(setters)('should set the value with %s', (setter, property) => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    myAddress[setter]('value')
+
+    expect(myAddress.toObject()[property]).toBe('value')
+  })
+})
+
+describe('Propagation', () => {
+  const setters = [
+    ['setAddress1', 'address1', 'dong'],
+    ['setCity', 'city', 'si'],
+    ['setDo', 'do', 'province'],
+    ['setDong', 'dong', 'address1'],
+    ['setFamilyName', 'familyName', 'secondFamilyName'],
+    ['setProvince', 'province', 'do'],
+    ['setSecondFamilyName', 'secondFamilyName', 'familyName'],
+    ['setSi', 'si', 'city'],
+  ] as const
+
+  it.each(setters)(
+    'should not propagate %s when propagation is off',
+    (setter, property, related) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      }).setPropagation(false)
+
+      myAddress[setter]('value')
+
+      expect(myAddress.toObject()[property]).toBe('value')
+      expect(myAddress.toObject()[related]).toBe('')
+    },
+  )
+
+  it('should not set countryAlpha2 when propagation is off', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+      .setPropagation(false)
+      .setCountry('Portugal')
+
+    expect(myAddress.toObject().countryAlpha2).toBe('')
+  })
+
+  it('should not set countryAlpha2 for an unknown country', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    }).setCountry('Atlantis')
+
+    expect(myAddress.toObject().countryAlpha2).toBe('')
+  })
+})
+
+describe('Format without a matching type', () => {
+  it('should output nothing when the country has no format for the type', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+      .addFormat({ country: 'ZZ', format: [['city']], type: 'personal' })
+      .setCity('Porto')
+      .setFormat({ country: 'ZZ', type: 'business' })
+
+    expect(myAddress.toArray()).toEqual([])
+    expect(myAddress.toString()).toBe('')
+  })
+})
+
+describe('Format type checks', () => {
+  it('should reject an unknown type in setFormat', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    expect(() =>
+      myAddress.setFormat({ type: 'unknown' as FormatTypes }),
+    ).toThrow(new PostalAddressError('Format type "unknown" is not valid'))
+  })
+
+  it('should reject an unknown type in addFormat', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    expect(() =>
+      myAddress.addFormat({
+        country: 'ZZ',
+        format: [['city']],
+        type: 'unknown' as FormatTypes,
+      }),
+    ).toThrow(new PostalAddressError('Format type "unknown" is not valid'))
+  })
+})
+
+describe('Values that are not strings', () => {
+  it('should ignore a value that is not a string', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    }).setCity(42 as unknown as string)
+
+    expect(myAddress.toObject().city).toBe('')
   })
 })
