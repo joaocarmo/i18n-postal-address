@@ -705,6 +705,47 @@ describe('Honorific Suffix', () => {
   })
 })
 
+describe('Administrative Area', () => {
+  const caAddress = () =>
+    new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
+      .setCity('Ottawa')
+      .setState('ON')
+      .setPostalCode('K1A 0B1')
+      .setFormat({ country: 'CA' })
+
+  it('should print a value set as state in a format that reads province', () => {
+    expect(caAddress().toArray()).toEqual([['OTTAWA,', 'ON', 'K1A 0B1']])
+  })
+
+  it('should not copy the value into the address object', () => {
+    expect(caAddress().toObject().province).toBe('')
+  })
+
+  it('should not fall back when propagation is off', () => {
+    expect(caAddress().setPropagation(false).toArray()).toEqual([
+      ['OTTAWA,', 'K1A 0B1'],
+    ])
+  })
+
+  it('should print the value the format reads when it is set', () => {
+    expect(caAddress().setProvince('QC').toArray()).toEqual([
+      ['OTTAWA,', 'QC', 'K1A 0B1'],
+    ])
+  })
+
+  it('should not fall back in a format that reads several of them', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+      .setCity('Moskva')
+      .setRegion('Moskovskaya oblast')
+      .setFormat({ country: 'RU' })
+
+    expect(myAddress.toArray()).toEqual([['MOSKVA'], ['Moskovskaya oblast']])
+  })
+})
+
 describe('getAddressFormat', () => {
   it('should return the format array for a known country', () => {
     const myAddress = new PostalAddress({

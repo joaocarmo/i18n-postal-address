@@ -175,6 +175,8 @@ postalAddress.setFormat({ country, type, useTransforms })
 postalAddress.setPropagation(false)
 ```
 
+Propagation also covers the first administrative level. Formats read it as `state`, `province`, `region`, `prefecture`, `do` or `republic`. When a format reads 1 of them and it is empty, it prints the first of the others that is set. For example, a value set with `setState()` prints in the `CA` format, which reads `province`.
+
 ### Objects
 
 ```js
