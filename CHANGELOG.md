@@ -1,6 +1,6 @@
 # Changelog
 
-> The changelog will no longer be maintained. Instead, the information will be available in the releases.
+> The changelog will no longer be maintained. Instead, the information will be available in the [releases](https://github.com/joaocarmo/i18n-postal-address/releases).
 
 ## 0.6.1
 

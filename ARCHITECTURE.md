@@ -27,6 +27,12 @@ Each module in `lib/` has 1 job:
 - `utils.ts`: format checks and the initial address object.
 - `types/`: the public types.
 
+## Invariants
+
+- `lib/` has no runtime dependency and does no I/O. Only `scripts/` uses the network.
+- Formats are plain data. `package.json` sets `sideEffects: false`, so `formats/index.ts` must stay free of side effects for tree-shaking.
+- The package is ESM-only. `dist/` must run on the oldest Node.js version that `engines` allows.
+
 ## Scripts
 
 The scripts in `scripts/` compare the built-in formats with Google's data. `pnpm formats:update` runs them in this order:

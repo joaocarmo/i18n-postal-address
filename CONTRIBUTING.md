@@ -58,6 +58,8 @@ Release notes live in the GitHub releases. `CHANGELOG.md` covers the versions be
 
 - `README.md`: what the library does, installation, usage and the API. It links to the rest.
 - `ARCHITECTURE.md`: the source layout and how an address is built.
+- `AGENTS.md`: instructions for coding agents. It imports this file and `ARCHITECTURE.md`.
+- `SECURITY.md`: supported versions and how to report a vulnerability.
 
 Markdown files keep link references at the end, after a `<!-- References -->` comment, and use no em dashes.
 
