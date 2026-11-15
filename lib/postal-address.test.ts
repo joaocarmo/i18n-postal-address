@@ -188,6 +188,44 @@ describe('Postal Address', () => {
     })
     expect(myAddressPersonal.toString()).toBe(expectedOutputUSWithTransforms)
   })
+
+  it('should output a valid formatted postal address (CN)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'CN',
+    })
+    myAddress
+      .setProvince('北京市')
+      .setCity('海淀区')
+      .setAddress1('中关村大街27号')
+      .setPostalCode('100080')
+      .setFamilyName('王')
+      .setGivenName('小明')
+      .setCountry('中国')
+
+    expect(myAddress.toString()).toBe(
+      '中国\n100080\n北京市 海淀区\n中关村大街27号\n王 小明',
+    )
+  })
+
+  it('should output a valid formatted postal address (RU)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'RU',
+    })
+    myAddress
+      .setRegion('Московская обл.')
+      .setCity('Москва')
+      .setAddress1('ул. Тверская, д. 7')
+      .setPostalCode('125009')
+      .setFamilyName('Иванов')
+      .setGivenName('Иван')
+      .setCountry('Russia')
+
+    expect(myAddress.toString()).toBe(
+      'RUSSIA\n125009\nМосковская обл. МОСКВА\nул. Тверская, д. 7\nИванов\nИван',
+    )
+  })
 })
 
 describe('Custom Formats', () => {
@@ -272,25 +310,6 @@ describe('Custom Formats', () => {
     myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputOverwrite)
-  })
-
-  it('should output a valid formatted postal address (CN)', () => {
-    const myAddress = new PostalAddress({
-      formats: addressFormats,
-      defaultFormat: 'CN',
-    })
-    myAddress
-      .setProvince('北京市')
-      .setCity('海淀区')
-      .setAddress1('中关村大街27号')
-      .setPostalCode('100080')
-      .setFamilyName('王')
-      .setGivenName('小明')
-      .setCountry('中国')
-
-    expect(myAddress.toString()).toBe(
-      '中国\n100080\n北京市 海淀区\n中关村大街27号\n王 小明',
-    )
   })
 
   it('should allow custom formats (new)', () => {
