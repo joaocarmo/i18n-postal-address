@@ -70,7 +70,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The oldest versions engines.node allows; the test job covers .nvmrc
+        # TODO(#414): remove 18 when the minimum Node.js version becomes 20.
         node-version: [18, 20]
 
     steps:
