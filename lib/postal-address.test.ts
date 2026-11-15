@@ -208,6 +208,26 @@ describe('Postal Address', () => {
     )
   })
 
+  it('should output a valid formatted postal address (CN, english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'CN',
+    })
+    myAddress
+      .setProvince('Beijing')
+      .setCity('Haidian')
+      .setAddress1('Zhongguancun Street 27')
+      .setPostalCode('100080')
+      .setFamilyName('Wang')
+      .setGivenName('Xiaoming')
+      .setCountry('China')
+      .setFormat({ country: 'CN', type: 'english' })
+
+    expect(myAddress.toString()).toBe(
+      'Xiaoming Wang\nZhongguancun Street 27\nHaidian\nBEIJING, 100080\nCHINA',
+    )
+  })
+
   it('should output a valid formatted postal address (RU)', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,

@@ -165,6 +165,27 @@ export const CH: CountryFormat = {
 }
 
 export const CN: CountryFormat = {
+  english: {
+    array: [
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['city'],
+      [
+        { attribute: 'province', transforms: [capitalize, addCommaAfter] },
+        'postalCode',
+      ],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
   default: {
     array: [
       [{ attribute: 'country', transforms: [capitalize] }],
