@@ -244,7 +244,7 @@ describe('Postal Address', () => {
       .setFormat({ country: 'JP', type: 'english' })
 
     expect(myAddress.toString()).toBe(
-      'Taro Yamada\n1-2-3 Ginza\nChuo-ku, TOKYO\n104-0061\nJAPAN',
+      'Yamada Taro\n1-2-3 Ginza\nChuo-ku, TOKYO\n104-0061\nJAPAN',
     )
   })
 
@@ -629,7 +629,7 @@ describe('Korean Address Format', () => {
         .setFormat({ country, type: 'english' })
 
       expect(myAddress.toArray()).toEqual([
-        ['Seojun', 'Kim'],
+        ['Kim', 'Seojun'],
         ['114', 'Seolleung-ro'],
         ['Gangnam-gu'],
         ['Seoul'],

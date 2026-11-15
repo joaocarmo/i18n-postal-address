@@ -409,7 +409,7 @@ export const IT: CountryFormat = {
 export const JP: CountryFormat = {
   english: {
     array: [
-      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      ['honorificPrefix', 'familyName', 'givenName', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -437,7 +437,7 @@ export const JP: CountryFormat = {
 export const KR: CountryFormat = {
   english: {
     array: [
-      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      ['honorificPrefix', 'familyName', 'givenName', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
       ['addressNum', 'dong'],
