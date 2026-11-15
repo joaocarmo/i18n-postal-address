@@ -1,12 +1,11 @@
 # i18n-postal-address
 
 [![npm version](https://badge.fury.io/js/i18n-postal-address.svg)](https://badge.fury.io/js/i18n-postal-address)
-![Tests](https://github.com/joaocarmo/i18n-postal-address/workflows/Tests/badge.svg)
+[![Tests](https://github.com/joaocarmo/i18n-postal-address/actions/workflows/tests.yml/badge.svg)](https://github.com/joaocarmo/i18n-postal-address/actions/workflows/tests.yml)
 
 A JavaScript library to produce international postal addresses formatted by
 region for Node.js and the web. Supports **249 countries and territories** with format data
-sourced from [Google's Address Data Service][google-address-data] and aligned
-with [UPU S42][upu-s42] postal standards.
+sourced from [Google's Address Data Service][google-address-data].
 
 **Try it out in the [playground]!**
 
@@ -58,7 +57,7 @@ const ptAddress = new PostalAddress({ formats: { PT } })
 
 ## Example
 
-The methods can be chained one after the other for a cleaner code.
+The methods can be chained one after the other for cleaner code.
 
 ```js
 import PostalAddress, { addressFormats } from 'i18n-postal-address'
@@ -113,6 +112,7 @@ PORTUGAL
 
 ```js
 setAdditionalName(string)
+setAddress(string) // alias of setAddress1
 setAddress1(string)
 setAddress2(string)
 setAddressNum(string)
@@ -162,6 +162,29 @@ const postalAddress = new PostalAddress({
 postalAddress.setFormat({ country, type, useTransforms })
 ```
 
+### Propagation
+
+```js
+/*
+  On by default. Some setters also fill a related attribute:
+    setCity() also sets si
+    setCountry() also sets countryAlpha2
+    setAddress1() also sets dong
+*/
+
+postalAddress.setPropagation(false)
+```
+
+### Objects
+
+```js
+// Replaces every attribute; attributes left out become empty
+postalAddress.fromObject({ givenName: 'John', city: 'Aveiro' })
+
+// Returns a copy of every attribute
+postalAddress.toObject()
+```
+
 ### Querying Address Formats
 
 You can retrieve the format definition for any country programmatically.
@@ -174,7 +197,7 @@ const postalAddress = new PostalAddress({
 
 // Get the format for a country (returns the array of address parts)
 const format = postalAddress.getAddressFormat({ country: 'KR' })
-// => [['familyName', 'givenName', 'honorificPrefix'], ['companyName'], ...]
+// => [['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'], ['companyName'], ...]
 
 // Get a specific format type
 const businessFormat = postalAddress.getAddressFormat({
@@ -268,10 +291,11 @@ individual parts (company name, address, postal code, city, county, country,
 ### Data Sources
 
 Address formats are sourced from [Google's Address Data Service][google-address-data]
-(the same data that powers Chrome autofill and Android address input) and aligned
-with the [UPU S42][upu-s42] international addressing standard. The library includes
-tooling scripts to fetch, transform, and diff Google's data against the built-in
-format definitions.
+(the same data that powers Chrome autofill and Android address input). The library
+includes tooling scripts to fetch, transform, and diff Google's data against the
+built-in format definitions.
+
+[UPU S42][upu-s42] is the international standard for postal address templates.
 
 ### Inspiration
 
@@ -279,8 +303,6 @@ format definitions.
 
 MSDN > ... > Globalization and Localization >
 [Appendix V International Address Formats][msappendix]
-
-[Query Address Data][qad]
 
 [PostalAddress][pa]
 
@@ -292,8 +314,7 @@ formats and releases.
 <!-- References -->
 
 [google-address-data]: https://chromium-i18n.appspot.com/ssl-address
-[msappendix]: https://msdn.microsoft.com/en-us/library/cc195167.aspx
+[msappendix]: https://learn.microsoft.com/en-us/previous-versions/cc195167(v=msdn.10)
 [pa]: https://schema.org/PostalAddress
 [playground]: https://joaocarmo.com/i18n-postal-address-playground
-[qad]: http://i18napis.appspot.com/address
 [upu-s42]: https://www.upu.int/en/Postal-Solutions/Programmes-Services/Addressing-Solutions
