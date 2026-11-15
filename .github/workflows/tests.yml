@@ -5,26 +5,31 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test-local:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Enable corepack
-        run: corepack enable pnpm
-
-      - name: Use Node.js
-        uses: actions/setup-node@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          persist-credentials: false
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Set up pnpm, Node.js and dependencies
+        uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3.2.0
+        with:
+          require-lockfile: true
+          cache: true
+          save-cache: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Lint the source files
         run: pnpm lint
@@ -32,10 +37,62 @@ jobs:
       - name: Type check
         run: pnpm type-check
 
+      - name: Check formatting
+        run: pnpm pretty
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm, Node.js and dependencies
+        uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3.2.0
+        with:
+          require-lockfile: true
+          cache: true
+          save-cache: ${{ github.ref == 'refs/heads/main' }}
+
       - name: Build the library
         run: pnpm build
 
       - name: Execute the tests
         run: |
-          pnpm test:unit
+          pnpm test
           pnpm test:functional
+
+  smoke:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # The oldest versions engines.node allows; the test job covers .nvmrc
+        node-version: [18, 20]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm, Node.js and dependencies
+        uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3.2.0
+        with:
+          require-lockfile: true
+          cache: true
+          save-cache: false
+
+      - name: Build the library
+        run: pnpm build
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run the functional test against dist/
+        run: node test-functional/test.js
