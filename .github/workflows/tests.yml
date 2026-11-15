@@ -61,7 +61,7 @@ jobs:
 
       - name: Execute the tests
         run: |
-          pnpm test
+          pnpm test:coverage
           pnpm test:functional
 
   smoke:

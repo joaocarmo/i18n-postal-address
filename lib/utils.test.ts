@@ -1,4 +1,10 @@
-import { allowedTokens, containsValidTokens, isValidFormat } from './utils'
+import {
+  allowedTokens,
+  constructInitialObject,
+  containsValidTokens,
+  isValidFormat,
+} from './utils'
+import objectInitialState from './object-initial-state'
 import type { AddressFormatPart } from './types/address-format'
 
 describe('test the allowed tokens', () => {
@@ -46,5 +52,28 @@ describe('test the format validator fn', () => {
 
   it.each(formats)('testing %s format: %s', (description, format, expected) => {
     expect(isValidFormat(format as AddressFormatPart[][])).toBe(expected)
+  })
+})
+
+describe('constructInitialObject', () => {
+  it('should ignore unknown keys and values that are not strings', () => {
+    const presetState = {
+      city: 'Porto',
+      postalCode: 4000,
+      unknown: 'value',
+    } as unknown as Parameters<typeof constructInitialObject>[0]
+
+    expect(constructInitialObject(presetState)).toEqual({
+      ...objectInitialState,
+      city: 'Porto',
+    })
+  })
+})
+
+describe('containsValidTokens', () => {
+  it('should reject a format that is not an array', () => {
+    expect(
+      containsValidTokens('city' as unknown as AddressFormatPart[][]),
+    ).toBe(false)
   })
 })

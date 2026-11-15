@@ -16,6 +16,10 @@ export const capitalize: TransformFunction = (value) => {
   return value
 }
 
+/**
+ * @deprecated No built-in format uses it. The next major version removes it.
+ * Use a custom transform function instead.
+ */
 export const capitalizeWhenTwo: TransformFunction = (value) => {
   if (value && typeof value === 'string' && value.length === 2) {
     return value.toUpperCase()
@@ -24,6 +28,10 @@ export const capitalizeWhenTwo: TransformFunction = (value) => {
   return value
 }
 
+/**
+ * @deprecated No built-in format uses it. The next major version removes it.
+ * Use a custom transform function instead.
+ */
 export const pascalCase: TransformFunction = (value) => {
   if (typeof value === 'string') {
     return value.replace(

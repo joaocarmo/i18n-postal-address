@@ -6,5 +6,11 @@ export default defineConfig({
     // Undo vi.spyOn() after each test
     restoreMocks: true,
     include: ['lib/**/*.test.ts', 'scripts/**/*.test.ts'],
+    coverage: {
+      provider: 'v8',
+      include: ['lib/**/*.ts'],
+      exclude: ['lib/**/*.test.ts'],
+      thresholds: { 100: true },
+    },
   },
 })
