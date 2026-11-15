@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "allowJs": true
-  },
-  "include": ["lib/**/*", "eslint.config.js", "vitest.config.ts"],
-  "exclude": ["node_modules"]
-}

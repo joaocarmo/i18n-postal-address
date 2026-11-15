@@ -75,11 +75,7 @@ export interface ParserInterface {
 }
 
 export type FormatTypes =
-  | 'business'
-  | 'default'
-  | 'english'
-  | 'french'
-  | 'personal'
+  'business' | 'default' | 'english' | 'french' | 'personal'
 
 export type ClassProperties = {
   formatForCountry: string

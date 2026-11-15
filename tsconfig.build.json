@@ -4,6 +4,7 @@
     "noEmit": false,
     "declaration": true,
     "rootDir": "./lib",
+    "target": "ES2022",
     "outDir": "./dist",
     "module": "nodenext",
     "moduleResolution": "nodenext"
