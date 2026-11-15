@@ -59,8 +59,7 @@
     "url": "https://github.com/joaocarmo/i18n-postal-address/issues"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "tag": "latest"
+    "registry": "https://registry.npmjs.org"
   },
   "keywords": [
     "address",
