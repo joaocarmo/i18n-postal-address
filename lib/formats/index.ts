@@ -593,20 +593,16 @@ export const RO: CountryFormat = {
 export const RU: CountryFormat = {
   default: {
     array: [
-      [{ attribute: 'country', transforms: [capitalize] }],
-      ['postalCode'],
-      [
-        'republic',
-        'state',
-        'region',
-        { attribute: 'city', transforms: [capitalize] },
-      ],
+      ['familyName'],
+      ['givenName', 'additionalName', 'honorificSuffix'],
+      ['companyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
-      ['companyName'],
-      ['familyName'],
-      ['givenName', 'additionalName', 'honorificSuffix'],
+      [{ attribute: 'city', transforms: [capitalize] }],
+      ['republic', 'state', 'region'],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
 }
