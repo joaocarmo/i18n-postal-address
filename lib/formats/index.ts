@@ -61,6 +61,7 @@ const _ar: CountryFormat = {
 export const AU: CountryFormat = {
   default: {
     array: [
+      ['companyName'],
       [
         'honorificPrefix',
         'givenName',
@@ -68,12 +69,11 @@ export const AU: CountryFormat = {
         'familyName',
         'honorificSuffix',
       ],
-      ['companyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
       [
-        { attribute: 'city', transforms: [capitalize, addCommaAfter] },
+        { attribute: 'city', transforms: [capitalize] },
         { attribute: 'state', transforms: [capitalize] },
         'postalCode',
       ],
@@ -291,8 +291,14 @@ export const DK: CountryFormat = {
 export const ES: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -481,7 +487,7 @@ export const KR: CountryFormat = {
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
-      ['do', 'si', 'dong', 'gu', 'addressNum'],
+      ['do', 'si', 'gu', 'dong', 'addressNum'],
       ['postalCode', { attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -512,14 +518,7 @@ export const NL: CountryFormat = {
   business: {
     array: [
       ['companyName'],
-      [
-        't.a.v.',
-        'title',
-        'givenName',
-        'additionalName',
-        'familyName',
-        'honorificSuffix',
-      ],
+      ['title', 'givenName', 'additionalName', 'familyName', 'honorificSuffix'],
       ['careOf'],
       ['address1'],
       ['address2'],
@@ -3205,7 +3204,7 @@ export const PH: CountryFormat = {
       ['careOf'],
       ['address1'],
       ['address2'],
-      [{ attribute: 'address2', transforms: [addCommaAfter] }, 'city'],
+      ['city'],
       ['postalCode', 'state'],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
@@ -3646,7 +3645,7 @@ export const TH: CountryFormat = {
       ['careOf'],
       ['address1'],
       ['address2'],
-      [{ attribute: 'address2', transforms: [addCommaAfter] }, 'city'],
+      ['city'],
       [{ attribute: 'state', transforms: [capitalize] }, 'postalCode'],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],

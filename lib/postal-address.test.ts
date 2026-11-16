@@ -281,6 +281,106 @@ describe('Postal Address', () => {
       'Иванов\nИван\nул. Тверская, д. 7\nМОСКВА\nМосковская обл.\n125009\nRUSSIA',
     )
   })
+
+  it('should print the subdistrict once (TH)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'TH',
+    })
+    myAddress
+      .setAddress1('ถนนหน้าพระลาน')
+      .setAddress2('แขวงพระบรมมหาราชวัง')
+      .setCity('เขตพระนคร')
+      .setState('กรุงเทพมหานคร')
+      .setPostalCode('10200')
+
+    expect(myAddress.toArray()).toEqual([
+      ['ถนนหน้าพระลาน'],
+      ['แขวงพระบรมมหาราชวัง'],
+      ['เขตพระนคร'],
+      ['กรุงเทพมหานคร', '10200'],
+    ])
+  })
+
+  it('should print the barangay once (PH)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'PH',
+    })
+    myAddress
+      .setAddress1('Malacañang Palace, J.P. Laurel Street')
+      .setAddress2('San Miguel')
+      .setCity('Manila')
+      .setState('Metro Manila')
+      .setPostalCode('1005')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Malacañang Palace, J.P. Laurel Street'],
+      ['San Miguel'],
+      ['Manila'],
+      ['1005', 'Metro Manila'],
+    ])
+  })
+
+  it('should print both surnames on the name line (ES)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'ES',
+    })
+    myAddress
+      .setHonorificPrefix('Sr. D.')
+      .setGivenName('Pedro')
+      .setFirstFamilyName('García')
+      .setSecondFamilyName('López')
+      .setAddress1('Plaza de las Descalzas 27, Esc 2, 3º C')
+      .setPostalCode('45012')
+      .setCity('Toledo')
+      .setState('Toledo')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Sr. D.', 'Pedro', 'García', 'López'],
+      ['Plaza de las Descalzas 27, Esc 2, 3º C'],
+      ['45012', 'TOLEDO'],
+      ['Toledo'],
+    ])
+  })
+
+  it('should print the district before the road (KR)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setDo('서울특별시')
+      .setGu('중구')
+      .setDong('세종대로')
+      .setAddressNum('110')
+      .setPostalCode('04524')
+
+    expect(myAddress.toArray()).toEqual([
+      ['서울특별시', '중구', '세종대로', '110'],
+      ['04524'],
+    ])
+  })
+
+  it('should print the company first and no comma on the last line (AU)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'AU',
+    })
+    myAddress
+      .setCompanyName('Department of the House of Representatives')
+      .setGivenName('Emily')
+      .setFamilyName('Nguyen')
+      .setAddress1('Parliament House')
+      .setCity('Canberra')
+      .setState('ACT')
+      .setPostalCode('2600')
+
+    expect(myAddress.toString()).toBe(
+      'Department of the House of Representatives\nEmily Nguyen\nParliament House\nCANBERRA ACT 2600',
+    )
+  })
 })
 
 describe('Custom Formats', () => {
@@ -907,7 +1007,7 @@ describe('Province With A Full CPA', () => {
 describe('Upper Case', () => {
   it.each([
     ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
-    ['AU', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
+    ['AU', 'default', [['SPRINGFIELD', 'IL', 'ab1']]],
     ['CA', 'default', [['SPRINGFIELD', 'IL', 'AB1']]],
     ['CA', 'french', [['SPRINGFIELD', 'IL', 'AB1']]],
     ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
@@ -996,7 +1096,7 @@ describe('getAddressFormat', () => {
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
-      ['do', 'si', 'dong', 'gu', 'addressNum'],
+      ['do', 'si', 'gu', 'dong', 'addressNum'],
       [
         'postalCode',
         { attribute: 'country', transforms: [expect.any(Function)] },
