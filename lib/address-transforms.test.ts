@@ -72,6 +72,22 @@ describe('Address Transforms: omitIfSameAsCity', () => {
     ).toBe('')
   })
 
+  it.each([
+    ['Braşov', 'Brașov'],
+    ['CONSTANŢA', 'Constanța'],
+  ])(
+    'should treat a cedilla and a comma below as equal (%s, %s)',
+    (value, city) => {
+      expect(omitIfSameAsCity(value, { ...address, city })).toBe('')
+    },
+  )
+
+  it('should compare letters with and without accents as different', () => {
+    expect(omitIfSameAsCity('San José', { ...address, city: 'San Jose' })).toBe(
+      'San José',
+    )
+  })
+
   it('should return the value when the address has no city', () => {
     expect(omitIfSameAsCity('Montevideo', {} as typeof address)).toBe(
       'Montevideo',

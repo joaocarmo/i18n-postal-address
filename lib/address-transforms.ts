@@ -8,11 +8,19 @@ export const addCommaAfter: TransformFunction = (value) => {
   return value
 }
 
+// Romanian text often has s and t with a cedilla where comma below is correct.
+const comparable = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/([st])̦/gi, '$1̧')
+    .trim()
+    .toLowerCase()
+
 export const omitIfSameAsCity: TransformFunction = (value, address) => {
   if (
     typeof value === 'string' &&
-    value.normalize().trim().toLowerCase() ===
-      address?.city?.normalize().trim().toLowerCase()
+    typeof address?.city === 'string' &&
+    comparable(value) === comparable(address.city)
   ) {
     return ''
   }

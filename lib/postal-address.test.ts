@@ -852,6 +852,7 @@ describe('Region Same As City', () => {
       [['1', 'SANTA LUCÍA DEL ESTE,', 'CANELONES']],
     ],
     ['RO', 'Brașov', 'Brașov', [['1', 'BRAȘOV']]],
+    ['RO', 'Brașov', 'Braşov', [['1', 'BRAȘOV']]],
     ['RO', 'București', 'Sector 1', [['1', 'BUCUREȘTI'], ['Sector 1']]],
   ])(
     'should print the region only when it differs from the city in %s (%s, %s)',
