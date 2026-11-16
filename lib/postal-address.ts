@@ -3,6 +3,7 @@ import type PostalAddressInterface from './types/postal-address.js'
 import type {
   AcceptAddressFormat,
   AddFormatArgs,
+  AddressFormatPart,
   AddressFormats,
   AddressObject,
   AddressOutputFormat,
@@ -17,6 +18,15 @@ import {
   isValidFormat,
 } from './utils.js'
 import countries, { type CountryName } from './data/countries.js'
+
+const adminAreas = [
+  'do',
+  'prefecture',
+  'province',
+  'region',
+  'republic',
+  'state',
+] as const satisfies (keyof AddressObject)[]
 
 class PostalAddress implements PostalAddressInterface {
   private formatForCountry: string
@@ -79,11 +89,39 @@ class PostalAddress implements PostalAddressInterface {
     return outputType?.array ?? null
   }
 
+  // Formats name the first administrative level differently, so a value set
+  // as `state` would be lost in a format that reads `province`.
+  private withAdminAreaFallback(format: AddressFormatPart[][]): AddressObject {
+    const { object } = this
+    const read = adminAreas.filter((area) =>
+      format.some((line) =>
+        line.some(
+          (part) => (typeof part === 'object' ? part.attribute : part) === area,
+        ),
+      ),
+    )
+
+    if (!this.propagateToRelatedProperties || read.length !== 1) {
+      return object
+    }
+
+    const [attribute] = read
+    const value = adminAreas.map((area) => object[area]).find(Boolean)
+
+    return object[attribute] || !value
+      ? object
+      : { ...object, [attribute]: value }
+  }
+
   private format(): AddressOutputFormat | null {
     const format = this.getFormat()
 
     if (format) {
-      return arrayParser(this.object, format, this.useTransforms)
+      return arrayParser(
+        this.withAdminAreaFallback(format),
+        format,
+        this.useTransforms,
+      )
     }
 
     return null
