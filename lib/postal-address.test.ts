@@ -860,6 +860,12 @@ describe('Region Same As City', () => {
     },
   )
 
+  it('should treat a county with a cedilla as the same as the city in RO', () => {
+    expect(address('RO', 'Bra\u0219ov', 'Bra\u015Fov').toArray()).toEqual([
+      ['1', 'BRA\u0218OV'],
+    ])
+  })
+
   it('should print the region without transforms', () => {
     expect(
       address('UY', 'Montevideo', 'Montevideo')
