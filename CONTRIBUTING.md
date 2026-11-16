@@ -70,6 +70,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - `BR`: Correios accept the postal code, city and state on 1 line.
 - `ES`: the postal code and city on 1 line, then the province, as in common practice. Correos publishes no layout.
 - `EC`: the regulator's example prints the postal code and city on 1 line.
+- `VE`: the city, state and postal code on separate lines, as IPOSTEL's sample envelope shows.
 - The city in capitals in `AR`, the countries that reuse its format, `NO` and `SE`. Capitals never harm sorting.
 - A `state` line in `BG`, `HU`, `PY` and `EC`. It prints only when it is set.
 
