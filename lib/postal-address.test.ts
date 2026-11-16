@@ -243,6 +243,26 @@ describe('Postal Address', () => {
     )
   })
 
+  it('should output a valid formatted postal address (JP, english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'JP',
+    })
+    myAddress
+      .setPrefecture('Tokyo')
+      .setCity('Chuo-ku')
+      .setAddress1('1-2-3 Ginza')
+      .setPostalCode('104-0061')
+      .setFamilyName('Yamada')
+      .setGivenName('Taro')
+      .setCountry('Japan')
+      .setFormat({ country: 'JP', type: 'english' })
+
+    expect(myAddress.toString()).toBe(
+      'Yamada Taro\n1-2-3 Ginza\nChuo-ku, TOKYO\n104-0061\nJAPAN',
+    )
+  })
+
   it('should output a valid formatted postal address (RU)', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,
@@ -604,6 +624,35 @@ describe('Korean Address Format', () => {
       ['06010', 'SOUTH KOREA'],
     ])
   })
+
+  it.each(['KR', 'KP'])(
+    'should output the Latin-script order for %s (english)',
+    (country) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setFamilyName('Kim')
+        .setGivenName('Seojun')
+        .setDo('Seoul')
+        .setSi('Gangnam-gu')
+        .setDong('Seolleung-ro')
+        .setAddressNum('114')
+        .setPostalCode('06010')
+        .setCountry('South Korea')
+        .setFormat({ country, type: 'english' })
+
+      expect(myAddress.toArray()).toEqual([
+        ['Kim', 'Seojun'],
+        ['114', 'Seolleung-ro'],
+        ['Gangnam-gu'],
+        ['Seoul'],
+        ['06010'],
+        ['SOUTH KOREA'],
+      ])
+    },
+  )
 })
 
 describe('Care Of', () => {
