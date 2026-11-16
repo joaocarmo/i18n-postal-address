@@ -38,6 +38,21 @@ describe('Address Transforms: omitIfSameAsCity', () => {
     expect(omitIfSameAsCity('Canelones', address)).toBe('Canelones')
   })
 
+  it('should compare composed and decomposed accents as equal', () => {
+    expect(
+      omitIfSameAsCity('Bras\u0326ov', {
+        ...address,
+        city: 'Bra\u0219ov',
+      }),
+    ).toBe('')
+  })
+
+  it('should return the value when the address has no city', () => {
+    expect(omitIfSameAsCity('Montevideo', {} as typeof address)).toBe(
+      'Montevideo',
+    )
+  })
+
   it('should return the value when no address is given', () => {
     expect(omitIfSameAsCity('Montevideo')).toBe('Montevideo')
   })

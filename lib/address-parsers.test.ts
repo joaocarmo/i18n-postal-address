@@ -40,6 +40,30 @@ describe('arrayParser', () => {
     expect(transform).toHaveBeenCalledWith('Porto', object)
   })
 
+  it('should keep the address unchanged when a transform writes to it', () => {
+    const address = { ...object }
+
+    arrayParser(
+      address,
+      [
+        [
+          {
+            attribute: 'city',
+            transforms: [
+              (value, copy) => {
+                if (copy) copy.city = 'Lisboa'
+                return value
+              },
+            ],
+          },
+        ],
+      ],
+      true,
+    )
+
+    expect(address.city).toBe('Porto')
+  })
+
   it('should skip transforms that are not functions', () => {
     expect(
       parse([[{ attribute: 'city', transforms: ['capitalize'] }]]),

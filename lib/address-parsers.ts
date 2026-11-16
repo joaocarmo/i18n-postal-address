@@ -6,6 +6,8 @@ import type {
 
 const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
   const result: AddressOutputFormat = []
+  // Transforms get a copy, so one that writes to it leaves the caller's address unchanged.
+  const address = { ...object }
 
   if (Array.isArray(format)) {
     format.forEach((line: AddressFormatPart[]) => {
@@ -28,7 +30,7 @@ const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
                 if (Array.isArray(part.transforms)) {
                   part.transforms.forEach((transform) => {
                     if (typeof transform === 'function') {
-                      value = transform(value, object)
+                      value = transform(value, address)
                     }
                   })
                 }

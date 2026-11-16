@@ -11,7 +11,8 @@ export const addCommaAfter: TransformFunction = (value) => {
 export const omitIfSameAsCity: TransformFunction = (value, address) => {
   if (
     typeof value === 'string' &&
-    value.trim().toLowerCase() === address?.city.trim().toLowerCase()
+    value.normalize().trim().toLowerCase() ===
+      address?.city?.normalize().trim().toLowerCase()
   ) {
     return ''
   }
