@@ -9,8 +9,8 @@ import {
 import objectInitialState from './object-initial-state.js'
 
 describe('Address Transforms: addCommaAfter', () => {
-  it('should accept "string" and output "string,"', () => {
-    expect(addCommaAfter('string')).toBe('string,')
+  it('should accept "Porto" and output "Porto,"', () => {
+    expect(addCommaAfter('Porto')).toBe('Porto,')
   })
 
   it('should do nothing if empty', () => {
@@ -19,8 +19,8 @@ describe('Address Transforms: addCommaAfter', () => {
 })
 
 describe('Address Transforms: capitalize', () => {
-  it('should accept "string" and output "STRING"', () => {
-    expect(capitalize('string')).toBe('STRING')
+  it('should accept "Porto" and output "PORTO"', () => {
+    expect(capitalize('Porto')).toBe('PORTO')
   })
 
   it('should do nothing if empty', () => {
@@ -29,7 +29,7 @@ describe('Address Transforms: capitalize', () => {
 })
 
 describe('Address Transforms: omitIfArgentineCpa', () => {
-  const address = { ...objectInitialState, postalCode: ' c1043aaz ' }
+  const address = { ...objectInitialState, postalCode: ' c1064aab ' }
 
   it('should return an empty value when the postal code is a full CPA', () => {
     expect(omitIfArgentineCpa('CABA', address)).toBe('')
@@ -37,12 +37,12 @@ describe('Address Transforms: omitIfArgentineCpa', () => {
 
   it('should ignore spaces and hyphens in a full CPA', () => {
     expect(
-      omitIfArgentineCpa('CABA', { ...address, postalCode: 'C-1043 AAZ' }),
+      omitIfArgentineCpa('CABA', { ...address, postalCode: 'C-1064 AAB' }),
     ).toBe('')
   })
 
   it('should return the value when the postal code is a short code', () => {
-    expect(omitIfArgentineCpa('CABA', { ...address, postalCode: '1043' })).toBe(
+    expect(omitIfArgentineCpa('CABA', { ...address, postalCode: '1064' })).toBe(
       'CABA',
     )
   })
@@ -60,7 +60,9 @@ describe('Address Transforms: omitIfSameAsCity', () => {
   })
 
   it('should return the value when it differs from the city', () => {
-    expect(omitIfSameAsCity('Canelones', address)).toBe('Canelones')
+    expect(
+      omitIfSameAsCity('Canelones', { ...address, city: 'Las Piedras' }),
+    ).toBe('Canelones')
   })
 
   it('should compare composed and decomposed accents as equal', () => {
@@ -138,6 +140,6 @@ describe('Address Transforms: capitalizeWhenTwo', () => {
 
 describe('Address Transforms: pascalCase', () => {
   it('should capitalize the first letter of each word', () => {
-    expect(pascalCase('rua do PASTEL')).toBe('Rua Do Pastel')
+    expect(pascalCase('rua das FLORES')).toBe('Rua Das Flores')
   })
 })

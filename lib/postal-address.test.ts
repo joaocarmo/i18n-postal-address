@@ -5,21 +5,20 @@ import { addCommaAfter } from './address-transforms.js'
 import type { AddFormatArgs, FormatTypes } from './types/address-format.js'
 import * as formats from './formats/index.js'
 
-const expectedOutputRUWithPTAddress = `\
-SmartShoes Portugal, Lda.
-Happy Park
-Edifício 4, Piso 2
-PORTO
-4000-123
-PORTUGAL`
+const expectedOutputRUBusiness = `\
+Правительство Москвы
+ул. Тверская, д. 13
+МОСКВА
+125032
+РОССИЯ`
 
 const expectedOutputUSWithoutTransforms = `\
-123 Nevermore Rd
-Austin TX 78752`
+1100 Congress Ave
+Austin TX 78701`
 
 const expectedOutputUSWithTransforms = `\
-123 Nevermore Rd
-AUSTIN, TX 78752`
+1100 Congress Ave
+AUSTIN, TX 78701`
 
 const customFormatOverwrite: AddFormatArgs = {
   country: 'RU',
@@ -32,9 +31,9 @@ const customFormatOverwrite: AddFormatArgs = {
 }
 
 const customFormatOutputOverwrite = `\
-Pestana, John
-Porto 4000-123
-Portugal`
+Иванова, Анна
+Москва 125032
+Россия`
 
 // prettier-ignore
 const customFormatNew: AddFormatArgs = {
@@ -47,8 +46,8 @@ const customFormatNew: AddFormatArgs = {
 }
 
 const customFormatOutputNew = `\
-Happy Park
-Porto 4000-123`
+10 Downing Street
+London SW1A 2AA`
 
 describe('Constructor', () => {
   it('should throw when no formats are provided', () => {
@@ -60,9 +59,9 @@ describe('Constructor', () => {
   it('should auto-default to the single format country', () => {
     const addr = new PostalAddress({ formats: { PT: formats.PT } })
     addr
-      .setAddress1('Rua do Pastel, 19')
+      .setAddress1('Praça do Comércio')
       .setCity('Lisboa')
-      .setPostalCode('1000')
+      .setPostalCode('1100-148')
     expect(addr.toString()).not.toBe('')
   })
 
@@ -97,7 +96,10 @@ describe('Constructor', () => {
     const addr = new PostalAddress({ formats: { PT: formats.PT } })
 
     // 2. Defaults to that single format
-    addr.setAddress1('Rua do Pastel').setCity('Lisboa').setPostalCode('1000')
+    addr
+      .setAddress1('Praça do Comércio')
+      .setCity('Lisboa')
+      .setPostalCode('1100-148')
     expect(addr.toString()).not.toBe('')
 
     // 2.1. Setting a different format throws
@@ -116,7 +118,7 @@ describe('Constructor', () => {
     })
 
     // 4. Default remains PT
-    addr.setGivenName('John').setFamilyName('Doe')
+    addr.setGivenName('Michael').setFamilyName('Carter')
     const outputBeforeSwitch = addr.toString()
     expect(outputBeforeSwitch).toContain('Lisboa')
 
@@ -125,7 +127,7 @@ describe('Constructor', () => {
     addr.setFormat({ country: 'US' })
     const outputAfterSwitch = addr.toArray()
     // US custom format puts givenName/familyName on first line
-    expect(outputAfterSwitch[0]).toEqual(['John', 'Doe'])
+    expect(outputAfterSwitch[0]).toEqual(['Michael', 'Carter'])
   })
 
   it('should accept a lowercase country code via setFormat', () => {
@@ -135,7 +137,7 @@ describe('Constructor', () => {
     })
     addr
       .setCity('Lisboa')
-      .setPostalCode('1000-001')
+      .setPostalCode('1100-148')
       .setFormat({ country: 'pt' })
     expect(addr.toArray()).toEqual(addr.setFormat({ country: 'PT' }).toArray())
     expect(addr.toArray()).not.toEqual(
@@ -158,24 +160,23 @@ describe('Postal Address', () => {
     ).not.toThrow()
   })
 
-  it('should format a Portuguese address with the RU format', () => {
+  it('should format a business address (RU)', () => {
     const myAddressBusiness = new PostalAddress({
       formats: addressFormats,
       defaultFormat: 'US',
     })
     myAddressBusiness
-      .setAddress1('Happy Park')
-      .setAddress2('Edifício 4, Piso 2')
-      .setCity('Porto')
-      .setCompanyName('SmartShoes Portugal, Lda.')
-      .setCountry('Portugal')
-      .setPostalCode('4000-123')
+      .setCompanyName('Правительство Москвы')
+      .setAddress1('ул. Тверская, д. 13')
+      .setCity('Москва')
+      .setPostalCode('125032')
+      .setCountry('Россия')
       .setFormat({
         country: 'RU',
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUBusiness)
   })
 
   it('should output a valid formatted postal address (US)', () => {
@@ -184,10 +185,10 @@ describe('Postal Address', () => {
       defaultFormat: 'US',
     })
     myAddressPersonal
-      .setAddress1('123 Nevermore Rd')
+      .setAddress1('1100 Congress Ave')
       .setCity('Austin')
       .setState('TX')
-      .setPostalCode('78752')
+      .setPostalCode('78701')
       .setFormat({
         country: 'US',
         type: 'personal',
@@ -212,14 +213,14 @@ describe('Postal Address', () => {
     myAddress
       .setProvince('北京市')
       .setCity('海淀区')
-      .setAddress1('中关村大街27号')
-      .setPostalCode('100080')
-      .setFamilyName('王')
-      .setGivenName('小明')
+      .setAddress1('颐和园路5号')
+      .setPostalCode('100871')
+      .setFamilyName('陈')
+      .setGivenName('静')
       .setCountry('中国')
 
     expect(myAddress.toString()).toBe(
-      '中国\n100080\n北京市 海淀区\n中关村大街27号\n王 小明',
+      '中国\n100871\n北京市 海淀区\n颐和园路5号\n陈 静',
     )
   })
 
@@ -230,16 +231,35 @@ describe('Postal Address', () => {
     })
     myAddress
       .setProvince('Beijing')
-      .setCity('Haidian')
-      .setAddress1('Zhongguancun Street 27')
-      .setPostalCode('100080')
-      .setFamilyName('Wang')
-      .setGivenName('Xiaoming')
+      .setCity('Haidian District')
+      .setAddress1('5 Yiheyuan Road')
+      .setPostalCode('100871')
+      .setFamilyName('Chen')
+      .setGivenName('Jing')
       .setCountry('China')
       .setFormat({ country: 'CN', type: 'english' })
 
     expect(myAddress.toString()).toBe(
-      'Wang Xiaoming\nZhongguancun Street 27\nHaidian\nBEIJING, 100080\nCHINA',
+      'Chen Jing\n5 Yiheyuan Road\nHaidian District\nBEIJING, 100871\nCHINA',
+    )
+  })
+
+  it('should output a valid formatted postal address (JP)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'JP',
+    })
+    myAddress
+      .setPrefecture('東京都')
+      .setCity('中央区')
+      .setAddress1('銀座4-6-16')
+      .setPostalCode('104-0061')
+      .setFamilyName('鈴木')
+      .setGivenName('陽菜')
+      .setCountry('日本')
+
+    expect(myAddress.toString()).toBe(
+      '日本\n104-0061 東京都 中央区\n銀座4-6-16\n鈴木 陽菜',
     )
   })
 
@@ -251,15 +271,15 @@ describe('Postal Address', () => {
     myAddress
       .setPrefecture('Tokyo')
       .setCity('Chuo-ku')
-      .setAddress1('1-2-3 Ginza')
+      .setAddress1('4-6-16 Ginza')
       .setPostalCode('104-0061')
-      .setFamilyName('Yamada')
-      .setGivenName('Taro')
+      .setFamilyName('Suzuki')
+      .setGivenName('Haruna')
       .setCountry('Japan')
       .setFormat({ country: 'JP', type: 'english' })
 
     expect(myAddress.toString()).toBe(
-      'Yamada Taro\n1-2-3 Ginza\nChuo-ku, TOKYO\n104-0061\nJAPAN',
+      'Suzuki Haruna\n4-6-16 Ginza\nChuo-ku, TOKYO\n104-0061\nJAPAN',
     )
   })
 
@@ -269,16 +289,16 @@ describe('Postal Address', () => {
       defaultFormat: 'RU',
     })
     myAddress
-      .setRegion('Московская обл.')
       .setCity('Москва')
-      .setAddress1('ул. Тверская, д. 7')
-      .setPostalCode('125009')
-      .setFamilyName('Иванов')
-      .setGivenName('Иван')
-      .setCountry('Russia')
+      .setAddress1('ул. Тверская, д. 13')
+      .setPostalCode('125032')
+      .setFamilyName('Иванова')
+      .setGivenName('Анна')
+      .setAdditionalName('Сергеевна')
+      .setCountry('Россия')
 
     expect(myAddress.toString()).toBe(
-      'Иванов\nИван\nул. Тверская, д. 7\nМОСКВА\nМосковская обл.\n125009\nRUSSIA',
+      'Иванова\nАнна Сергеевна\nул. Тверская, д. 13\nМОСКВА\n125032\nРОССИЯ',
     )
   })
 
@@ -427,7 +447,7 @@ describe('Custom Formats', () => {
   ]
 
   it.each(customFormats)(
-    'test invalid custom format: %s',
+    'should throw for an invalid custom format: %s',
     (format, errorMessage) => {
       expect(() => {
         const myAddressBusiness = new PostalAddress({
@@ -445,24 +465,23 @@ describe('Custom Formats', () => {
       defaultFormat: 'US',
     })
     myAddressBusiness
-      .setAddress1('Happy Park')
-      .setAddress2('Edifício 4, Piso 2')
-      .setCity('Porto')
-      .setCompanyName('SmartShoes Portugal, Lda.')
-      .setCountry('Portugal')
-      .setPostalCode('4000-123')
+      .setCompanyName('Правительство Москвы')
+      .setAddress1('ул. Тверская, д. 13')
+      .setCity('Москва')
+      .setPostalCode('125032')
+      .setCountry('Россия')
       .setFormat({
         country: 'RU',
         type: 'business',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
+    expect(myAddressBusiness.toString()).toBe(expectedOutputRUBusiness)
 
     myAddressBusiness.addFormat(customFormatOverwrite)
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
+    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUBusiness)
 
-    myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
+    myAddressBusiness.setGivenName('Анна').setFamilyName('Иванова')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputOverwrite)
   })
@@ -473,27 +492,30 @@ describe('Custom Formats', () => {
       defaultFormat: 'US',
     })
     myAddressBusiness
-      .setAddress1('Happy Park')
-      .setAddress2('Edifício 4, Piso 2')
-      .setCity('Porto')
-      .setCompanyName('SmartShoes Portugal, Lda.')
-      .setCountry('Portugal')
-      .setPostalCode('4000-123')
+      .setCompanyName("Prime Minister's Office")
+      .setAddress1('10 Downing Street')
+      .setCity('London')
+      .setPostalCode('SW1A 2AA')
+      .setCountry('United Kingdom')
       .setFormat({
-        country: 'RU',
-        type: 'business',
+        country: 'GB',
+        type: 'personal',
       })
 
-    expect(myAddressBusiness.toString()).toBe(expectedOutputRUWithPTAddress)
+    const outputBefore = myAddressBusiness.toString()
+
+    expect(outputBefore).toBe(
+      "Prime Minister's Office\n10 Downing Street\nLONDON\nSW1A 2AA\nUNITED KINGDOM",
+    )
 
     myAddressBusiness.addFormat(customFormatNew).setFormat({
       country: 'GB',
       type: 'personal',
     })
 
-    expect(myAddressBusiness.toString()).not.toBe(expectedOutputRUWithPTAddress)
+    expect(myAddressBusiness.toString()).not.toBe(outputBefore)
 
-    myAddressBusiness.setGivenName('John').setFamilyName('Pestana')
+    myAddressBusiness.setGivenName('Oliver').setFamilyName('Bennett')
 
     expect(myAddressBusiness.toString()).toBe(customFormatOutputNew)
   })
@@ -565,32 +587,32 @@ describe('Initial Value [empty]', () => {
 
 describe('Initial Value [full non-empty]', () => {
   const presetState = {
-    address1: 'Happy Park',
-    address2: 'Edifício 4, Piso 2',
+    address1: '1100 Congress Ave',
+    address2: 'Capitol Extension',
     addressNum: '',
     careOf: '',
-    city: 'Porto',
-    companyName: 'SmartShoes Portugal, Lda.',
-    country: 'Portugal',
-    countryAlpha2: 'PT',
+    city: 'Austin',
+    companyName: 'Lone Star Survey Co.',
+    country: 'United States',
+    countryAlpha2: 'US',
     do: '',
-    dong: 'Happy Park',
+    dong: '1100 Congress Ave',
     firstFamilyName: '',
-    givenName: 'John',
+    givenName: 'Michael',
     gu: '',
     honorificPrefix: '',
     honorificSuffix: '',
     jobTitle: '',
-    familyName: 'Pestana',
-    postalCode: '4000-123',
+    familyName: 'Carter',
+    postalCode: '78701',
     prefecture: '',
     province: '',
     region: '',
     republic: '',
-    secondFamilyName: 'Pestana',
+    secondFamilyName: 'Carter',
     additionalName: '',
-    si: 'Porto',
-    state: '',
+    si: 'Austin',
+    state: 'TX',
     title: '',
   }
   const myAddress = new PostalAddress({
@@ -600,23 +622,23 @@ describe('Initial Value [full non-empty]', () => {
 
   it('should have a non-empty address (string)', () => {
     expect(myAddress.toString()).toBe(`\
-John Pestana
-SmartShoes Portugal, Lda.
-Happy Park
-Edifício 4, Piso 2
-PORTO, 4000-123
-PORTUGAL\
+Michael Carter
+Lone Star Survey Co.
+1100 Congress Ave
+Capitol Extension
+AUSTIN, TX 78701
+UNITED STATES\
 `)
   })
 
   it('should have a non-empty address (array)', () => {
     expect(myAddress.toArray()).toEqual([
-      ['John', 'Pestana'],
-      ['SmartShoes Portugal, Lda.'],
-      ['Happy Park'],
-      ['Edifício 4, Piso 2'],
-      ['PORTO,', '4000-123'],
-      ['PORTUGAL'],
+      ['Michael', 'Carter'],
+      ['Lone Star Survey Co.'],
+      ['1100 Congress Ave'],
+      ['Capitol Extension'],
+      ['AUSTIN,', 'TX', '78701'],
+      ['UNITED STATES'],
     ])
   })
 
@@ -627,18 +649,19 @@ PORTUGAL\
 
 describe('Initial Value [partial non-empty]', () => {
   const presetState = {
-    address1: 'Happy Park',
-    address2: 'Edifício 4, Piso 2',
-    city: 'Porto',
-    companyName: 'SmartShoes Portugal, Lda.',
-    country: 'Portugal',
-    countryAlpha2: 'PT',
-    dong: 'Happy Park',
-    givenName: 'John',
-    familyName: 'Pestana',
-    postalCode: '4000-123',
-    secondFamilyName: 'Pestana',
-    si: 'Porto',
+    address1: '1100 Congress Ave',
+    address2: 'Capitol Extension',
+    city: 'Austin',
+    companyName: 'Lone Star Survey Co.',
+    country: 'United States',
+    countryAlpha2: 'US',
+    dong: '1100 Congress Ave',
+    givenName: 'Michael',
+    familyName: 'Carter',
+    postalCode: '78701',
+    secondFamilyName: 'Carter',
+    si: 'Austin',
+    state: 'TX',
   }
   const myAddress = new PostalAddress({
     formats: addressFormats,
@@ -647,23 +670,23 @@ describe('Initial Value [partial non-empty]', () => {
 
   it('should have a non-empty address (string)', () => {
     expect(myAddress.toString()).toBe(`\
-John Pestana
-SmartShoes Portugal, Lda.
-Happy Park
-Edifício 4, Piso 2
-PORTO, 4000-123
-PORTUGAL\
+Michael Carter
+Lone Star Survey Co.
+1100 Congress Ave
+Capitol Extension
+AUSTIN, TX 78701
+UNITED STATES\
 `)
   })
 
   it('should have a non-empty address (array)', () => {
     expect(myAddress.toArray()).toEqual([
-      ['John', 'Pestana'],
-      ['SmartShoes Portugal, Lda.'],
-      ['Happy Park'],
-      ['Edifício 4, Piso 2'],
-      ['PORTO,', '4000-123'],
-      ['PORTUGAL'],
+      ['Michael', 'Carter'],
+      ['Lone Star Survey Co.'],
+      ['1100 Congress Ave'],
+      ['Capitol Extension'],
+      ['AUSTIN,', 'TX', '78701'],
+      ['UNITED STATES'],
     ])
   })
 
@@ -682,22 +705,22 @@ describe('Korean Address Format', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setFamilyName('Kim')
-      .setGivenName('Seojun')
-      .setCompanyName('Samsung')
-      .setDo('Seoul')
-      .setSi('Gangnam-gu')
-      .setDong('Seolleung-dong')
-      .setAddressNum('114')
-      .setPostalCode('06010')
-      .setCountry('South Korea')
+      .setFamilyName('김')
+      .setGivenName('민준')
+      .setCompanyName('서울특별시청')
+      .setDo('서울특별시')
+      .setGu('중구')
+      .setDong('세종대로')
+      .setAddressNum('110')
+      .setPostalCode('04524')
+      .setCountry('대한민국')
       .setFormat({ country: 'KR' })
 
     expect(myAddress.toArray()).toEqual([
-      ['Kim', 'Seojun'],
-      ['Samsung'],
-      ['Seoul', 'Gangnam-gu', 'Seolleung-dong', '114'],
-      ['06010', 'SOUTH KOREA'],
+      ['김', '민준'],
+      ['서울특별시청'],
+      ['서울특별시', '중구', '세종대로', '110'],
+      ['04524', '대한민국'],
     ])
   })
 
@@ -707,52 +730,72 @@ describe('Korean Address Format', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setFamilyName('Kim')
-      .setGivenName('Seojun')
-      .setProvince('Seoul')
-      .setCity('Gangnam-gu')
-      .setAddress1('Seolleung-dong')
-      .setPostalCode('06010')
-      .setCountry('South Korea')
+      .setFamilyName('김')
+      .setGivenName('민준')
+      .setProvince('경기도')
+      .setCity('파주시')
+      .setAddress1('시청로 50')
+      .setPostalCode('10932')
+      .setCountry('대한민국')
       .setFormat({ country: 'KR' })
 
     const output = myAddress.toArray()
 
     expect(output).toEqual([
-      ['Kim', 'Seojun'],
-      ['Seoul', 'Gangnam-gu', 'Seolleung-dong'],
-      ['06010', 'SOUTH KOREA'],
+      ['김', '민준'],
+      ['경기도', '파주시', '시청로 50'],
+      ['10932', '대한민국'],
     ])
   })
 
-  it.each(['KR', 'KP'])(
-    'should output the Latin-script order for %s (english)',
-    (country) => {
-      const myAddress = new PostalAddress({
-        formats: addressFormats,
-        defaultFormat: 'US',
-      })
-      myAddress
-        .setFamilyName('Kim')
-        .setGivenName('Seojun')
-        .setDo('Seoul')
-        .setSi('Gangnam-gu')
-        .setDong('Seolleung-ro')
-        .setAddressNum('114')
-        .setPostalCode('06010')
-        .setCountry('South Korea')
-        .setFormat({ country, type: 'english' })
+  it('should output the Latin-script order for KR (english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setFamilyName('Kim')
+      .setGivenName('Minjun')
+      .setDo('Seoul')
+      .setGu('Jung-gu')
+      .setDong('Sejong-daero')
+      .setAddressNum('110')
+      .setPostalCode('04524')
+      .setCountry('South Korea')
+      .setFormat({ country: 'KR', type: 'english' })
 
-      expect(myAddress.toArray()).toEqual([
-        ['Kim', 'Seojun'],
-        ['114,', 'Seolleung-ro'],
-        ['Gangnam-gu'],
-        ['Seoul'],
-        ['06010'],
-        ['SOUTH KOREA'],
-      ])
-    },
-  )
+    expect(myAddress.toArray()).toEqual([
+      ['Kim', 'Minjun'],
+      ['110,', 'Sejong-daero'],
+      ['Jung-gu'],
+      ['Seoul'],
+      ['04524'],
+      ['SOUTH KOREA'],
+    ])
+  })
+
+  it('should output the Latin-script order for KP (english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setFamilyName('Ri')
+      .setGivenName('Kum-hui')
+      .setDong("Grand People's Study House")
+      .setGu('Chung-guyok')
+      .setSi('Pyongyang')
+      .setCountry('North Korea')
+      .setFormat({ country: 'KP', type: 'english' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['Ri', 'Kum-hui'],
+      ["Grand People's Study House"],
+      ['Chung-guyok'],
+      ['Pyongyang'],
+      ['NORTH KOREA'],
+    ])
+  })
 })
 
 describe('Care Of', () => {
@@ -762,20 +805,20 @@ describe('Care Of', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setGivenName('John')
-      .setFamilyName('Doe')
-      .setCareOf('c/o Jane Smith')
-      .setAddress1('123 Main St')
+      .setGivenName('Michael')
+      .setFamilyName('Carter')
+      .setCareOf('c/o Sarah Mitchell')
+      .setAddress1('1100 Congress Ave')
       .setCity('Austin')
       .setState('TX')
-      .setPostalCode('78752')
+      .setPostalCode('78701')
       .setFormat({ country: 'US' })
 
     expect(myAddress.toArray()).toEqual([
-      ['John', 'Doe'],
-      ['c/o Jane Smith'],
-      ['123 Main St'],
-      ['AUSTIN,', 'TX', '78752'],
+      ['Michael', 'Carter'],
+      ['c/o Sarah Mitchell'],
+      ['1100 Congress Ave'],
+      ['AUSTIN,', 'TX', '78701'],
     ])
   })
 
@@ -785,12 +828,12 @@ describe('Care Of', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setGivenName('John')
-      .setFamilyName('Doe')
-      .setAddress1('123 Main St')
+      .setGivenName('Michael')
+      .setFamilyName('Carter')
+      .setAddress1('1100 Congress Ave')
       .setCity('Austin')
       .setState('TX')
-      .setPostalCode('78752')
+      .setPostalCode('78701')
       .setFormat({ country: 'US' })
 
     const output = myAddress.toArray()
@@ -806,18 +849,18 @@ describe('Honorific Suffix', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setGivenName('John')
-      .setFamilyName('Smith')
+      .setGivenName('Michael')
+      .setFamilyName('Carter')
       .setHonorificSuffix('Jr.')
-      .setAddress1('123 Main St')
+      .setAddress1('1100 Congress Ave')
       .setCity('Austin')
       .setState('TX')
-      .setPostalCode('78752')
+      .setPostalCode('78701')
 
     expect(myAddress.toArray()).toEqual([
-      ['John', 'Smith', 'Jr.'],
-      ['123 Main St'],
-      ['AUSTIN,', 'TX', '78752'],
+      ['Michael', 'Carter', 'Jr.'],
+      ['1100 Congress Ave'],
+      ['AUSTIN,', 'TX', '78701'],
     ])
   })
 
@@ -828,18 +871,18 @@ describe('Honorific Suffix', () => {
     })
     myAddress
       .setHonorificSuffix('ifj.')
-      .setFamilyName('Kovács')
-      .setGivenName('János')
-      .setAddress1('Fő utca 1')
+      .setFamilyName('Nagy')
+      .setGivenName('Bence')
+      .setAddress1('Kossuth Lajos tér 1-3.')
       .setCity('Budapest')
-      .setPostalCode('1011')
+      .setPostalCode('1055')
       .setFormat({ country: 'HU' })
 
     expect(myAddress.toArray()).toEqual([
-      ['ifj.', 'Kovács', 'János'],
+      ['ifj.', 'Nagy', 'Bence'],
       ['BUDAPEST'],
-      ['Fő utca 1'],
-      ['1011'],
+      ['Kossuth Lajos tér 1-3.'],
+      ['1055'],
     ])
   })
 
@@ -849,62 +892,127 @@ describe('Honorific Suffix', () => {
       defaultFormat: 'US',
     })
     myAddress
-      .setGivenName('Gabriel')
-      .setFirstFamilyName('García')
-      .setSecondFamilyName('Marcos')
+      .setGivenName('Joaquín')
+      .setFirstFamilyName('Gómez')
+      .setSecondFamilyName('Ruiz')
       .setHonorificSuffix('h.')
-      .setAddress1('Av. Corrientes 1234')
-      .setCity('Buenos Aires')
-      .setPostalCode('C1043')
-      .setState('CABA')
+      .setAddress1('Balcarce 50')
+      .setCity('Ciudad Autónoma de Buenos Aires')
+      .setPostalCode('C1064AAB')
       .setFormat({ country: 'AR' })
 
     expect(myAddress.toArray()).toEqual([
-      ['Gabriel', 'García', 'Marcos', 'h.'],
-      ['Av. Corrientes 1234'],
-      ['C1043', 'BUENOS AIRES'],
-      ['CABA'],
+      ['Joaquín', 'Gómez', 'Ruiz', 'h.'],
+      ['Balcarce 50'],
+      ['C1064AAB', 'CIUDAD AUTÓNOMA DE BUENOS AIRES'],
     ])
   })
 
-  it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
+  it.each([
+    [
+      'BO',
+      ['María', 'Rojas', 'Pérez'],
+      ['Plaza Murillo', ''],
+      ['La Paz', '', ''],
+      [['María', 'Rojas', 'Pérez'], ['Plaza Murillo'], ['LA PAZ']],
+    ],
+    [
+      'CL',
+      ['María', 'Rojas', 'Pérez'],
+      ['Moneda 1152', ''],
+      ['Santiago', 'Región Metropolitana', '8340648'],
+      [
+        ['María', 'Rojas', 'Pérez'],
+        ['Moneda 1152'],
+        ['8340648', 'SANTIAGO'],
+        ['Región Metropolitana'],
+      ],
+    ],
+    [
+      'EC',
+      ['María', 'Rojas', 'Pérez'],
+      ['García Moreno y Pasaje Chile', ''],
+      ['Quito', 'Pichincha', '170401'],
+      [
+        ['María', 'Rojas', 'Pérez'],
+        ['García Moreno y Pasaje Chile'],
+        ['170401', 'QUITO'],
+        ['Pichincha'],
+      ],
+    ],
+    [
+      'GY',
+      ['Alicia', 'Persaud', ''],
+      ['Robb Street', ''],
+      ['Georgetown', '', '4130105'],
+      [['Alicia', 'Persaud'], ['Robb Street'], ['4130105', 'GEORGETOWN']],
+    ],
+    [
+      'PY',
+      ['María', 'Rojas', 'Pérez'],
+      [
+        'Estrella Nº 340, casi Yegros',
+        'Edif. España, Bloque A, Piso 3, Dpto. 10',
+      ],
+      ['Asunción', '', '001218'],
+      [
+        ['María', 'Rojas', 'Pérez'],
+        [
+          'Estrella Nº 340, casi Yegros',
+          'Edif. España, Bloque A, Piso 3, Dpto. 10',
+        ],
+        ['001218', 'ASUNCIÓN'],
+      ],
+    ],
+  ])(
     'should print the name on 1 line for %s',
-    (country) => {
+    (
+      country,
+      [givenName, firstFamilyName, secondFamilyName],
+      [address1, address2],
+      [city, state, postalCode],
+      expected,
+    ) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
         defaultFormat: 'US',
       })
       myAddress
-        .setGivenName('Gabriel')
-        .setFirstFamilyName('García')
-        .setSecondFamilyName('Marcos')
-        .setAddress1('Av. Providencia 1234')
-        .setCity('Santiago')
-        .setPostalCode('7500000')
-        .setState('Región Metropolitana')
+        .setGivenName(givenName)
+        .setFirstFamilyName(firstFamilyName)
+        .setSecondFamilyName(secondFamilyName)
+        .setAddress1(address1)
+        .setAddress2(address2)
+        .setCity(city)
+        .setPostalCode(postalCode)
+        .setState(state)
         .setFormat({ country })
 
-      expect(myAddress.toArray()).toEqual([
-        ['Gabriel', 'García', 'Marcos'],
-        ['Av. Providencia 1234'],
-        ['7500000', 'SANTIAGO'],
-        ['Región Metropolitana'],
-      ])
+      expect(myAddress.toArray()).toEqual(expected)
     },
   )
 
   it.each([
+    ['CO', 'Carrera 8 # 7-26', 'Bogotá', '', '111711', [['BOGOTÁ,', '111711']]],
     [
-      'CO',
-      'Bogotá',
-      'Cundinamarca',
-      '110111',
-      [['BOGOTÁ,', 'Cundinamarca,', '110111']],
+      'PE',
+      'Av. Larco 1301, Miraflores',
+      'Lima',
+      'Lima',
+      '15074',
+      [['LIMA', '15074'], ['Lima']],
     ],
-    ['PE', 'Lima', 'Lima', '15001', [['LIMA', '15001'], ['Lima']]],
-    ['UY', 'Montevideo', 'Montevideo', '11000', [['11000', 'MONTEVIDEO']]],
+    [
+      'UY',
+      'Avenida de las Leyes esq. Avenida Agraciada',
+      'Montevideo',
+      'Montevideo',
+      '11800',
+      [['11800', 'MONTEVIDEO']],
+    ],
     [
       'VE',
+      'Av. Fuerzas Armadas, Torre San José, Piso 5, Apartamento 20',
       'Caracas',
       'Distrito Capital',
       '1010',
@@ -912,24 +1020,24 @@ describe('Honorific Suffix', () => {
     ],
   ])(
     'should place the locality lines for %s',
-    (country, city, state, postalCode, localityLines) => {
+    (country, address1, city, state, postalCode, localityLines) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
         defaultFormat: 'US',
       })
       myAddress
-        .setGivenName('Gabriel')
-        .setFirstFamilyName('García')
-        .setSecondFamilyName('Marcos')
-        .setAddress1('Calle 1')
+        .setGivenName('María')
+        .setFirstFamilyName('Rojas')
+        .setSecondFamilyName('Pérez')
+        .setAddress1(address1)
         .setCity(city)
         .setState(state)
         .setPostalCode(postalCode)
         .setFormat({ country })
 
       expect(myAddress.toArray()).toEqual([
-        ['Gabriel', 'García', 'Marcos'],
-        ['Calle 1'],
+        ['María', 'Rojas', 'Pérez'],
+        [address1],
         ...localityLines,
       ])
     },
@@ -937,41 +1045,56 @@ describe('Honorific Suffix', () => {
 })
 
 describe('Region Same As City', () => {
-  const address = (country: string, city: string, state: string) =>
+  const address = (
+    country: string,
+    city: string,
+    state: string,
+    postalCode: string,
+  ) =>
     new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
       .setCity(city)
       .setState(state)
-      .setPostalCode('1')
+      .setPostalCode(postalCode)
       .setFormat({ country })
 
   it.each([
     [
       'UY',
-      'Santa Lucía del Este',
-      'Canelones',
-      [['1', 'SANTA LUCÍA DEL ESTE,', 'CANELONES']],
+      'Punta del Este',
+      'Maldonado',
+      '20100',
+      [['20100', 'PUNTA DEL ESTE,', 'MALDONADO']],
     ],
-    ['RO', 'Brașov', 'Brașov', [['1', 'BRAȘOV']]],
-    ['RO', 'București', 'Sector 1', [['1', 'BUCUREȘTI'], ['Sector 1']]],
+    ['UY', 'Canelones', 'Canelones', '90000', [['90000', 'CANELONES']]],
+    ['RO', 'Brașov', 'Brașov', '500030', [['500030', 'BRAȘOV']]],
+    [
+      'RO',
+      'București',
+      'Sector 1',
+      '010086',
+      [['010086', 'BUCUREȘTI'], ['Sector 1']],
+    ],
   ])(
     'should print the region only when it differs from the city in %s (%s, %s)',
-    (country, city, state, expected) => {
-      expect(address(country, city, state).toArray()).toEqual(expected)
+    (country, city, state, postalCode, expected) => {
+      expect(address(country, city, state, postalCode).toArray()).toEqual(
+        expected,
+      )
     },
   )
 
   it('should treat a county with a cedilla as the same as the city in RO', () => {
-    expect(address('RO', 'Bra\u0219ov', 'Bra\u015Fov').toArray()).toEqual([
-      ['1', 'BRA\u0218OV'],
+    expect(address('RO', 'Brașov', 'Braşov', '500030').toArray()).toEqual([
+      ['500030', 'BRAȘOV'],
     ])
   })
 
   it('should print the region without transforms', () => {
     expect(
-      address('UY', 'Montevideo', 'Montevideo')
+      address('UY', 'Montevideo', 'Montevideo', '11800')
         .setFormat({ country: 'UY', useTransforms: false })
         .toArray(),
-    ).toEqual([['1', 'Montevideo', 'Montevideo']])
+    ).toEqual([['11800', 'Montevideo', 'Montevideo']])
   })
 })
 
@@ -979,15 +1102,23 @@ describe('Province With A Full CPA', () => {
   const address = (country: string, postalCode: string) =>
     new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
       .setCity('Buenos Aires')
-      .setState('CABA')
+      .setState('Ciudad Autónoma de Buenos Aires')
       .setPostalCode(postalCode)
       .setFormat({ country })
 
   it.each([
-    ['AR', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES']]],
-    ['AR', 'C1043 AAZ', [['C1043 AAZ', 'BUENOS AIRES']]],
-    ['AR', 'C1043', [['C1043', 'BUENOS AIRES'], ['CABA']]],
-    ['CL', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES'], ['CABA']]],
+    ['AR', 'C1064AAB', [['C1064AAB', 'BUENOS AIRES']]],
+    ['AR', 'C1064 AAB', [['C1064 AAB', 'BUENOS AIRES']]],
+    [
+      'AR',
+      '1064',
+      [['1064', 'BUENOS AIRES'], ['Ciudad Autónoma de Buenos Aires']],
+    ],
+    [
+      'CL',
+      'C1064AAB',
+      [['C1064AAB', 'BUENOS AIRES'], ['Ciudad Autónoma de Buenos Aires']],
+    ],
   ])(
     'should print the province only when needed in %s with %s',
     (country, postalCode, expected) => {
@@ -997,34 +1128,51 @@ describe('Province With A Full CPA', () => {
 
   it('should print the province without transforms', () => {
     expect(
-      address('AR', 'C1043AAZ')
+      address('AR', 'C1064AAB')
         .setFormat({ country: 'AR', useTransforms: false })
         .toArray(),
-    ).toEqual([['C1043AAZ', 'Buenos Aires'], ['CABA']])
+    ).toEqual([
+      ['C1064AAB', 'Buenos Aires'],
+      ['Ciudad Autónoma de Buenos Aires'],
+    ])
   })
 })
 
 describe('Upper Case', () => {
   it.each([
-    ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
-    ['AU', 'default', [['SPRINGFIELD', 'IL', 'ab1']]],
-    ['CA', 'default', [['SPRINGFIELD', 'IL', 'AB1']]],
-    ['CA', 'french', [['SPRINGFIELD', 'IL', 'AB1']]],
-    ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
-    ['NG', 'default', [['SPRINGFIELD', 'AB1'], ['IL']]],
-    ['AR', 'default', [['AB1', 'SPRINGFIELD'], ['il']]],
+    ['US', 'default', 'austin', 'tx', '78701', [['AUSTIN,', 'TX', '78701']]],
+    ['AU', 'default', 'canberra', 'act', '2600', [['CANBERRA', 'ACT', '2600']]],
+    ['CA', 'default', 'ottawa', 'on', 'k1a 0a6', [['OTTAWA', 'ON', 'K1A 0A6']]],
+    ['CA', 'french', 'ottawa', 'on', 'k1a 0a6', [['OTTAWA', 'ON', 'K1A 0A6']]],
+    [
+      'MY',
+      'default',
+      'kuala lumpur',
+      'wilayah persekutuan kuala lumpur',
+      '50680',
+      [['50680', 'KUALA LUMPUR'], ['WILAYAH PERSEKUTUAN KUALA LUMPUR']],
+    ],
+    ['NG', 'default', 'abuja', 'fct', '', [['ABUJA'], ['FCT']]],
+    [
+      'AR',
+      'default',
+      'buenos aires',
+      'ciudad autónoma de buenos aires',
+      '1064',
+      [['1064', 'BUENOS AIRES'], ['ciudad autónoma de buenos aires']],
+    ],
   ] as const)(
     'should print the parts Google asks for in capitals for %s (%s)',
-    (country, type, expected) => {
+    (country, type, city, state, postalCode, expected) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
         defaultFormat: 'US',
       })
       myAddress
-        .setCity('Springfield')
-        .setState('il')
-        .setProvince('il')
-        .setPostalCode('ab1')
+        .setCity(city)
+        .setState(state)
+        .setProvince(state)
+        .setPostalCode(postalCode)
         .setFormat({ country, type })
 
       expect(myAddress.toArray()).toEqual(expected)
@@ -1037,11 +1185,11 @@ describe('Administrative Area', () => {
     new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
       .setCity('Ottawa')
       .setState('ON')
-      .setPostalCode('K1A 0B1')
+      .setPostalCode('K1A 0A6')
       .setFormat({ country: 'CA' })
 
   it('should print a value set as state in a format that reads province', () => {
-    expect(caAddress().toArray()).toEqual([['OTTAWA', 'ON', 'K1A 0B1']])
+    expect(caAddress().toArray()).toEqual([['OTTAWA', 'ON', 'K1A 0A6']])
   })
 
   it('should not copy the value into the address object', () => {
@@ -1050,14 +1198,14 @@ describe('Administrative Area', () => {
 
   it('should not fall back when propagation is off', () => {
     expect(caAddress().setPropagation(false).toArray()).toEqual([
-      ['OTTAWA', 'K1A 0B1'],
+      ['OTTAWA', 'K1A 0A6'],
     ])
   })
 
   it('should print the value the format reads when it is set', () => {
-    expect(caAddress().setProvince('QC').toArray()).toEqual([
-      ['OTTAWA', 'QC', 'K1A 0B1'],
-    ])
+    expect(caAddress().setState('Ontario').setProvince('ON').toArray()).toEqual(
+      [['OTTAWA', 'ON', 'K1A 0A6']],
+    )
   })
 
   it('should not fall back in a format that reads several of them', () => {
@@ -1065,11 +1213,11 @@ describe('Administrative Area', () => {
       formats: addressFormats,
       defaultFormat: 'US',
     })
-      .setCity('Moskva')
-      .setRegion('Moskovskaya oblast')
+      .setCity('Красногорск')
+      .setRegion('Московская обл.')
       .setFormat({ country: 'RU' })
 
-    expect(myAddress.toArray()).toEqual([['MOSKVA'], ['Moskovskaya oblast']])
+    expect(myAddress.toArray()).toEqual([['КРАСНОГОРСК'], ['Московская обл.']])
   })
 })
 
@@ -1166,25 +1314,6 @@ describe('getAddressFormat', () => {
   })
 })
 
-describe('Propagation', () => {
-  it('Propagation of changes to related properties can be disabled', () => {
-    const myAddress = new PostalAddress({
-      formats: addressFormats,
-      defaultFormat: 'US',
-    })
-
-    myAddress.setFamilyName('Smith')
-    expect(myAddress.toObject().familyName).toBe('Smith')
-    expect(myAddress.toObject().secondFamilyName).toBe('Smith')
-
-    myAddress.setPropagation(false)
-
-    myAddress.setFamilyName('Doe')
-    expect(myAddress.toObject().familyName).toBe('Doe')
-    expect(myAddress.toObject().secondFamilyName).toBe('Smith')
-  })
-})
-
 describe('Setters', () => {
   const setters = [
     ['setAddress', 'address1'],
@@ -1221,6 +1350,23 @@ describe('Propagation', () => {
     ['setSecondFamilyName', 'secondFamilyName', 'familyName'],
     ['setSi', 'si', 'city'],
   ] as const
+
+  it('should stop propagating changes when propagation is disabled', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+
+    myAddress.setFamilyName('Carter')
+    expect(myAddress.toObject().familyName).toBe('Carter')
+    expect(myAddress.toObject().secondFamilyName).toBe('Carter')
+
+    myAddress.setPropagation(false)
+
+    myAddress.setFamilyName('Mitchell')
+    expect(myAddress.toObject().familyName).toBe('Mitchell')
+    expect(myAddress.toObject().secondFamilyName).toBe('Carter')
+  })
 
   it.each(setters)(
     'should not propagate %s when propagation is off',

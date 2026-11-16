@@ -24,16 +24,16 @@ assert.deepEqual(
 )
 
 const address = new PostalAddress({ formats, defaultFormat: 'US' })
-  .setAddress1('Happy Park')
-  .setCity('Porto')
-  .setCompanyName('SmartShoes Portugal, Lda.')
-  .setCountry('Portugal')
-  .setPostalCode('4000-123')
+  .setCompanyName('Deutscher Bundestag')
+  .setAddress1('Platz der Republik 1')
+  .setCity('Berlin')
+  .setCountry('Germany')
+  .setPostalCode('11011')
   .setFormat({ country: 'DE', type: 'business' })
 
 assert.equal(
   address.toString(),
-  'SmartShoes Portugal, Lda.\nHappy Park\n4000-123 Porto\nPORTUGAL',
+  'Deutscher Bundestag\nPlatz der Republik 1\n11011 Berlin\nGERMANY',
 )
 
 assert.throws(() => new PostalAddress({ formats: {} }), PostalAddressError)

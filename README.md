@@ -68,18 +68,15 @@ const myAddressPersonal = new PostalAddress({
 })
 
 myAddressPersonal
-  .setAddress1('Rua do Pastel, 19')
-  .setCity('Aveiro')
+  .setAddress1('Rua das Flores, 15')
+  .setCity('Porto')
   .setCountry('Portugal')
-  .setGivenName('John')
-  .setHonorificPrefix('Mr.')
-  .setFamilyName('Pestana')
-  .setPostalCode('2700-242')
-  .setAdditionalName('Lopes')
-  .setFormat({
-    country: 'AR',
-    type: 'personal',
-  })
+  .setGivenName('Ana')
+  .setHonorificPrefix('Sra.')
+  .setFamilyName('Ferreira')
+  .setPostalCode('4050-265')
+  .setAdditionalName('Sousa')
+  .setFormat({ country: 'PT' })
 
 console.log(myAddressPersonal.toArray())
 
@@ -89,18 +86,18 @@ console.log(myAddressPersonal.toString())
 `toArray()`
 
 ```txt
-[ [ 'Mr.', 'John', 'Lopes', 'Pestana' ],
-  [ 'Rua do Pastel, 19' ],
-  [ '2700-242', 'AVEIRO' ],
+[ [ 'Sra.', 'Ana', 'Sousa', 'Ferreira' ],
+  [ 'Rua das Flores, 15' ],
+  [ '4050-265', 'Porto' ],
   [ 'PORTUGAL' ] ]
 ```
 
 `toString()`
 
 ```txt
-Mr. John Lopes Pestana
-Rua do Pastel, 19
-2700-242 AVEIRO
+Sra. Ana Sousa Ferreira
+Rua das Flores, 15
+4050-265 Porto
 PORTUGAL
 ```
 
@@ -183,7 +180,7 @@ Propagation also covers the first administrative level. Formats read it as `stat
 
 ```js
 // Replaces every attribute; attributes left out become empty
-postalAddress.fromObject({ givenName: 'John', city: 'Aveiro' })
+postalAddress.fromObject({ givenName: 'Ana', city: 'Porto' })
 
 // Returns a copy of every attribute
 postalAddress.toObject()
@@ -225,7 +222,7 @@ Additional formats can be added or existing ones can be replaced
 
 ```js
 /*
-  The country should be an uppercase ISO 3166-1 alpha-2 code
+  The country should be an ISO 3166-1 alpha-2 code, in any case
 
   The format should be an array of array of strings or objects
     - The strings should be valid attribute names
