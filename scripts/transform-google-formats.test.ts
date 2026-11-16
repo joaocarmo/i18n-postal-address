@@ -2,7 +2,7 @@ import { parseFmtLine, transformCountry } from './transform-google-formats.js'
 
 describe('parseFmtLine', () => {
   it('should parse US format line with comma and multiple tokens', () => {
-    const data = { key: 'US', upper: 'CS' }
+    const data = { key: 'US', upper: 'CS', state_name_type: 'state' }
     const parts = parseFmtLine('%C, %S %Z', data)
 
     expect(parts).toEqual([
@@ -13,7 +13,7 @@ describe('parseFmtLine', () => {
   })
 
   it('should parse name token into individual fields', () => {
-    const data = { key: 'US' }
+    const data = { key: 'US', upper: 'CS', state_name_type: 'state' }
     const parts = parseFmtLine('%N', data)
 
     expect(parts).toEqual([
@@ -25,49 +25,73 @@ describe('parseFmtLine', () => {
   })
 
   it('should parse organization token', () => {
-    const data = { key: 'US' }
+    const data = { key: 'US', upper: 'CS', state_name_type: 'state' }
     const parts = parseFmtLine('%O', data)
 
     expect(parts).toEqual(['companyName'])
   })
 
   it('should skip sorting code token', () => {
-    const data = { key: 'FR' }
+    const data = { key: 'RE', upper: 'ACX' }
     const parts = parseFmtLine('%Z %C %X', data)
 
-    expect(parts).toEqual(['postalCode', 'city'])
+    expect(parts).toEqual([
+      'postalCode',
+      { attribute: 'city', transforms: ['capitalize'] },
+    ])
   })
 
   it('should map state_name_type to correct field', () => {
-    const data = { key: 'JP', state_name_type: 'prefecture' }
+    const data = { key: 'JP', upper: 'S', state_name_type: 'prefecture' }
     const parts = parseFmtLine('%S', data)
 
-    expect(parts).toEqual(['prefecture'])
+    expect(parts).toEqual([
+      { attribute: 'prefecture', transforms: ['capitalize'] },
+    ])
   })
 
   it('should map Korean sublocality to gu', () => {
-    const data = { key: 'KR', sublocality_name_type: 'district' }
+    const data = {
+      key: 'KR',
+      upper: 'Z',
+      state_name_type: 'do_si',
+      sublocality_name_type: 'district',
+    }
     const parts = parseFmtLine('%D', data)
 
     expect(parts).toEqual(['gu'])
   })
 
   it('should map non-Korean sublocality to address2', () => {
-    const data = { key: 'BR', sublocality_name_type: 'neighborhood' }
+    const data = {
+      key: 'BR',
+      upper: 'CS',
+      state_name_type: 'state',
+      sublocality_name_type: 'neighborhood',
+    }
     const parts = parseFmtLine('%D', data)
 
     expect(parts).toEqual(['address2'])
   })
 
   it('should handle consecutive tokens without separators', () => {
-    const data = { key: 'US', upper: '' }
-    const parts = parseFmtLine('%S%Z', data)
+    const data = { key: 'CN', upper: 'S', sublocality_name_type: 'district' }
+    const parts = parseFmtLine('%S%C%D', data)
 
-    expect(parts).toEqual(['state', 'postalCode'])
+    expect(parts).toEqual([
+      { attribute: 'state', transforms: ['capitalize'] },
+      'city',
+      'address2',
+    ])
   })
 
   it('should apply uppercase transform from upper field', () => {
-    const data = { key: 'US', upper: 'Z' }
+    const data = {
+      key: 'KR',
+      upper: 'Z',
+      state_name_type: 'do_si',
+      sublocality_name_type: 'district',
+    }
     const parts = parseFmtLine('%Z', data)
 
     expect(parts).toEqual([
@@ -82,6 +106,7 @@ describe('transformCountry', () => {
       key: 'US',
       fmt: '%N%n%O%n%A%n%C, %S %Z',
       upper: 'CS',
+      state_name_type: 'state',
     }
     const result = transformCountry(data)
 
@@ -109,6 +134,7 @@ describe('transformCountry', () => {
       key: 'KR',
       fmt: '%S %C%D%n%A%n%O%n%N%n%Z',
       lfmt: '%N%n%O%n%A%n%D%n%C%n%S%n%Z',
+      upper: 'Z',
       state_name_type: 'do_si',
       sublocality_name_type: 'district',
     }
@@ -124,7 +150,7 @@ describe('transformCountry', () => {
       ['gu'],
       ['city'],
       ['do'],
-      ['postalCode'],
+      [{ attribute: 'postalCode', transforms: ['capitalize'] }],
       [{ attribute: 'country', transforms: ['capitalize'] }],
     ])
   })
@@ -133,6 +159,7 @@ describe('transformCountry', () => {
     const data = {
       key: 'GB',
       fmt: '%N%n%O%n%A%n%C%n%Z',
+      upper: 'CZ',
     }
     const result = transformCountry(data)
     const lines = result!.default.array
