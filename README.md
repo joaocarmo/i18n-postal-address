@@ -236,6 +236,8 @@ Additional formats can be added or existing ones can be replaced
       applied sequentially over the given attribute with the following signature
         (value, address) => string
       where address holds every attribute, such as address.city
+      The address is read-only. A write to it throws in strict mode, which
+      every ES module uses
     - A comma that a transform adds to the last part of a line is dropped, so
       a separator prints only when another part follows
 */

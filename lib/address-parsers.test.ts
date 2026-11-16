@@ -40,27 +40,28 @@ describe('arrayParser', () => {
     expect(transform).toHaveBeenCalledWith('Porto', object)
   })
 
-  it('should keep the address unchanged when a transform writes to it', () => {
+  it('should throw and keep the address unchanged when a transform writes to it', () => {
     const address = { ...object }
 
-    arrayParser(
-      address,
-      [
+    expect(() =>
+      arrayParser(
+        address,
         [
-          {
-            attribute: 'city',
-            transforms: [
-              (value, copy) => {
-                if (copy) copy.city = 'Lisboa'
-                return value
-              },
-            ],
-          },
+          [
+            {
+              attribute: 'city',
+              transforms: [
+                (value, copy) => {
+                  ;(copy as AddressObject).city = 'Lisboa'
+                  return value
+                },
+              ],
+            },
+          ],
         ],
-      ],
-      true,
-    )
-
+        true,
+      ),
+    ).toThrow(TypeError)
     expect(address.city).toBe('Porto')
   })
 
