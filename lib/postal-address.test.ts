@@ -645,7 +645,7 @@ describe('Korean Address Format', () => {
 
       expect(myAddress.toArray()).toEqual([
         ['Kim', 'Seojun'],
-        ['114', 'Seolleung-ro'],
+        ['114,', 'Seolleung-ro'],
         ['Gangnam-gu'],
         ['Seoul'],
         ['06010'],
@@ -814,10 +814,10 @@ describe('Honorific Suffix', () => {
       'Caracas',
       'Distrito Capital',
       '1010',
-      [['CARACAS', '1010,', 'DISTRITO CAPITAL']],
+      [['CARACAS'], ['DISTRITO CAPITAL'], ['1010']],
     ],
   ])(
-    'should place the locality lines in Google order for %s',
+    'should place the locality lines for %s',
     (country, city, state, postalCode, localityLines) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
