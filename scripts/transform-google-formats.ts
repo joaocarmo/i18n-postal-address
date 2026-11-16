@@ -188,20 +188,22 @@ export function transformCountry(
 
   // Deduplicate: keep only one standalone ['address2'] line,
   // and remove address2 from inline positions if it also appears standalone
-  let seenAddress2 = false
-  const deduped = result.reduceRight<AddressFormatPart[][]>((acc, line) => {
-    const isStandaloneAddress2 = line.length === 1 && line[0] === 'address2'
-    if (isStandaloneAddress2) {
-      if (seenAddress2) return acc
-      seenAddress2 = true
-      return [line, ...acc]
-    }
-    if (seenAddress2 && line.length > 1) {
-      const filtered = line.filter((p) => p !== 'address2')
-      return [filtered, ...acc]
-    }
-    return [line, ...acc]
-  }, [])
+  const isStandaloneAddress2 = (line: AddressFormatPart[]) =>
+    line.length === 1 && line[0] === 'address2'
+  const hasStandaloneAddress2 = result.some(isStandaloneAddress2)
+  const deduped = result
+    .filter(
+      (line, index) =>
+        !isStandaloneAddress2(line) ||
+        result.findIndex(isStandaloneAddress2) === index,
+    )
+    .map((line) =>
+      hasStandaloneAddress2 && line.length > 1
+        ? line.filter(
+            (p) => (typeof p === 'object' ? p.attribute : p) !== 'address2',
+          )
+        : line,
+    )
 
   // Inject careOf before the first address line
   const firstAddressIdx = deduped.findIndex((line) =>

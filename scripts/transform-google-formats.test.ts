@@ -155,6 +155,27 @@ describe('transformCountry', () => {
     ])
   })
 
+  it('should print a sublocality on the city line only once', () => {
+    const data = {
+      key: 'TH',
+      fmt: '%N%n%O%n%A%n%D %C%n%S %Z',
+      lfmt: '%N%n%O%n%A%n%D, %C%n%S %Z',
+      upper: 'S',
+    }
+    const result = transformCountry(data)
+
+    expect(result!.default.array).toEqual([
+      ['honorificPrefix', 'givenName', 'additionalName', 'familyName'],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['city'],
+      [{ attribute: 'state', transforms: ['capitalize'] }, 'postalCode'],
+      [{ attribute: 'country', transforms: ['capitalize'] }],
+    ])
+  })
+
   it('should inject careOf before first address line', () => {
     const data = {
       key: 'GB',
