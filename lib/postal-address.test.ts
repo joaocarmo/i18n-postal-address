@@ -763,11 +763,12 @@ describe('Honorific Suffix', () => {
       ['Gabriel', 'García', 'Marcos', 'h.'],
       ['Av. Corrientes 1234'],
       ['C1043', 'BUENOS AIRES'],
+      ['CABA'],
     ])
   })
 
   it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
-    'should print the name on 1 line and keep the region line for %s',
+    'should print the name on 1 line for %s',
     (country) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
@@ -849,7 +850,7 @@ describe('Upper Case', () => {
     ['CA', 'french', [['Springfield', 'IL'], ['AB1']]],
     ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
     ['NG', 'default', [['SPRINGFIELD', 'AB1'], ['IL']]],
-    ['AR', 'default', [['AB1', 'SPRINGFIELD']]],
+    ['AR', 'default', [['AB1', 'SPRINGFIELD'], ['il']]],
   ] as const)(
     'should print the parts Google asks for in capitals for %s (%s)',
     (country, type, expected) => {

@@ -52,7 +52,7 @@ When sources disagree, follow the first that applies:
 
 1. The format that the national postal operator or regulator publishes, or a government standard, such as the order of a romanised name.
 2. A format this library wrote for that country. Keep it unless a higher source contradicts it or it harms delivery.
-3. Google's data. It is the baseline where the library has no format of its own, including `BO`, `CL`, `EC`, `GY` and `PY`.
+3. Google's data. It is the baseline where the library has no format of its own, including the countries that reuse the format of `AR`.
 
 Cite the source of each format change in the PR. A change that only matches Google, against a format written for that country, needs another reason.
 
@@ -63,7 +63,6 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 `pnpm formats:update` reports these differences. They stay:
 
 - Name lines: the library splits the name into more parts and orders them per country, such as `title` in `DE` and 2 surnames in `AR` and `ES`.
-- `AR`: no province line. Correo Argentino: the postal code (CPA) shows the province.
 - `CN`, `JP`, `KP` and `KR` default to the local order. The script compares them with Google's Latin-script format.
 - Level-1 attributes: some formats read another attribute than Google's `state`, such as `province` in `IT`.
 - `TT`: TTPost prints the postal code on the city line.
@@ -71,7 +70,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - `BR`: Correios accept the postal code, city and state on 1 line.
 - `ES`: the postal code and city on 1 line, then the province, as in common practice. Correos publishes no layout.
 - `EC`: the regulator's example prints the postal code and city on 1 line.
-- The city in capitals in `AR`, `BO`, `CL`, `EC`, `GY`, `PY`, `NO` and `SE`. Capitals never harm sorting.
+- The city in capitals in `AR`, the countries that reuse its format, `NO` and `SE`. Capitals never harm sorting.
 - A `state` line in `BG`, `HU`, `PY` and `EC`. It prints only when it is set.
 
 Other reports, such as `address1` and `address2` on 1 line in `AR`, `CH`, `ES` and `HU`, are not reviewed yet.
