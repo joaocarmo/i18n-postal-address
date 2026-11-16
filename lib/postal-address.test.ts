@@ -281,6 +281,46 @@ describe('Postal Address', () => {
       'Иванов\nИван\nул. Тверская, д. 7\nМОСКВА\nМосковская обл.\n125009\nRUSSIA',
     )
   })
+
+  it('should print the subdistrict once (TH)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'TH',
+    })
+    myAddress
+      .setAddress1('ถนนหน้าพระลาน')
+      .setAddress2('แขวงพระบรมมหาราชวัง')
+      .setCity('เขตพระนคร')
+      .setState('กรุงเทพมหานคร')
+      .setPostalCode('10200')
+
+    expect(myAddress.toArray()).toEqual([
+      ['ถนนหน้าพระลาน'],
+      ['แขวงพระบรมมหาราชวัง'],
+      ['เขตพระนคร'],
+      ['กรุงเทพมหานคร', '10200'],
+    ])
+  })
+
+  it('should print the barangay once (PH)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'PH',
+    })
+    myAddress
+      .setAddress1('Malacañang Palace, J.P. Laurel Street')
+      .setAddress2('San Miguel')
+      .setCity('Manila')
+      .setState('Metro Manila')
+      .setPostalCode('1005')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Malacañang Palace, J.P. Laurel Street'],
+      ['San Miguel'],
+      ['Manila'],
+      ['1005', 'Metro Manila'],
+    ])
+  })
 })
 
 describe('Custom Formats', () => {
