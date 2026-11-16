@@ -852,7 +852,6 @@ describe('Region Same As City', () => {
       [['1', 'SANTA LUCÍA DEL ESTE,', 'CANELONES']],
     ],
     ['RO', 'Brașov', 'Brașov', [['1', 'BRAȘOV']]],
-    ['RO', 'Brașov', 'Braşov', [['1', 'BRAȘOV']]],
     ['RO', 'București', 'Sector 1', [['1', 'BUCUREȘTI'], ['Sector 1']]],
   ])(
     'should print the region only when it differs from the city in %s (%s, %s)',
@@ -860,6 +859,12 @@ describe('Region Same As City', () => {
       expect(address(country, city, state).toArray()).toEqual(expected)
     },
   )
+
+  it('should treat a county with a cedilla as the same as the city in RO', () => {
+    expect(address('RO', 'Bra\u0219ov', 'Bra\u015Fov').toArray()).toEqual([
+      ['1', 'BRA\u0218OV'],
+    ])
+  })
 
   it('should print the region without transforms', () => {
     expect(

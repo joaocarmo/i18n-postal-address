@@ -72,15 +72,23 @@ describe('Address Transforms: omitIfSameAsCity', () => {
     ).toBe('')
   })
 
-  it.each([
-    ['Braşov', 'Brașov'],
-    ['CONSTANŢA', 'Constanța'],
-  ])(
-    'should treat a cedilla and a comma below as equal (%s, %s)',
-    (value, city) => {
-      expect(omitIfSameAsCity(value, { ...address, city })).toBe('')
-    },
-  )
+  it('should treat a cedilla value as equal to a comma-below city', () => {
+    expect(
+      omitIfSameAsCity('Bra\u015Fov', { ...address, city: 'Bra\u0219ov' }),
+    ).toBe('')
+    expect(
+      omitIfSameAsCity('CONSTAN\u0162A', {
+        ...address,
+        city: 'Constan\u021Ba',
+      }),
+    ).toBe('')
+  })
+
+  it('should treat a comma-below value as equal to a cedilla city', () => {
+    expect(
+      omitIfSameAsCity('Bra\u0219ov', { ...address, city: 'Bra\u015Fov' }),
+    ).toBe('')
+  })
 
   it('should compare letters with and without accents as different', () => {
     expect(omitIfSameAsCity('San José', { ...address, city: 'San Jose' })).toBe(

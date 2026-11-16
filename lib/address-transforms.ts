@@ -12,7 +12,7 @@ export const addCommaAfter: TransformFunction = (value) => {
 const comparable = (value: string) =>
   value
     .normalize('NFD')
-    .replace(/([st])̦/gi, '$1̧')
+    .replace(/([st])\u0326/gi, '$1\u0327')
     .trim()
     .toLowerCase()
 
