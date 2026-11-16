@@ -291,8 +291,14 @@ export const DK: CountryFormat = {
 export const ES: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],

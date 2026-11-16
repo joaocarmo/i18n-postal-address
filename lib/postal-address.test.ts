@@ -321,6 +321,29 @@ describe('Postal Address', () => {
       ['1005', 'Metro Manila'],
     ])
   })
+
+  it('should print both surnames on the name line (ES)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'ES',
+    })
+    myAddress
+      .setHonorificPrefix('Sr. D.')
+      .setGivenName('Pedro')
+      .setFirstFamilyName('García')
+      .setSecondFamilyName('López')
+      .setAddress1('Plaza de las Descalzas 27, Esc 2, 3º C')
+      .setPostalCode('45012')
+      .setCity('Toledo')
+      .setState('Toledo')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Sr. D.', 'Pedro', 'García', 'López'],
+      ['Plaza de las Descalzas 27, Esc 2, 3º C'],
+      ['45012', 'TOLEDO'],
+      ['Toledo'],
+    ])
+  })
 })
 
 describe('Custom Formats', () => {
