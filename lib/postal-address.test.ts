@@ -914,28 +914,38 @@ describe('Honorific Suffix', () => {
       ['María', 'Rojas', 'Pérez'],
       ['Plaza Murillo', ''],
       ['La Paz', '', ''],
-      [['Plaza Murillo'], ['LA PAZ']],
+      [['María', 'Rojas', 'Pérez'], ['Plaza Murillo'], ['LA PAZ']],
     ],
     [
       'CL',
       ['María', 'Rojas', 'Pérez'],
       ['Moneda 1152', ''],
       ['Santiago', 'Región Metropolitana', '8340648'],
-      [['Moneda 1152'], ['8340648', 'SANTIAGO'], ['Región Metropolitana']],
+      [
+        ['María', 'Rojas', 'Pérez'],
+        ['Moneda 1152'],
+        ['8340648', 'SANTIAGO'],
+        ['Región Metropolitana'],
+      ],
     ],
     [
       'EC',
       ['María', 'Rojas', 'Pérez'],
       ['García Moreno y Pasaje Chile', ''],
       ['Quito', 'Pichincha', '170401'],
-      [['García Moreno y Pasaje Chile'], ['170401', 'QUITO'], ['Pichincha']],
+      [
+        ['María', 'Rojas', 'Pérez'],
+        ['García Moreno y Pasaje Chile'],
+        ['170401', 'QUITO'],
+        ['Pichincha'],
+      ],
     ],
     [
       'GY',
       ['Alicia', 'Persaud', ''],
       ['Robb Street', ''],
       ['Georgetown', '', '4130105'],
-      [['Robb Street'], ['4130105', 'GEORGETOWN']],
+      [['Alicia', 'Persaud'], ['Robb Street'], ['4130105', 'GEORGETOWN']],
     ],
     [
       'PY',
@@ -946,6 +956,7 @@ describe('Honorific Suffix', () => {
       ],
       ['Asunción', '', '001218'],
       [
+        ['María', 'Rojas', 'Pérez'],
         [
           'Estrella Nº 340, casi Yegros',
           'Edif. España, Bloque A, Piso 3, Dpto. 10',
@@ -960,7 +971,7 @@ describe('Honorific Suffix', () => {
       [givenName, firstFamilyName, secondFamilyName],
       [address1, address2],
       [city, state, postalCode],
-      addressLines,
+      expected,
     ) => {
       const myAddress = new PostalAddress({
         formats: addressFormats,
@@ -977,10 +988,7 @@ describe('Honorific Suffix', () => {
         .setState(state)
         .setFormat({ country })
 
-      expect(myAddress.toArray()).toEqual([
-        [givenName, firstFamilyName, secondFamilyName].filter(Boolean),
-        ...addressLines,
-      ])
+      expect(myAddress.toArray()).toEqual(expected)
     },
   )
 
