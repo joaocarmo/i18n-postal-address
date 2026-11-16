@@ -65,6 +65,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - Name lines: the library splits the name into more parts and orders them per country, such as `title` in `DE` and 2 surnames in `AR` and `ES`.
 - `CN`, `JP`, `KP` and `KR` default to the local order. The script compares them with Google's Latin-script format.
 - Level-1 attributes: some formats read another attribute than Google's `state`, such as `province` in `IT`.
+- `AR`: no province line when the postal code is a full CPA, such as `C1043AAZ`. Correo Argentino: the CPA makes the province unnecessary.
 - `TT`: TTPost prints the postal code on the city line.
 - `RO`: Poșta Română prints the postal code and locality, then the county.
 - `UY` and `RO` leave out the department or county when it repeats the city, as Correo Uruguayo and Poșta Română ask.

@@ -20,6 +20,19 @@ export const omitIfSameAsCity: TransformFunction = (value, address) => {
   return value
 }
 
+// A full Argentine postal code (CPA), such as C1043AAZ, already encodes the province.
+export const omitIfArgentineCpa: TransformFunction = (value, address) => {
+  if (
+    /^[A-Z]\d{4}[A-Z]{3}$/i.test(
+      address?.postalCode?.replace(/[\s-]/g, '') ?? '',
+    )
+  ) {
+    return ''
+  }
+
+  return value
+}
+
 export const capitalize: TransformFunction = (value) => {
   if (typeof value === 'string') {
     return value.toUpperCase()

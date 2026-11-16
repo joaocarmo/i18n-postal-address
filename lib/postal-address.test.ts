@@ -869,6 +869,35 @@ describe('Region Same As City', () => {
   })
 })
 
+describe('Province With A Full CPA', () => {
+  const address = (country: string, postalCode: string) =>
+    new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
+      .setCity('Buenos Aires')
+      .setState('CABA')
+      .setPostalCode(postalCode)
+      .setFormat({ country })
+
+  it.each([
+    ['AR', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES']]],
+    ['AR', 'C1043 AAZ', [['C1043 AAZ', 'BUENOS AIRES']]],
+    ['AR', 'C1043', [['C1043', 'BUENOS AIRES'], ['CABA']]],
+    ['CL', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES'], ['CABA']]],
+  ])(
+    'should print the province only when needed in %s with %s',
+    (country, postalCode, expected) => {
+      expect(address(country, postalCode).toArray()).toEqual(expected)
+    },
+  )
+
+  it('should print the province without transforms', () => {
+    expect(
+      address('AR', 'C1043AAZ')
+        .setFormat({ country: 'AR', useTransforms: false })
+        .toArray(),
+    ).toEqual([['C1043AAZ', 'Buenos Aires'], ['CABA']])
+  })
+})
+
 describe('Upper Case', () => {
   it.each([
     ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
