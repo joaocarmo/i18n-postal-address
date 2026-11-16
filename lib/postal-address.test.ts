@@ -846,8 +846,8 @@ describe('Upper Case', () => {
   it.each([
     ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
     ['AU', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
-    ['CA', 'default', [['SPRINGFIELD,', 'IL', 'AB1']]],
-    ['CA', 'french', [['Springfield', 'IL'], ['AB1']]],
+    ['CA', 'default', [['SPRINGFIELD', 'IL', 'AB1']]],
+    ['CA', 'french', [['SPRINGFIELD', 'IL', 'AB1']]],
     ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
     ['NG', 'default', [['SPRINGFIELD', 'AB1'], ['IL']]],
     ['AR', 'default', [['AB1', 'SPRINGFIELD'], ['il']]],
@@ -879,7 +879,7 @@ describe('Administrative Area', () => {
       .setFormat({ country: 'CA' })
 
   it('should print a value set as state in a format that reads province', () => {
-    expect(caAddress().toArray()).toEqual([['OTTAWA,', 'ON', 'K1A 0B1']])
+    expect(caAddress().toArray()).toEqual([['OTTAWA', 'ON', 'K1A 0B1']])
   })
 
   it('should not copy the value into the address object', () => {
@@ -888,13 +888,13 @@ describe('Administrative Area', () => {
 
   it('should not fall back when propagation is off', () => {
     expect(caAddress().setPropagation(false).toArray()).toEqual([
-      ['OTTAWA,', 'K1A 0B1'],
+      ['OTTAWA', 'K1A 0B1'],
     ])
   })
 
   it('should print the value the format reads when it is set', () => {
     expect(caAddress().setProvince('QC').toArray()).toEqual([
-      ['OTTAWA,', 'QC', 'K1A 0B1'],
+      ['OTTAWA', 'QC', 'K1A 0B1'],
     ])
   })
 

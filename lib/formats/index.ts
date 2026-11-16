@@ -129,14 +129,14 @@ export const BR: CountryFormat = {
   },
 }
 
-const _caEnglish: AddressFormat = {
+const _ca: AddressFormat = {
   array: [
     ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
     ['companyName'],
     ['careOf'],
     ['address1', 'address2'],
     [
-      { attribute: 'city', transforms: [capitalize, addCommaAfter] },
+      { attribute: 'city', transforms: [capitalize] },
       { attribute: 'province', transforms: [capitalize] },
       { attribute: 'postalCode', transforms: [capitalize] },
     ],
@@ -145,19 +145,9 @@ const _caEnglish: AddressFormat = {
 }
 
 export const CA: CountryFormat = {
-  english: _caEnglish,
-  french: {
-    array: [
-      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
-      ['companyName'],
-      ['careOf'],
-      ['address1', 'address2'],
-      ['city', { attribute: 'province', transforms: [capitalize] }],
-      [{ attribute: 'postalCode', transforms: [capitalize] }],
-      [{ attribute: 'country', transforms: [capitalize] }],
-    ],
-  },
-  default: _caEnglish,
+  english: _ca,
+  french: _ca,
+  default: _ca,
 }
 
 export const CH: CountryFormat = {
