@@ -89,8 +89,7 @@ console.log(myAddressPersonal.toString())
 `toArray()`
 
 ```txt
-[ [ 'Mr.', 'John', 'Lopes' ],
-  [ 'Pestana' ],
+[ [ 'Mr.', 'John', 'Lopes', 'Pestana' ],
   [ 'Rua do Pastel, 19' ],
   [ '2700-242', 'AVEIRO' ],
   [ 'PORTUGAL' ] ]
@@ -99,8 +98,7 @@ console.log(myAddressPersonal.toString())
 `toString()`
 
 ```txt
-Mr. John Lopes
-Pestana
+Mr. John Lopes Pestana
 Rua do Pastel, 19
 2700-242 AVEIRO
 PORTUGAL

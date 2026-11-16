@@ -760,13 +760,38 @@ describe('Honorific Suffix', () => {
       .setFormat({ country: 'AR' })
 
     expect(myAddress.toArray()).toEqual([
-      ['Gabriel', 'García'],
-      ['Marcos', 'h.'],
+      ['Gabriel', 'García', 'Marcos', 'h.'],
       ['Av. Corrientes 1234'],
       ['C1043', 'BUENOS AIRES'],
       ['CABA'],
     ])
   })
+
+  it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
+    'should print the name on 1 line for %s',
+    (country) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setGivenName('Gabriel')
+        .setFirstFamilyName('García')
+        .setSecondFamilyName('Marcos')
+        .setAddress1('Av. Providencia 1234')
+        .setCity('Santiago')
+        .setPostalCode('7500000')
+        .setState('Región Metropolitana')
+        .setFormat({ country })
+
+      expect(myAddress.toArray()).toEqual([
+        ['Gabriel', 'García', 'Marcos'],
+        ['Av. Providencia 1234'],
+        ['7500000', 'SANTIAGO'],
+        ['Región Metropolitana'],
+      ])
+    },
+  )
 
   it.each([
     [
@@ -809,8 +834,7 @@ describe('Honorific Suffix', () => {
         .setFormat({ country })
 
       expect(myAddress.toArray()).toEqual([
-        ['Gabriel', 'García'],
-        ['Marcos'],
+        ['Gabriel', 'García', 'Marcos'],
         ['Calle 1'],
         ...localityLines,
       ])

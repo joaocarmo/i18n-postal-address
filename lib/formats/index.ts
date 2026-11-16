@@ -8,8 +8,14 @@ export type CountryFormat = {
 export const AR: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -1227,8 +1233,14 @@ export const CI: CountryFormat = {
 export const CO: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3098,8 +3110,14 @@ export const PA: CountryFormat = {
 export const PE: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3790,8 +3808,14 @@ export const UM: CountryFormat = {
 export const UY: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3869,8 +3893,14 @@ export const VC: CountryFormat = {
 export const VE: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
