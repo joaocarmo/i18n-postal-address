@@ -2,6 +2,7 @@ import {
   addCommaAfter,
   capitalize,
   capitalizeWhenTwo,
+  omitIfArgentineCpa,
   omitIfSameAsCity,
   pascalCase,
 } from './address-transforms.js'
@@ -24,6 +25,24 @@ describe('Address Transforms: capitalize', () => {
 
   it('should do nothing if empty', () => {
     expect(capitalize('')).toBe('')
+  })
+})
+
+describe('Address Transforms: omitIfArgentineCpa', () => {
+  const address = { ...objectInitialState, postalCode: ' c1043aaz ' }
+
+  it('should return an empty value when the postal code is a full CPA', () => {
+    expect(omitIfArgentineCpa('CABA', address)).toBe('')
+  })
+
+  it('should return the value when the postal code is a short code', () => {
+    expect(omitIfArgentineCpa('CABA', { ...address, postalCode: '1043' })).toBe(
+      'CABA',
+    )
+  })
+
+  it('should return the value when no address is passed', () => {
+    expect(omitIfArgentineCpa('CABA')).toBe('CABA')
   })
 })
 

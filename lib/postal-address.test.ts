@@ -767,6 +767,32 @@ describe('Honorific Suffix', () => {
     ])
   })
 
+  it.each([
+    ['leave out', 'AR', []],
+    ['keep', 'CL', [['CABA']]],
+  ])(
+    'should %s the province line for %s with a full CPA',
+    (_, country, stateLines) => {
+      const postalCode = 'C1043AAZ'
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setAddress1('Av. Corrientes 1234')
+        .setCity('Buenos Aires')
+        .setPostalCode(postalCode)
+        .setState('CABA')
+        .setFormat({ country })
+
+      expect(myAddress.toArray()).toEqual([
+        ['Av. Corrientes 1234'],
+        [postalCode, 'BUENOS AIRES'],
+        ...stateLines,
+      ])
+    },
+  )
+
   it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
     'should print the name on 1 line for %s',
     (country) => {

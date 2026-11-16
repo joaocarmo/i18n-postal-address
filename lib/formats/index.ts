@@ -2,6 +2,7 @@ import type { AddressFormat } from '../types/address-format.js'
 import {
   addCommaAfter,
   capitalize,
+  omitIfArgentineCpa,
   omitIfSameAsCity,
 } from '../address-transforms.js'
 
@@ -10,6 +11,30 @@ export type CountryFormat = {
 }
 
 export const AR: CountryFormat = {
+  default: {
+    array: [
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [
+        { attribute: 'postalCode', transforms: [capitalize] },
+        { attribute: 'city', transforms: [capitalize] },
+      ],
+      [{ attribute: 'state', transforms: [omitIfArgentineCpa] }],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
+const _ar: CountryFormat = {
   default: {
     array: [
       [
@@ -4374,7 +4399,7 @@ export const ZW: CountryFormat = {
   },
 }
 
-export { AR as BO, AR as CL, AR as EC, AR as GY, AR as PY }
+export { _ar as BO, _ar as CL, _ar as EC, _ar as GY, _ar as PY }
 export { HR as RS, HR as SI }
 export { KR as KP }
 
