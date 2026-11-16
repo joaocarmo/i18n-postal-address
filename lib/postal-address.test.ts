@@ -766,28 +766,31 @@ describe('Honorific Suffix', () => {
     ])
   })
 
-  it('should keep the region line in the formats that reuse the Argentine one', () => {
-    const myAddress = new PostalAddress({
-      formats: addressFormats,
-      defaultFormat: 'US',
-    })
-    myAddress
-      .setGivenName('Gabriel')
-      .setFirstFamilyName('García')
-      .setSecondFamilyName('Marcos')
-      .setAddress1('Av. Providencia 1234')
-      .setCity('Santiago')
-      .setPostalCode('7500000')
-      .setState('Región Metropolitana')
-      .setFormat({ country: 'CL' })
+  it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
+    'should print the name on 1 line and keep the region line for %s',
+    (country) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'US',
+      })
+      myAddress
+        .setGivenName('Gabriel')
+        .setFirstFamilyName('García')
+        .setSecondFamilyName('Marcos')
+        .setAddress1('Av. Providencia 1234')
+        .setCity('Santiago')
+        .setPostalCode('7500000')
+        .setState('Región Metropolitana')
+        .setFormat({ country })
 
-    expect(myAddress.toArray()).toEqual([
-      ['Gabriel', 'García', 'Marcos'],
-      ['Av. Providencia 1234'],
-      ['7500000', 'SANTIAGO'],
-      ['Región Metropolitana'],
-    ])
-  })
+      expect(myAddress.toArray()).toEqual([
+        ['Gabriel', 'García', 'Marcos'],
+        ['Av. Providencia 1234'],
+        ['7500000', 'SANTIAGO'],
+        ['Región Metropolitana'],
+      ])
+    },
+  )
 
   it.each([
     [

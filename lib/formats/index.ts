@@ -5,26 +5,28 @@ export type CountryFormat = {
   [key: string]: AddressFormat
 }
 
-const _arAliases: AddressFormat = {
-  array: [
-    [
-      'honorificPrefix',
-      'givenName',
-      'additionalName',
-      'firstFamilyName',
-      'secondFamilyName',
-      'honorificSuffix',
+const _arAliases: CountryFormat = {
+  default: {
+    array: [
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
+      ['companyName'],
+      ['careOf'],
+      ['address1', 'address2'],
+      [
+        { attribute: 'postalCode', transforms: [capitalize] },
+        { attribute: 'city', transforms: [capitalize] },
+      ],
+      ['state'],
+      [{ attribute: 'country', transforms: [capitalize] }],
     ],
-    ['companyName'],
-    ['careOf'],
-    ['address1', 'address2'],
-    [
-      { attribute: 'postalCode', transforms: [capitalize] },
-      { attribute: 'city', transforms: [capitalize] },
-    ],
-    ['state'],
-    [{ attribute: 'country', transforms: [capitalize] }],
-  ],
+  },
 }
 
 export const AR: CountryFormat = {
@@ -4403,11 +4405,13 @@ export const ZW: CountryFormat = {
   },
 }
 
-export const BO: CountryFormat = { default: _arAliases }
-export const CL: CountryFormat = { default: _arAliases }
-export const EC: CountryFormat = { default: _arAliases }
-export const GY: CountryFormat = { default: _arAliases }
-export const PY: CountryFormat = { default: _arAliases }
+export {
+  _arAliases as BO,
+  _arAliases as CL,
+  _arAliases as EC,
+  _arAliases as GY,
+  _arAliases as PY,
+}
 export { HR as RS, HR as SI }
 export { KR as KP }
 
