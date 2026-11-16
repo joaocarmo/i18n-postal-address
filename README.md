@@ -234,7 +234,8 @@ Additional formats can be added or existing ones can be replaced
     - The objects should contain the attribute (required)
     - The objects may contain an array of transforming functions that will be
       applied sequentially over the given attribute with the following signature
-        (string) => string
+        (value, address) => string
+      where address holds every attribute, such as address.city
     - A comma that a transform adds to the last part of a line is dropped, so
       a separator prints only when another part follows
 */

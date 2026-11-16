@@ -32,6 +32,14 @@ describe('arrayParser', () => {
     expect(parse([[{ attribute: 42 }, 'city']])).toEqual([['Porto']])
   })
 
+  it('should pass the address to each transform', () => {
+    const transform = vi.fn((value: string) => value)
+
+    parse([[{ attribute: 'city', transforms: [transform] }]])
+
+    expect(transform).toHaveBeenCalledWith('Porto', object)
+  })
+
   it('should skip transforms that are not functions', () => {
     expect(
       parse([[{ attribute: 'city', transforms: ['capitalize'] }]]),

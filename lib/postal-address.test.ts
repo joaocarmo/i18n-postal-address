@@ -777,13 +777,7 @@ describe('Honorific Suffix', () => {
       [['BOGOTÁ,', 'Cundinamarca,', '110111']],
     ],
     ['PE', 'Lima', 'Lima', '15001', [['LIMA', '15001'], ['Lima']]],
-    [
-      'UY',
-      'Montevideo',
-      'Montevideo',
-      '11000',
-      [['11000', 'MONTEVIDEO,', 'MONTEVIDEO']],
-    ],
+    ['UY', 'Montevideo', 'Montevideo', '11000', [['11000', 'MONTEVIDEO']]],
     [
       'VE',
       'Caracas',
@@ -816,6 +810,39 @@ describe('Honorific Suffix', () => {
       ])
     },
   )
+})
+
+describe('Region Same As City', () => {
+  const address = (country: string, city: string, state: string) =>
+    new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
+      .setCity(city)
+      .setState(state)
+      .setPostalCode('1')
+      .setFormat({ country })
+
+  it.each([
+    [
+      'UY',
+      'Santa Lucía del Este',
+      'Canelones',
+      [['1', 'SANTA LUCÍA DEL ESTE,', 'CANELONES']],
+    ],
+    ['RO', 'Brașov', 'Brașov', [['1', 'BRAȘOV']]],
+    ['RO', 'București', 'Sector 1', [['1', 'BUCUREȘTI'], ['Sector 1']]],
+  ])(
+    'should print the region only when it differs from the city in %s (%s, %s)',
+    (country, city, state, expected) => {
+      expect(address(country, city, state).toArray()).toEqual(expected)
+    },
+  )
+
+  it('should print the region without transforms', () => {
+    expect(
+      address('UY', 'Montevideo', 'Montevideo')
+        .setFormat({ country: 'UY', useTransforms: false })
+        .toArray(),
+    ).toEqual([['1', 'Montevideo', 'Montevideo']])
+  })
 })
 
 describe('Upper Case', () => {

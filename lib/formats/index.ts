@@ -1,5 +1,9 @@
 import type { AddressFormat } from '../types/address-format.js'
-import { addCommaAfter, capitalize } from '../address-transforms.js'
+import {
+  addCommaAfter,
+  capitalize,
+  omitIfSameAsCity,
+} from '../address-transforms.js'
 
 export type CountryFormat = {
   [key: string]: AddressFormat
@@ -615,7 +619,7 @@ export const RO: CountryFormat = {
       ['address1'],
       ['address2'],
       ['postalCode', { attribute: 'city', transforms: [capitalize] }],
-      ['state'],
+      [{ attribute: 'state', transforms: [omitIfSameAsCity] }],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -3798,7 +3802,7 @@ export const UY: CountryFormat = {
       [
         'postalCode',
         { attribute: 'city', transforms: [capitalize, addCommaAfter] },
-        { attribute: 'state', transforms: [capitalize] },
+        { attribute: 'state', transforms: [omitIfSameAsCity, capitalize] },
       ],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],

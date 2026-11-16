@@ -28,7 +28,7 @@ const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
                 if (Array.isArray(part.transforms)) {
                   part.transforms.forEach((transform) => {
                     if (typeof transform === 'function') {
-                      value = transform(value)
+                      value = transform(value, object)
                     }
                   })
                 }

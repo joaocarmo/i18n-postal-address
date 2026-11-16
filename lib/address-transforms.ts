@@ -8,6 +8,17 @@ export const addCommaAfter: TransformFunction = (value) => {
   return value
 }
 
+export const omitIfSameAsCity: TransformFunction = (value, address) => {
+  if (
+    typeof value === 'string' &&
+    value.trim().toLowerCase() === address?.city.trim().toLowerCase()
+  ) {
+    return ''
+  }
+
+  return value
+}
+
 export const capitalize: TransformFunction = (value) => {
   if (typeof value === 'string') {
     return value.toUpperCase()
