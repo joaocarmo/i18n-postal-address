@@ -512,14 +512,7 @@ export const NL: CountryFormat = {
   business: {
     array: [
       ['companyName'],
-      [
-        't.a.v.',
-        'title',
-        'givenName',
-        'additionalName',
-        'familyName',
-        'honorificSuffix',
-      ],
+      ['title', 'givenName', 'additionalName', 'familyName', 'honorificSuffix'],
       ['careOf'],
       ['address1'],
       ['address2'],
