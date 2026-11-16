@@ -487,7 +487,7 @@ export const KR: CountryFormat = {
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
-      ['do', 'si', 'dong', 'gu', 'addressNum'],
+      ['do', 'si', 'gu', 'dong', 'addressNum'],
       ['postalCode', { attribute: 'country', transforms: [capitalize] }],
     ],
   },

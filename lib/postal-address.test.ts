@@ -344,6 +344,24 @@ describe('Postal Address', () => {
       ['Toledo'],
     ])
   })
+
+  it('should print the district before the road (KR)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setDo('서울특별시')
+      .setGu('중구')
+      .setDong('세종대로')
+      .setAddressNum('110')
+      .setPostalCode('04524')
+
+    expect(myAddress.toArray()).toEqual([
+      ['서울특별시', '중구', '세종대로', '110'],
+      ['04524'],
+    ])
+  })
 })
 
 describe('Custom Formats', () => {
@@ -1059,7 +1077,7 @@ describe('getAddressFormat', () => {
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
-      ['do', 'si', 'dong', 'gu', 'addressNum'],
+      ['do', 'si', 'gu', 'dong', 'addressNum'],
       [
         'postalCode',
         { attribute: 'country', transforms: [expect.any(Function)] },
