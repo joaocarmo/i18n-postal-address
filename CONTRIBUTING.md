@@ -67,12 +67,12 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - Level-1 attributes: some formats read another attribute than Google's `state`, such as `province` in `IT`.
 - `TT`: TTPost prints the postal code on the city line.
 - `RO`: Poșta Română prints the postal code and locality, then the county.
+- `UY` and `RO` leave out the department or county when it repeats the city, as Correo Uruguayo and Poșta Română ask.
 - `BR`: Correios accept the postal code, city and state on 1 line.
 - `ES`: the postal code and city on 1 line, then the province, as in common practice. Correos publishes no layout.
 - `EC`: the regulator's example prints the postal code and city on 1 line.
 - The city in capitals in `AR`, the countries that reuse its format, `NO` and `SE`. Capitals never harm sorting.
 - A `state` line in `BG`, `HU`, `PY` and `EC`. It prints only when it is set.
-- `UY` and `RO` leave out the department or county when it repeats the city, as Correo Uruguayo and Poșta Română ask.
 
 Other reports, such as `address1` and `address2` on 1 line in `AR`, `CH`, `ES` and `HU`, are not reviewed yet.
 
