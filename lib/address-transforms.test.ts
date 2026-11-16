@@ -2,8 +2,10 @@ import {
   addCommaAfter,
   capitalize,
   capitalizeWhenTwo,
+  omitIfSameAsCity,
   pascalCase,
 } from './address-transforms.js'
+import objectInitialState from './object-initial-state.js'
 
 describe('Address Transforms: addCommaAfter', () => {
   it('should accept "string" and output "string,"', () => {
@@ -25,15 +27,49 @@ describe('Address Transforms: capitalize', () => {
   })
 })
 
-describe('Address Transforms: values that are not strings', () => {
-  it.each([addCommaAfter, capitalize, capitalizeWhenTwo, pascalCase])(
-    'should return the value unchanged from %o',
-    (transform) => {
-      const value = 42 as unknown as string
+describe('Address Transforms: omitIfSameAsCity', () => {
+  const address = { ...objectInitialState, city: 'Montevideo' }
 
-      expect(transform(value)).toBe(value)
-    },
-  )
+  it('should return an empty value when it equals the city', () => {
+    expect(omitIfSameAsCity(' MONTEVIDEO ', address)).toBe('')
+  })
+
+  it('should return the value when it differs from the city', () => {
+    expect(omitIfSameAsCity('Canelones', address)).toBe('Canelones')
+  })
+
+  it('should compare composed and decomposed accents as equal', () => {
+    expect(
+      omitIfSameAsCity('Bras\u0326ov', {
+        ...address,
+        city: 'Bra\u0219ov',
+      }),
+    ).toBe('')
+  })
+
+  it('should return the value when the address has no city', () => {
+    expect(omitIfSameAsCity('Montevideo', {} as typeof address)).toBe(
+      'Montevideo',
+    )
+  })
+
+  it('should return the value when no address is given', () => {
+    expect(omitIfSameAsCity('Montevideo')).toBe('Montevideo')
+  })
+})
+
+describe('Address Transforms: values that are not strings', () => {
+  it.each([
+    addCommaAfter,
+    capitalize,
+    capitalizeWhenTwo,
+    omitIfSameAsCity,
+    pascalCase,
+  ])('should return the value unchanged from %o', (transform) => {
+    const value = 42 as unknown as string
+
+    expect(transform(value)).toBe(value)
+  })
 })
 
 describe('Address Transforms: capitalizeWhenTwo', () => {

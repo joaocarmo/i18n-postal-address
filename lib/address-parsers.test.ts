@@ -32,6 +32,39 @@ describe('arrayParser', () => {
     expect(parse([[{ attribute: 42 }, 'city']])).toEqual([['Porto']])
   })
 
+  it('should pass the address to each transform', () => {
+    const transform = vi.fn((value: string) => value)
+
+    parse([[{ attribute: 'city', transforms: [transform] }]])
+
+    expect(transform).toHaveBeenCalledWith('Porto', object)
+  })
+
+  it('should throw and keep the address unchanged when a transform writes to it', () => {
+    const address = { ...object }
+
+    expect(() =>
+      arrayParser(
+        address,
+        [
+          [
+            {
+              attribute: 'city',
+              transforms: [
+                (value, copy) => {
+                  ;(copy as AddressObject).city = 'Lisboa'
+                  return value
+                },
+              ],
+            },
+          ],
+        ],
+        true,
+      ),
+    ).toThrow(TypeError)
+    expect(address.city).toBe('Porto')
+  })
+
   it('should skip transforms that are not functions', () => {
     expect(
       parse([[{ attribute: 'city', transforms: ['capitalize'] }]]),
