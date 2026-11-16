@@ -767,32 +767,6 @@ describe('Honorific Suffix', () => {
     ])
   })
 
-  it.each([
-    ['leave out', 'AR', []],
-    ['keep', 'CL', [['CABA']]],
-  ])(
-    'should %s the province line for %s with a full CPA',
-    (_, country, stateLines) => {
-      const postalCode = 'C1043AAZ'
-      const myAddress = new PostalAddress({
-        formats: addressFormats,
-        defaultFormat: 'US',
-      })
-      myAddress
-        .setAddress1('Av. Corrientes 1234')
-        .setCity('Buenos Aires')
-        .setPostalCode(postalCode)
-        .setState('CABA')
-        .setFormat({ country })
-
-      expect(myAddress.toArray()).toEqual([
-        ['Av. Corrientes 1234'],
-        [postalCode, 'BUENOS AIRES'],
-        ...stateLines,
-      ])
-    },
-  )
-
   it.each(['BO', 'CL', 'EC', 'GY', 'PY'])(
     'should print the name on 1 line for %s',
     (country) => {
@@ -892,6 +866,35 @@ describe('Region Same As City', () => {
         .setFormat({ country: 'UY', useTransforms: false })
         .toArray(),
     ).toEqual([['1', 'Montevideo', 'Montevideo']])
+  })
+})
+
+describe('Province With A Full CPA', () => {
+  const address = (country: string, postalCode: string) =>
+    new PostalAddress({ formats: addressFormats, defaultFormat: 'US' })
+      .setCity('Buenos Aires')
+      .setState('CABA')
+      .setPostalCode(postalCode)
+      .setFormat({ country })
+
+  it.each([
+    ['AR', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES']]],
+    ['AR', 'C1043 AAZ', [['C1043 AAZ', 'BUENOS AIRES']]],
+    ['AR', 'C1043', [['C1043', 'BUENOS AIRES'], ['CABA']]],
+    ['CL', 'C1043AAZ', [['C1043AAZ', 'BUENOS AIRES'], ['CABA']]],
+  ])(
+    'should print the province only when needed in %s with %s',
+    (country, postalCode, expected) => {
+      expect(address(country, postalCode).toArray()).toEqual(expected)
+    },
+  )
+
+  it('should print the province without transforms', () => {
+    expect(
+      address('AR', 'C1043AAZ')
+        .setFormat({ country: 'AR', useTransforms: false })
+        .toArray(),
+    ).toEqual([['C1043AAZ', 'Buenos Aires'], ['CABA']])
   })
 })
 

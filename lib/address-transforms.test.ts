@@ -35,6 +35,12 @@ describe('Address Transforms: omitIfArgentineCpa', () => {
     expect(omitIfArgentineCpa('CABA', address)).toBe('')
   })
 
+  it('should ignore spaces and hyphens in a full CPA', () => {
+    expect(
+      omitIfArgentineCpa('CABA', { ...address, postalCode: 'C-1043 AAZ' }),
+    ).toBe('')
+  })
+
   it('should return the value when the postal code is a short code', () => {
     expect(omitIfArgentineCpa('CABA', { ...address, postalCode: '1043' })).toBe(
       'CABA',
@@ -82,6 +88,7 @@ describe('Address Transforms: values that are not strings', () => {
     addCommaAfter,
     capitalize,
     capitalizeWhenTwo,
+    omitIfArgentineCpa,
     omitIfSameAsCity,
     pascalCase,
   ])('should return the value unchanged from %o', (transform) => {
