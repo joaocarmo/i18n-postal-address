@@ -76,10 +76,7 @@ myAddressPersonal
   .setFamilyName('Ferreira')
   .setPostalCode('4050-265')
   .setAdditionalName('Sousa')
-  .setFormat({
-    country: 'PT',
-    type: 'personal',
-  })
+  .setFormat({ country: 'PT' })
 
 console.log(myAddressPersonal.toArray())
 
