@@ -9,7 +9,7 @@ import type {
 const object: AddressObject = {
   ...objectInitialState,
   city: 'Porto',
-  postalCode: '4000-123',
+  postalCode: '4049-001',
 }
 
 const parse = (format: unknown, useTransforms = true) =>
@@ -21,7 +21,7 @@ describe('arrayParser', () => {
   })
 
   it('should skip lines that are not arrays', () => {
-    expect(parse(['city', ['postalCode']])).toEqual([['4000-123']])
+    expect(parse(['city', ['postalCode']])).toEqual([['4049-001']])
   })
 
   it('should skip parts that are neither strings nor objects', () => {
@@ -87,7 +87,7 @@ describe('arrayParser', () => {
 
   it('should keep an added comma when another part follows', () => {
     expect(parse([[cityWithComma, 'postalCode']])).toEqual([
-      ['Porto,', '4000-123'],
+      ['Porto,', '4049-001'],
     ])
   })
 
