@@ -61,6 +61,7 @@ const _ar: CountryFormat = {
 export const AU: CountryFormat = {
   default: {
     array: [
+      ['companyName'],
       [
         'honorificPrefix',
         'givenName',
@@ -68,12 +69,11 @@ export const AU: CountryFormat = {
         'familyName',
         'honorificSuffix',
       ],
-      ['companyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
       [
-        { attribute: 'city', transforms: [capitalize, addCommaAfter] },
+        { attribute: 'city', transforms: [capitalize] },
         { attribute: 'state', transforms: [capitalize] },
         'postalCode',
       ],

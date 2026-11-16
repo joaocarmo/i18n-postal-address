@@ -362,6 +362,25 @@ describe('Postal Address', () => {
       ['04524'],
     ])
   })
+
+  it('should print the company first and no comma on the last line (AU)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'AU',
+    })
+    myAddress
+      .setCompanyName('Department of the House of Representatives')
+      .setGivenName('Emily')
+      .setFamilyName('Nguyen')
+      .setAddress1('Parliament House')
+      .setCity('Canberra')
+      .setState('ACT')
+      .setPostalCode('2600')
+
+    expect(myAddress.toString()).toBe(
+      'Department of the House of Representatives\nEmily Nguyen\nParliament House\nCANBERRA ACT 2600',
+    )
+  })
 })
 
 describe('Custom Formats', () => {
@@ -988,7 +1007,7 @@ describe('Province With A Full CPA', () => {
 describe('Upper Case', () => {
   it.each([
     ['US', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
-    ['AU', 'default', [['SPRINGFIELD,', 'IL', 'ab1']]],
+    ['AU', 'default', [['SPRINGFIELD', 'IL', 'ab1']]],
     ['CA', 'default', [['SPRINGFIELD', 'IL', 'AB1']]],
     ['CA', 'french', [['SPRINGFIELD', 'IL', 'AB1']]],
     ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
