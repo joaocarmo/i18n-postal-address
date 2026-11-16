@@ -307,6 +307,31 @@ built-in format definitions.
 
 [UPU S42][upu-s42] is the international standard for postal address templates.
 
+### Field mapping
+
+The attributes map to the [HTML autofill tokens][autofill] and to the fields of Google's data. Use the table to fill an address from a form or another source.
+
+| Attribute                                                     | HTML autofill           | Google's data              |
+| ------------------------------------------------------------- | ----------------------- | -------------------------- |
+| `honorificPrefix`                                             | `honorific-prefix`      | Name (`%N`)                |
+| `givenName`                                                   | `given-name`            | Name (`%N`)                |
+| `additionalName`                                              | `additional-name`       | Name (`%N`)                |
+| `familyName`, `firstFamilyName`, `secondFamilyName`           | `family-name`           | Name (`%N`)                |
+| `honorificSuffix`                                             | `honorific-suffix`      | Name (`%N`)                |
+| `jobTitle`                                                    | `organization-title`    | None                       |
+| `companyName`                                                 | `organization`          | Organization (`%O`)        |
+| `address1`, `dong`                                            | `address-line1`         | Street address (`%A`)      |
+| `address2`                                                    | `address-line2`         | Street address (`%A`)      |
+| `addressNum`                                                  | Part of `address-line1` | Street address (`%A`)      |
+| `state`, `province`, `region`, `prefecture`, `do`, `republic` | `address-level1`        | Administrative area (`%S`) |
+| `city`, `si`                                                  | `address-level2`        | Locality (`%C`)            |
+| `gu`                                                          | `address-level3`        | Dependent locality (`%D`)  |
+| `postalCode`                                                  | `postal-code`           | Postal code (`%Z`)         |
+| `country`                                                     | `country-name`          | None                       |
+| `countryAlpha2`                                               | `country`               | Region code                |
+
+`title` and `careOf` have no counterpart in either. The first administrative level has 6 attribute names. A value set under any of them prints in a format that reads another (see [Propagation](#propagation)).
+
 ### Inspiration
 
 **Disclaimer:** It doesn't mean this library tries to recreate any of these
@@ -323,6 +348,7 @@ formats and releases.
 
 <!-- References -->
 
+[autofill]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete
 [google-address-data]: https://chromium-i18n.appspot.com/ssl-address
 [msappendix]: https://learn.microsoft.com/en-us/previous-versions/cc195167(v=msdn.10)
 [pa]: https://schema.org/PostalAddress
