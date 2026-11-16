@@ -63,6 +63,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 `pnpm formats:update` reports these differences. They stay:
 
 - Name lines: the library splits the name into more parts and orders them per country, such as `title` in `DE` and 2 surnames in `AR` and `ES`.
+- `AR`: no province line. Correo Argentino: the postal code (CPA) shows the province.
 - `CN`, `JP`, `KP` and `KR` default to the local order. The script compares them with Google's Latin-script format.
 - Level-1 attributes: some formats read another attribute than Google's `state`, such as `province` in `IT`.
 - `TT`: TTPost prints the postal code on the city line.

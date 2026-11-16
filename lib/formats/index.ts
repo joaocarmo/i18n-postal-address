@@ -5,11 +5,39 @@ export type CountryFormat = {
   [key: string]: AddressFormat
 }
 
+const _arAliases: AddressFormat = {
+  array: [
+    [
+      'honorificPrefix',
+      'givenName',
+      'additionalName',
+      'firstFamilyName',
+      'secondFamilyName',
+      'honorificSuffix',
+    ],
+    ['companyName'],
+    ['careOf'],
+    ['address1', 'address2'],
+    [
+      { attribute: 'postalCode', transforms: [capitalize] },
+      { attribute: 'city', transforms: [capitalize] },
+    ],
+    ['state'],
+    [{ attribute: 'country', transforms: [capitalize] }],
+  ],
+}
+
 export const AR: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -17,7 +45,6 @@ export const AR: CountryFormat = {
         { attribute: 'postalCode', transforms: [capitalize] },
         { attribute: 'city', transforms: [capitalize] },
       ],
-      ['state'],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -1227,8 +1254,14 @@ export const CI: CountryFormat = {
 export const CO: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3098,8 +3131,14 @@ export const PA: CountryFormat = {
 export const PE: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3790,8 +3829,14 @@ export const UM: CountryFormat = {
 export const UY: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -3869,8 +3914,14 @@ export const VC: CountryFormat = {
 export const VE: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'additionalName', 'firstFamilyName'],
-      ['secondFamilyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'firstFamilyName',
+        'secondFamilyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1', 'address2'],
@@ -4352,7 +4403,11 @@ export const ZW: CountryFormat = {
   },
 }
 
-export { AR as BO, AR as CL, AR as EC, AR as GY, AR as PY }
+export const BO: CountryFormat = { default: _arAliases }
+export const CL: CountryFormat = { default: _arAliases }
+export const EC: CountryFormat = { default: _arAliases }
+export const GY: CountryFormat = { default: _arAliases }
+export const PY: CountryFormat = { default: _arAliases }
 export { HR as RS, HR as SI }
 export { KR as KP }
 

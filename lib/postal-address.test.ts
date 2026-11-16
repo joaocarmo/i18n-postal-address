@@ -760,11 +760,32 @@ describe('Honorific Suffix', () => {
       .setFormat({ country: 'AR' })
 
     expect(myAddress.toArray()).toEqual([
-      ['Gabriel', 'García'],
-      ['Marcos', 'h.'],
+      ['Gabriel', 'García', 'Marcos', 'h.'],
       ['Av. Corrientes 1234'],
       ['C1043', 'BUENOS AIRES'],
-      ['CABA'],
+    ])
+  })
+
+  it('should keep the region line in the formats that reuse the Argentine one', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    })
+    myAddress
+      .setGivenName('Gabriel')
+      .setFirstFamilyName('García')
+      .setSecondFamilyName('Marcos')
+      .setAddress1('Av. Providencia 1234')
+      .setCity('Santiago')
+      .setPostalCode('7500000')
+      .setState('Región Metropolitana')
+      .setFormat({ country: 'CL' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['Gabriel', 'García', 'Marcos'],
+      ['Av. Providencia 1234'],
+      ['7500000', 'SANTIAGO'],
+      ['Región Metropolitana'],
     ])
   })
 
@@ -809,8 +830,7 @@ describe('Honorific Suffix', () => {
         .setFormat({ country })
 
       expect(myAddress.toArray()).toEqual([
-        ['Gabriel', 'García'],
-        ['Marcos'],
+        ['Gabriel', 'García', 'Marcos'],
         ['Calle 1'],
         ...localityLines,
       ])
@@ -826,7 +846,7 @@ describe('Upper Case', () => {
     ['CA', 'french', [['Springfield', 'IL'], ['AB1']]],
     ['MY', 'default', [['ab1', 'SPRINGFIELD'], ['IL']]],
     ['NG', 'default', [['SPRINGFIELD', 'AB1'], ['IL']]],
-    ['AR', 'default', [['AB1', 'SPRINGFIELD'], ['il']]],
+    ['AR', 'default', [['AB1', 'SPRINGFIELD']]],
   ] as const)(
     'should print the parts Google asks for in capitals for %s (%s)',
     (country, type, expected) => {
