@@ -401,6 +401,51 @@ describe('Postal Address', () => {
       'Department of the House of Representatives\nEmily Nguyen\nParliament House\nCANBERRA ACT 2600',
     )
   })
+
+  it('should print the town, street and postal code on separate lines (HU, business)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'HU',
+    })
+    myAddress
+      .setCompanyName('Országgyűlés Hivatala')
+      .setAddress1('Kossuth Lajos tér 1-3.')
+      .setCity('Budapest')
+      .setPostalCode('1055')
+      .setFormat({ type: 'business' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['Országgyűlés Hivatala'],
+      ['BUDAPEST'],
+      ['Kossuth Lajos tér 1-3.'],
+      ['1055'],
+    ])
+  })
+
+  it('should print the c/o line above the town and each address line on its own (HU)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'HU',
+    })
+    myAddress
+      .setFamilyName('Kovács')
+      .setGivenName('Anna')
+      .setAdditionalName('Mária')
+      .setCareOf('Szabó Péter')
+      .setAddress1('Kossuth Lajos tér 1-3.')
+      .setAddress2('II. emelet')
+      .setCity('Budapest')
+      .setPostalCode('1055')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Kovács', 'Anna', 'Mária'],
+      ['Szabó Péter'],
+      ['BUDAPEST'],
+      ['Kossuth Lajos tér 1-3.'],
+      ['II. emelet'],
+      ['1055'],
+    ])
+  })
 })
 
 describe('Custom Formats', () => {

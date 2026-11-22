@@ -389,37 +389,33 @@ export const HR: CountryFormat = {
   },
 }
 
+const _hu: AddressFormat = {
+  array: [
+    [
+      'honorificPrefix',
+      'honorificSuffix',
+      'familyName',
+      'givenName',
+      'additionalName',
+    ],
+    ['companyName'],
+    ['careOf'],
+    [{ attribute: 'city', transforms: [capitalize] }],
+    ['address1'],
+    ['address2'],
+    ['postalCode'],
+    ['state'],
+    [{ attribute: 'country', transforms: [capitalize] }],
+  ],
+}
+
 export const HU: CountryFormat = {
-  business: {
-    array: [
-      [
-        'honorificPrefix',
-        'honorificSuffix',
-        'familyName',
-        'givenName',
-        'additionalName',
-      ],
-      ['companyName'],
-      ['postalCode', { attribute: 'city', transforms: [capitalize] }],
-      ['careOf'],
-      ['address1'],
-      ['address2'],
-      ['state'],
-      [{ attribute: 'country', transforms: [capitalize] }],
-    ],
-  },
-  default: {
-    array: [
-      ['honorificPrefix', 'honorificSuffix', 'familyName', 'givenName'],
-      ['companyName'],
-      [{ attribute: 'city', transforms: [capitalize] }],
-      ['careOf'],
-      ['address1', 'address2'],
-      ['postalCode'],
-      ['state'],
-      [{ attribute: 'country', transforms: [capitalize] }],
-    ],
-  },
+  /**
+   * @deprecated Prints the same layout as `default`. The next major version
+   * removes it. Use `default` instead.
+   */
+  business: _hu,
+  default: _hu,
 }
 
 export const IT: CountryFormat = {

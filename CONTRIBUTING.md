@@ -76,7 +76,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - The city in capitals in `AR`, the countries that reuse its format, `NO` and `SE`. Capitals never harm sorting.
 - A `state` line in `BG`, `HU`, `PY` and `EC`. It prints only when it is set.
 
-Other reports, such as `address1` and `address2` on 1 line in `AR`, `CH`, `ES` and `HU`, are not reviewed yet.
+Other reports, such as `address1` and `address2` on 1 line in `AR`, `CH` and `ES`, are not reviewed yet.
 
 ## Release
 
