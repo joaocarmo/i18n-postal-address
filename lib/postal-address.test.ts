@@ -1058,6 +1058,27 @@ describe('Care Of', () => {
 })
 
 describe('Honorific Suffix', () => {
+  it.each([
+    ['JP', ['郵政', '太郎', '様', ''], ['郵政', '太郎', '様']],
+    ['CN', ['李', '志敏', '先生', '收'], ['李', '志敏', '先生', '收']],
+    ['KR', ['홍', '길동', '귀하', ''], ['홍', '길동', '귀하']],
+  ])(
+    'should print the honorifics after the name in the local order (%s)',
+    (country, [familyName, givenName, prefix, suffix], expected) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: country,
+      })
+      myAddress
+        .setFamilyName(familyName)
+        .setGivenName(givenName)
+        .setHonorificPrefix(prefix)
+        .setHonorificSuffix(suffix)
+
+      expect(myAddress.toArray()).toEqual([expected])
+    },
+  )
+
   it('should place suffix after familyName in US format', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,
