@@ -464,7 +464,7 @@ export const JP: CountryFormat = {
   },
 }
 
-export const KR: CountryFormat = {
+export const KP: CountryFormat = {
   english: {
     array: [
       ['honorificPrefix', 'familyName', 'givenName', 'honorificSuffix'],
@@ -480,11 +480,57 @@ export const KR: CountryFormat = {
   },
   default: {
     array: [
+      [{ attribute: 'country', transforms: [capitalize] }],
+      ['postalCode'],
+      ['do'],
+      ['si'],
+      ['gu'],
+      ['careOf'],
+      ['dong', 'addressNum'],
+      ['address2'],
+      ['companyName'],
       ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
+    ],
+  },
+}
+
+export const KR: CountryFormat = {
+  english: {
+    array: [
+      [
+        'honorificPrefix',
+        { attribute: 'familyName', transforms: [addCommaAfter] },
+        'givenName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
+      ['address2'],
+      [
+        { attribute: 'addressNum', transforms: [addCommaAfter] },
+        { attribute: 'dong', transforms: [addCommaAfter] },
+        { attribute: 'gu', transforms: [addCommaAfter] },
+        'si',
+      ],
+      [{ attribute: 'do', transforms: [capitalize] }, 'postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+  default: {
+    array: [
       ['do', 'si', 'gu', 'dong', 'addressNum'],
-      ['postalCode', { attribute: 'country', transforms: [capitalize] }],
+      ['address2'],
+      ['companyName'],
+      ['careOf'],
+      [
+        'jobTitle',
+        'familyName',
+        'givenName',
+        'honorificPrefix',
+        'honorificSuffix',
+      ],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
 }
@@ -4417,7 +4463,6 @@ export const ZW: CountryFormat = {
 
 export { _ar as BO, _ar as CL, _ar as EC, _ar as PY }
 export { HR as RS, HR as SI }
-export { KR as KP }
 
 export { NL as AW, NL as BQ, NL as CW, NL as SX }
 export { NZ as CK, NZ as NU, NZ as TK }

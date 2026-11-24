@@ -811,10 +811,11 @@ describe('Korean Address Format', () => {
       .setFormat({ country: 'KR' })
 
     expect(myAddress.toArray()).toEqual([
-      ['김', '민준'],
-      ['서울특별시청'],
       ['서울특별시', '중구', '세종대로', '110'],
-      ['04524', '대한민국'],
+      ['서울특별시청'],
+      ['김', '민준'],
+      ['04524'],
+      ['대한민국'],
     ])
   })
 
@@ -836,9 +837,10 @@ describe('Korean Address Format', () => {
     const output = myAddress.toArray()
 
     expect(output).toEqual([
-      ['김', '민준'],
       ['경기도', '파주시', '시청로 50'],
-      ['10932', '대한민국'],
+      ['김', '민준'],
+      ['10932'],
+      ['대한민국'],
     ])
   })
 
@@ -859,12 +861,130 @@ describe('Korean Address Format', () => {
       .setFormat({ country: 'KR', type: 'english' })
 
     expect(myAddress.toArray()).toEqual([
-      ['Kim', 'Minjun'],
-      ['110,', 'Sejong-daero'],
-      ['Jung-gu'],
-      ['Seoul'],
-      ['04524'],
+      ['Kim,', 'Minjun'],
+      ['110,', 'Sejong-daero,', 'Jung-gu'],
+      ['SEOUL', '04524'],
       ['SOUTH KOREA'],
+    ])
+  })
+
+  it("should follow Korea Post's layout (KR)", () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setDo('세종특별자치시')
+      .setDong('도움5로')
+      .setAddressNum('19')
+      .setAddress2('3층')
+      .setCompanyName('우정사업본부')
+      .setJobTitle('연구원')
+      .setFamilyName('홍')
+      .setGivenName('길동')
+      .setPostalCode('30114')
+
+    expect(myAddress.toArray()).toEqual([
+      ['세종특별자치시', '도움5로', '19'],
+      ['3층'],
+      ['우정사업본부'],
+      ['연구원', '홍', '길동'],
+      ['30114'],
+    ])
+  })
+
+  it("should follow Korea Post's Latin layout (KR, english)", () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setHonorificPrefix('Mr.')
+      .setFamilyName('Hong')
+      .setGivenName('Gil Dong')
+      .setAddress2('101-dong 103-ho')
+      .setAddressNum('2275-12')
+      .setDong('Dalgubeol-daero')
+      .setGu('Suseong-gu')
+      .setDo('Daegu')
+      .setPostalCode('42007')
+      .setCountry('Rep. of Korea')
+      .setFormat({ type: 'english' })
+
+    expect(myAddress.toString()).toBe(
+      'Mr. Hong, Gil Dong\n101-dong 103-ho\n2275-12, Dalgubeol-daero, Suseong-gu\nDAEGU 42007\nREP. OF KOREA',
+    )
+  })
+
+  it('should print the city on the road line and the province with the postcode (KR, english)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setAddressNum('50')
+      .setDong('Sicheong-ro')
+      .setSi('Paju-si')
+      .setDo('Gyeonggi-do')
+      .setPostalCode('10932')
+      .setFormat({ type: 'english' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['50,', 'Sicheong-ro,', 'Paju-si'],
+      ['GYEONGGI-DO', '10932'],
+    ])
+  })
+
+  it("should print a county and a town in the decree's order (KR)", () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KR',
+    })
+    myAddress
+      .setDo('경상남도')
+      .setSi('창녕군')
+      .setGu('창녕읍')
+      .setDong('종로')
+      .setAddressNum('6')
+      .setPostalCode('50329')
+
+    expect(myAddress.toArray()).toEqual([
+      ['경상남도', '창녕군', '창녕읍', '종로', '6'],
+      ['50329'],
+    ])
+
+    myAddress
+      .setDo('Gyeongsangnam-do')
+      .setSi('Changnyeong-gun')
+      .setGu('Changnyeong-eup')
+      .setDong('Jong-ro')
+      .setFormat({ type: 'english' })
+
+    expect(myAddress.toArray()).toEqual([
+      ['6,', 'Jong-ro,', 'Changnyeong-eup,', 'Changnyeong-gun'],
+      ['GYEONGSANGNAM-DO', '50329'],
+    ])
+  })
+
+  it('should print the North Korean local order (KP)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'KP',
+    })
+    myAddress
+      .setFamilyName('리')
+      .setGivenName('금희')
+      .setDong('인민대학습당')
+      .setGu('중구역')
+      .setSi('평양시')
+      .setCountry('조선민주주의인민공화국')
+
+    expect(myAddress.toArray()).toEqual([
+      ['조선민주주의인민공화국'],
+      ['평양시'],
+      ['중구역'],
+      ['인민대학습당'],
+      ['리', '금희'],
     ])
   })
 
@@ -1328,14 +1448,19 @@ describe('getAddressFormat', () => {
     const format = myAddress.getAddressFormat({ country: 'KR' })
 
     expect(format).toEqual([
-      ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
+      ['do', 'si', 'gu', 'dong', 'addressNum'],
+      ['address2'],
       ['companyName'],
       ['careOf'],
-      ['do', 'si', 'gu', 'dong', 'addressNum'],
       [
-        'postalCode',
-        { attribute: 'country', transforms: [expect.any(Function)] },
+        'jobTitle',
+        'familyName',
+        'givenName',
+        'honorificPrefix',
+        'honorificSuffix',
       ],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [expect.any(Function)] }],
     ])
   })
 
