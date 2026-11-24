@@ -644,16 +644,16 @@ export const RO: CountryFormat = {
 export const RU: CountryFormat = {
   default: {
     array: [
-      ['familyName'],
-      ['givenName', 'additionalName', 'honorificSuffix'],
+      ['familyName', 'givenName', 'additionalName', 'honorificSuffix'],
       ['companyName'],
       ['careOf'],
       ['address1'],
       ['address2'],
       [{ attribute: 'city', transforms: [capitalize] }],
-      ['republic', 'state', 'region'],
-      ['postalCode'],
+      ['region'],
+      ['republic', 'state'],
       [{ attribute: 'country', transforms: [capitalize] }],
+      ['postalCode'],
     ],
   },
 }

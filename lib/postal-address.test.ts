@@ -9,8 +9,8 @@ const expectedOutputRUBusiness = `\
 Правительство Москвы
 ул. Тверская, д. 13
 МОСКВА
-125032
-РОССИЯ`
+РОССИЯ
+125032`
 
 const expectedOutputUSWithoutTransforms = `\
 1100 Congress Ave
@@ -298,7 +298,7 @@ describe('Postal Address', () => {
       .setCountry('Россия')
 
     expect(myAddress.toString()).toBe(
-      'Иванова\nАнна Сергеевна\nул. Тверская, д. 13\nМОСКВА\n125032\nРОССИЯ',
+      'Иванова Анна Сергеевна\nул. Тверская, д. 13\nМОСКВА\nРОССИЯ\n125032',
     )
   })
 
@@ -470,6 +470,29 @@ describe('Postal Address', () => {
       ['Georgetown'],
       ['4130105'],
       ['GUYANA'],
+    ])
+  })
+
+  it('should print the district and the subject on separate lines (RU)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'RU',
+    })
+    myAddress
+      .setFamilyName('Иванова')
+      .setGivenName('Анна')
+      .setAdditionalName('Сергеевна')
+      .setCity('Ясная Поляна')
+      .setRegion('Щёкинский р-н')
+      .setState('Тульская обл.')
+      .setPostalCode('301214')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Иванова', 'Анна', 'Сергеевна'],
+      ['ЯСНАЯ ПОЛЯНА'],
+      ['Щёкинский р-н'],
+      ['Тульская обл.'],
+      ['301214'],
     ])
   })
 })

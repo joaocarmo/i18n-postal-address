@@ -288,6 +288,8 @@ title
 
 Only the `KR` and `KP` formats print `addressNum`. Other formats ignore it.
 
+In `RU`, `region` holds the district (район) and prints below the town. `republic` or `state` holds the subject (republic, krai or oblast).
+
 ## Background
 
 ### Why
