@@ -70,6 +70,7 @@ The formats leave out Google's literal text, such as `〒` or the `CH-` prefix, 
 - `RO`: Poșta Română prints the postal code and locality, then the county.
 - `UY` and `RO` leave out the department or county when it repeats the city, as Correo Uruguayo and Poșta Română ask.
 - `BR`: Correios accept the postal code, city and state on 1 line.
+- `RU`: the district (`region`) and the subject (`republic` or `state`) on separate lines, and the postal code after the country, as Order 382 and Russian Post's UPU sheet show.
 - `VE`: the city, state and postal code on separate lines, as IPOSTEL's sample envelope shows.
 - `ES`: the postal code and city on 1 line, then the province, as in common practice. Correos publishes no layout.
 - `EC`: the regulator's example prints the postal code and city on 1 line.
