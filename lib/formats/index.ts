@@ -1804,6 +1804,27 @@ export const GW: CountryFormat = {
   },
 }
 
+export const GY: CountryFormat = {
+  default: {
+    array: [
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
+      ['companyName'],
+      ['careOf'],
+      ['address1'],
+      ['address2'],
+      ['city'],
+      ['postalCode'],
+      [{ attribute: 'country', transforms: [capitalize] }],
+    ],
+  },
+}
+
 export const HK: CountryFormat = {
   default: {
     array: [
@@ -4394,7 +4415,7 @@ export const ZW: CountryFormat = {
   },
 }
 
-export { _ar as BO, _ar as CL, _ar as EC, _ar as GY, _ar as PY }
+export { _ar as BO, _ar as CL, _ar as EC, _ar as PY }
 export { HR as RS, HR as SI }
 export { KR as KP }
 
