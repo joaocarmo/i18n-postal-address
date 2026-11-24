@@ -874,22 +874,23 @@ describe('Korean Address Format', () => {
       defaultFormat: 'KR',
     })
     myAddress
-      .setDo('세종특별자치시')
-      .setDong('도움5로')
-      .setAddressNum('19')
-      .setAddress2('3층')
-      .setCompanyName('우정사업본부')
+      .setDo('전라남도')
+      .setSi('나주시')
+      .setDong('정보화길')
+      .setAddressNum('1')
+      .setAddress2('(빛가람동)')
+      .setCompanyName('우정정보관리원')
       .setJobTitle('연구원')
-      .setFamilyName('홍')
-      .setGivenName('길동')
-      .setPostalCode('30114')
+      .setFamilyName('임')
+      .setGivenName('꺽정')
+      .setPostalCode('58217')
 
     expect(myAddress.toArray()).toEqual([
-      ['세종특별자치시', '도움5로', '19'],
-      ['3층'],
-      ['우정사업본부'],
-      ['연구원', '홍', '길동'],
-      ['30114'],
+      ['전라남도', '나주시', '정보화길', '1'],
+      ['(빛가람동)'],
+      ['우정정보관리원'],
+      ['연구원', '임', '꺽정'],
+      ['58217'],
     ])
   })
 

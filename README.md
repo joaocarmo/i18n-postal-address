@@ -290,7 +290,7 @@ Only the `KR` and `KP` formats print `addressNum`. Other formats ignore it.
 
 Only the `KR` default format prints `jobTitle`, before the name, as Korea Post asks.
 
-In `KR`, `si` holds a city or county (`-si`, `-gun`), and `gu` holds the level below it (`-gu`, `-eup`, `-myeon`). Leave `si` empty for an autonomous district of Seoul or a metropolitan city, which goes in `gu`.
+In `KR`, `si` holds a city or county (`-si`, `-gun`), and `gu` holds the level below it (`-gu`, `-eup`, `-myeon`). Leave `si` empty for an autonomous district of Seoul or a metropolitan city, which goes in `gu`. `address2` holds the detailed address (building, floor, unit) and the reference item in brackets, such as `(어진동)`.
 
 In `RU`, `region` holds the district (район) and prints below the town. `republic` or `state` holds the subject (republic, krai or oblast).
 
