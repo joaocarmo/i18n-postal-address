@@ -159,6 +159,8 @@ postalAddress.setFormat({ country, type, useTransforms })
 
 The `english` type of `CN`, `JP`, `KR` and `KP` gives the Latin-script order, for an address written in Latin script. It does not transliterate the values.
 
+In the default type of `CN`, `JP`, `KR` and `KP`, `honorificPrefix` and `honorificSuffix` both print after the name, in that order, because these languages put honorifics there: `郵政 太郎 様`, `李 志敏 先生 收`. The `english` type prints `honorificPrefix` before the name.
+
 ### Propagation
 
 ```js
