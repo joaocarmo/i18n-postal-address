@@ -446,6 +446,32 @@ describe('Postal Address', () => {
       ['1055'],
     ])
   })
+
+  it('should print the town and the postcode on separate lines, the town as written (GY)', () => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'GY',
+    })
+    myAddress
+      .setHonorificPrefix('Ms.')
+      .setGivenName('Alicia')
+      .setFamilyName('Persaud')
+      .setCompanyName('Guyana Post Office Corporation')
+      .setAddress1('Robb Street')
+      .setCity('Georgetown')
+      .setState('Demerara-Mahaica')
+      .setPostalCode('4130105')
+      .setCountry('Guyana')
+
+    expect(myAddress.toArray()).toEqual([
+      ['Ms.', 'Alicia', 'Persaud'],
+      ['Guyana Post Office Corporation'],
+      ['Robb Street'],
+      ['Georgetown'],
+      ['4130105'],
+      ['GUYANA'],
+    ])
+  })
 })
 
 describe('Custom Formats', () => {
@@ -984,13 +1010,6 @@ describe('Honorific Suffix', () => {
         ['170401', 'QUITO'],
         ['Pichincha'],
       ],
-    ],
-    [
-      'GY',
-      ['Alicia', 'Persaud', ''],
-      ['Robb Street', ''],
-      ['Georgetown', '', '4130105'],
-      [['Alicia', 'Persaud'], ['Robb Street'], ['4130105', 'GEORGETOWN']],
     ],
     [
       'PY',
