@@ -495,6 +495,55 @@ describe('Postal Address', () => {
       ['301214'],
     ])
   })
+
+  it.each([
+    [
+      'business',
+      { companyName: 'Company AS' },
+      [['Company AS'], ['Per', 'Post'], ['Storgata 15'], ['0161', 'OSLO']],
+    ],
+    [
+      'personal',
+      { companyName: 'Company AS' },
+      [['Per', 'Post'], ['Company AS'], ['Storgata 15'], ['0161', 'OSLO']],
+    ],
+    [
+      'default',
+      {
+        givenName: 'Linda',
+        familyName: 'Letter',
+        careOf: 'c/o Per Post',
+        address2: 'Residential number H0302',
+      },
+      [
+        ['Linda', 'Letter'],
+        ['c/o Per Post'],
+        ['Residential number H0302'],
+        ['Storgata 15'],
+        ['0161', 'OSLO'],
+      ],
+    ],
+  ] as const)(
+    "should follow Posten's layout (NO, %s)",
+    (type, extra, expected) => {
+      const myAddress = new PostalAddress({
+        formats: addressFormats,
+        defaultFormat: 'NO',
+      })
+      myAddress
+        .fromObject({
+          givenName: 'Per',
+          familyName: 'Post',
+          address1: 'Storgata 15',
+          postalCode: '0161',
+          city: 'Oslo',
+          ...extra,
+        })
+        .setFormat({ type })
+
+      expect(myAddress.toArray()).toEqual(expected)
+    },
+  )
 })
 
 describe('Custom Formats', () => {
@@ -1478,6 +1527,7 @@ describe('getAddressFormat', () => {
         'jobTitle',
         'familyName',
         'givenName',
+        'additionalName',
         'honorificPrefix',
         'honorificSuffix',
       ],

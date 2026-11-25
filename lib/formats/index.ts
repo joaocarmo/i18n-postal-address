@@ -160,7 +160,13 @@ export const BR: CountryFormat = {
 
 const _ca: AddressFormat = {
   array: [
-    ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+    [
+      'honorificPrefix',
+      'givenName',
+      'additionalName',
+      'familyName',
+      'honorificSuffix',
+    ],
     ['companyName'],
     ['careOf'],
     ['address1', 'address2'],
@@ -183,7 +189,13 @@ export const CH: CountryFormat = {
   default: {
     array: [
       ['companyName'],
-      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
       ['careOf'],
       ['address1', 'address2'],
       ['postalCode', 'city'],
@@ -222,7 +234,13 @@ export const CN: CountryFormat = {
       ['careOf'],
       ['address1', 'address2'],
       ['companyName'],
-      ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
+      [
+        'familyName',
+        'givenName',
+        'additionalName',
+        'honorificPrefix',
+        'honorificSuffix',
+      ],
     ],
   },
 }
@@ -254,6 +272,7 @@ export const DE: CountryFormat = {
         'honorificPrefix',
         'title',
         'givenName',
+        'additionalName',
         'familyName',
         'honorificSuffix',
       ],
@@ -421,7 +440,13 @@ export const HU: CountryFormat = {
 export const IT: CountryFormat = {
   default: {
     array: [
-      ['honorificPrefix', 'givenName', 'familyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -439,7 +464,13 @@ export const IT: CountryFormat = {
 export const JP: CountryFormat = {
   english: {
     array: [
-      ['honorificPrefix', 'familyName', 'givenName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'familyName',
+        'givenName',
+        'additionalName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       ['address1'],
@@ -459,7 +490,13 @@ export const JP: CountryFormat = {
       ['careOf'],
       ['address1', 'address2'],
       ['companyName'],
-      ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
+      [
+        'familyName',
+        'givenName',
+        'additionalName',
+        'honorificPrefix',
+        'honorificSuffix',
+      ],
     ],
   },
 }
@@ -467,7 +504,13 @@ export const JP: CountryFormat = {
 export const KP: CountryFormat = {
   english: {
     array: [
-      ['honorificPrefix', 'familyName', 'givenName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'familyName',
+        'givenName',
+        'additionalName',
+        'honorificSuffix',
+      ],
       ['companyName'],
       ['careOf'],
       [{ attribute: 'addressNum', transforms: [addCommaAfter] }, 'dong'],
@@ -489,7 +532,13 @@ export const KP: CountryFormat = {
       ['dong', 'addressNum'],
       ['address2'],
       ['companyName'],
-      ['familyName', 'givenName', 'honorificPrefix', 'honorificSuffix'],
+      [
+        'familyName',
+        'givenName',
+        'additionalName',
+        'honorificPrefix',
+        'honorificSuffix',
+      ],
     ],
   },
 }
@@ -501,6 +550,7 @@ export const KR: CountryFormat = {
         'honorificPrefix',
         { attribute: 'familyName', transforms: [addCommaAfter] },
         'givenName',
+        'additionalName',
         'honorificSuffix',
       ],
       ['companyName'],
@@ -526,6 +576,7 @@ export const KR: CountryFormat = {
         'jobTitle',
         'familyName',
         'givenName',
+        'additionalName',
         'honorificPrefix',
         'honorificSuffix',
       ],
@@ -596,9 +647,10 @@ const _noPersonal: AddressFormat = {
       'familyName',
       'honorificSuffix',
     ],
+    ['companyName'],
     ['careOf'],
-    ['address1'],
     ['address2'],
+    ['address1'],
     [
       'postalCode',
       {
@@ -614,11 +666,17 @@ export const NO: CountryFormat = {
   business: {
     array: [
       ['companyName'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
       ['careOf'],
-      ['address1'],
-      ['givenName', 'familyName', 'honorificSuffix'],
       ['address2'],
-      ['postalCode', 'city'],
+      ['address1'],
+      ['postalCode', { attribute: 'city', transforms: [capitalize] }],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
@@ -751,11 +809,17 @@ export const SE: CountryFormat = {
   business: {
     array: [
       ['companyName'],
-      ['givenName', 'familyName', 'honorificSuffix'],
+      [
+        'honorificPrefix',
+        'givenName',
+        'additionalName',
+        'familyName',
+        'honorificSuffix',
+      ],
       ['careOf'],
       ['address1'],
       ['address2'],
-      ['postalCode', 'city'],
+      ['postalCode', { attribute: 'city', transforms: [capitalize] }],
       [{ attribute: 'country', transforms: [capitalize] }],
     ],
   },
