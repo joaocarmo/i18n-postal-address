@@ -1678,6 +1678,27 @@ describe('Propagation', () => {
     expect(myAddress.toObject().countryAlpha2).toBe('')
   })
 
+  it.each([
+    ['Türkiye', 'TR'],
+    ['Turkey', 'TR'],
+    ['Eswatini', 'SZ'],
+    ['North Macedonia', 'MK'],
+    ['Korea, Republic of', 'KR'],
+    ['South Korea', 'KR'],
+    ['United States', 'US'],
+    ['Côte d’Ivoire', 'CI'],
+    ["Côte d'Ivoire", 'CI'],
+    ['Kosovo', 'XK'],
+    ['PORTUGAL', 'PT'],
+  ])('should set countryAlpha2 from %s', (country, countryAlpha2) => {
+    const myAddress = new PostalAddress({
+      formats: addressFormats,
+      defaultFormat: 'US',
+    }).setCountry(country)
+
+    expect(myAddress.toObject().countryAlpha2).toBe(countryAlpha2)
+  })
+
   it('should not set countryAlpha2 for an unknown country', () => {
     const myAddress = new PostalAddress({
       formats: addressFormats,

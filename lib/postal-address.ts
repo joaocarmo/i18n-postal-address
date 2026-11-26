@@ -17,7 +17,7 @@ import {
   containsValidTokens,
   isValidFormat,
 } from './utils.js'
-import countries, { type CountryName } from './data/countries.js'
+import { countryCodesByLowerCaseName } from './data/countries.js'
 
 const adminAreas = [
   'do',
@@ -187,7 +187,9 @@ class PostalAddress implements PostalAddressInterface {
     this.setProperty('country', newValue)
 
     if (this.propagateToRelatedProperties) {
-      const countryAlpha2 = countries[newValue as CountryName]
+      const countryAlpha2 = countryCodesByLowerCaseName.get(
+        newValue.toLowerCase(),
+      )
 
       if (countryAlpha2) {
         this.setProperty('countryAlpha2', countryAlpha2)
