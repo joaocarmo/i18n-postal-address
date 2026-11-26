@@ -171,8 +171,8 @@ In the default type of `CN`, `JP`, `KR` and `KP`, `honorificPrefix` and `honorif
     setDo() and setProvince() set each other
     setFamilyName() and setSecondFamilyName() set each other
     setCountry() also sets countryAlpha2, for an English country name: the
-    ISO 3166-1 short name, the common name that browsers show, or an older
-    ISO name, in any case
+    current or an earlier ISO 3166-1 short name, or the name that browsers
+    show. Case, accents and spaces around the name do not matter
 */
 
 postalAddress.setPropagation(false)

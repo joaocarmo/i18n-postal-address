@@ -75,6 +75,7 @@ const countries = {
   Curacao: 'CW',
   Curaçao: 'CW',
   Cyprus: 'CY',
+  'Czech Republic': 'CZ',
   Czechia: 'CZ',
   Denmark: 'DK',
   Djibouti: 'DJ',
@@ -326,9 +327,17 @@ const countries = {
 export type CountryName = keyof typeof countries
 export type CountryAlpha2 = (typeof countries)[CountryName]
 
-export const countryCodesByLowerCaseName: ReadonlyMap<string, CountryAlpha2> =
-  new Map(
-    Object.entries(countries).map(([name, code]) => [name.toLowerCase(), code]),
-  )
+// Names match regardless of case, accents, apostrophe style and surrounding spaces.
+export const toCountryKey = (name: string): string =>
+  name
+    .trim()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .replace(/\u2019/g, "'")
+    .toLowerCase()
+
+export const countryCodesByKey: ReadonlyMap<string, CountryAlpha2> = new Map(
+  Object.entries(countries).map(([name, code]) => [toCountryKey(name), code]),
+)
 
 export default countries

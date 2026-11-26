@@ -1,4 +1,4 @@
-import countries from './countries.js'
+import countries, { toCountryKey } from './countries.js'
 import { addressFormats } from '../index.js'
 
 describe('Countries', () => {
@@ -28,20 +28,15 @@ describe('Countries', () => {
     expect(unnamed).toEqual([])
   })
 
-  it('should map each name to 1 code', () => {
-    const codesByLowerCaseName = new Map<string, Set<string>>()
+  it('should map each lookup key to 1 code', () => {
+    const codesByKey = new Map<string, Set<string>>()
 
     for (const [name, code] of Object.entries(countries)) {
-      const key = name.toLowerCase()
-      codesByLowerCaseName.set(
-        key,
-        (codesByLowerCaseName.get(key) ?? new Set()).add(code),
-      )
+      const key = toCountryKey(name)
+      codesByKey.set(key, (codesByKey.get(key) ?? new Set()).add(code))
     }
 
-    const ambiguous = [...codesByLowerCaseName].filter(
-      ([, codes]) => codes.size > 1,
-    )
+    const ambiguous = [...codesByKey].filter(([, codes]) => codes.size > 1)
 
     expect(ambiguous).toEqual([])
   })
