@@ -17,7 +17,7 @@ import {
   containsValidTokens,
   isValidFormat,
 } from './utils.js'
-import countries, { type CountryName } from './data/countries.js'
+import { countryCodesByKey, toCountryKey } from './data/countries.js'
 
 const adminAreas = [
   'do',
@@ -186,8 +186,8 @@ class PostalAddress implements PostalAddressInterface {
   public setCountry(newValue: string): this {
     this.setProperty('country', newValue)
 
-    if (this.propagateToRelatedProperties) {
-      const countryAlpha2 = countries[newValue as CountryName]
+    if (this.propagateToRelatedProperties && typeof newValue === 'string') {
+      const countryAlpha2 = countryCodesByKey.get(toCountryKey(newValue))
 
       if (countryAlpha2) {
         this.setProperty('countryAlpha2', countryAlpha2)
