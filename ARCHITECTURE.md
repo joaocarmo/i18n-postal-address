@@ -9,7 +9,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, build and tests.
 1. The constructor of `PostalAddress` (`lib/postal-address.ts`) takes the formats to use and a default country. It checks them and starts with every address part empty (`object-initial-state.ts`).
 2. Each `set*()` method stores 1 part of the address. Values that are not strings are ignored. While propagation is on (`setPropagation()`), some setters also fill a related part, such as `setCity()` for `si` or `setCountry()` for `countryAlpha2`, using `data/countries.ts`.
 3. `setFormat()` picks the country, the format type (`default`, `business`, `english`, `french` or `personal`) and whether the transforms run. `addFormat()` adds or replaces a format after checking it (`utils.ts`).
-4. `toArray()` takes the format for the chosen country and type, or the country's `default` format when that type does not exist. It passes the format to `arrayParser()` (`address-parsers.ts`). The parser walks the format line by line, reads each part from the address, applies the part's transforms and leaves out empty parts and empty lines.
+4. `toArray()` takes the format for the chosen country and type, or the country's `default` format when that type does not exist. It passes the format to `arrayParser()` (`address-parsers.ts`). The parser walks the format line by line, reads each part from the address, applies the part's transforms, joins a part to the part before it when the part sets a `separator`, and leaves out empty parts and empty lines.
 5. `toString()` joins the parts of a line with spaces and the lines with new lines.
 
 ## Modules

@@ -159,7 +159,9 @@ postalAddress.setFormat({ country, type, useTransforms })
 
 The `english` type of `CN`, `JP`, `KR` and `KP` gives the Latin-script order, for an address written in Latin script. It does not transliterate the values.
 
-In the default type of `CN`, `JP`, `KR` and `KP`, `honorificPrefix` and `honorificSuffix` both print after the name, in that order, because these languages put honorifics there: `郵政 太郎 様`, `李 志敏 先生 收`. The `english` type prints `honorificPrefix` before the name.
+In the default type of `CN`, `JP`, `KR` and `KP`, `honorificPrefix` and `honorificSuffix` both print after the name, in that order, because these languages put honorifics there: `郵政 太郎 様`, `李志敏 先生 收`. The `english` type prints `honorificPrefix` before the name.
+
+The default type of `CN` prints the name without spaces, and that of `JP` prints the prefecture and city without a space, as the postal operators write them: `東京都中央区`. A name in Latin script belongs in the `english` type.
 
 ### Propagation
 
@@ -239,6 +241,8 @@ Additional formats can be added or existing ones can be replaced
       every ES module uses
     - A comma that a transform adds to the last part of a line is dropped, so
       a separator prints only when another part follows
+    - The objects may contain a separator string that replaces the space
+      between the part and the part before it, when both have a value
 */
 
 const addCommaAfter = (value) => `${value},`
@@ -254,6 +258,14 @@ postalAddress.addFormat({
     [{ attribute: 'familyName', transforms: [addCommaAfter] }, 'givenName'],
     ['city', 'postalCode'],
     ['country'],
+  ],
+})
+
+postalAddress.addFormat({
+  country: 'JP',
+  format: [
+    ['postalCode', 'prefecture', { attribute: 'city', separator: '' }],
+    ['address1'],
   ],
 })
 ```
