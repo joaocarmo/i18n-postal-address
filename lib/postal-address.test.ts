@@ -220,7 +220,7 @@ describe('Postal Address', () => {
       .setCountry('中国')
 
     expect(myAddress.toString()).toBe(
-      '中国\n100871\n北京市 海淀区\n颐和园路5号\n陈 静',
+      '中国\n100871\n北京市 海淀区\n颐和园路5号\n陈静',
     )
   })
 
@@ -259,7 +259,7 @@ describe('Postal Address', () => {
       .setCountry('日本')
 
     expect(myAddress.toString()).toBe(
-      '日本\n104-0061 東京都 中央区\n銀座4-6-16\n鈴木 陽菜',
+      '日本\n104-0061 東京都中央区\n銀座4-6-16\n鈴木 陽菜',
     )
   })
 
@@ -1109,7 +1109,7 @@ describe('Care Of', () => {
 describe('Honorific Suffix', () => {
   it.each([
     ['JP', ['郵政', '太郎', '様', ''], ['郵政', '太郎', '様']],
-    ['CN', ['李', '志敏', '先生', '收'], ['李', '志敏', '先生', '收']],
+    ['CN', ['李', '志敏', '先生', '收'], ['李志敏', '先生', '收']],
     ['KR', ['홍', '길동', '귀하', ''], ['홍', '길동', '귀하']],
   ])(
     'should print the honorifics after the name in the local order (%s)',

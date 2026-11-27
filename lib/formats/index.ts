@@ -236,8 +236,8 @@ export const CN: CountryFormat = {
       ['companyName'],
       [
         'familyName',
-        'givenName',
-        'additionalName',
+        { attribute: 'givenName', separator: '' },
+        { attribute: 'additionalName', separator: '' },
         'honorificPrefix',
         'honorificSuffix',
       ],
@@ -486,7 +486,7 @@ export const JP: CountryFormat = {
   default: {
     array: [
       [{ attribute: 'country', transforms: [capitalize] }],
-      ['postalCode', 'prefecture', 'city'],
+      ['postalCode', 'prefecture', { attribute: 'city', separator: '' }],
       ['careOf'],
       ['address1', 'address2'],
       ['companyName'],

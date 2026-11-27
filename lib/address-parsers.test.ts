@@ -104,4 +104,75 @@ describe('arrayParser', () => {
       ),
     ).toEqual([['Porto,']])
   })
+
+  const cjk: AddressObject = {
+    ...objectInitialState,
+    familyName: '李',
+    givenName: '志敏',
+    additionalName: 'X',
+    honorificPrefix: '先生',
+    postalCode: '104-0061',
+    prefecture: '東京都',
+    city: '中央区',
+  }
+  const glued = { attribute: 'city', separator: '' }
+
+  it('should join a part to the part before it with its separator', () => {
+    expect(
+      arrayParser(
+        cjk,
+        [
+          [
+            'familyName',
+            { attribute: 'givenName', separator: '' },
+            { attribute: 'additionalName', separator: '' },
+            'honorificPrefix',
+          ],
+        ],
+        true,
+      ),
+    ).toEqual([['李志敏X', '先生']])
+  })
+
+  it('should print a part on its own when the part before it is empty', () => {
+    expect(
+      arrayParser(
+        { ...cjk, prefecture: '' },
+        [['postalCode', 'prefecture', glued]],
+        true,
+      ),
+    ).toEqual([['104-0061', '中央区']])
+  })
+
+  it('should join across an empty part that has a separator', () => {
+    expect(
+      arrayParser(
+        { ...cjk, givenName: '' },
+        [
+          [
+            'familyName',
+            { attribute: 'givenName', separator: '' },
+            { attribute: 'additionalName', separator: '' },
+          ],
+        ],
+        true,
+      ),
+    ).toEqual([['李X']])
+  })
+
+  it('should drop a trailing comma from a joined part', () => {
+    expect(
+      arrayParser(
+        cjk,
+        [['prefecture', { ...glued, transforms: [addCommaAfter] }]],
+        true,
+      ),
+    ).toEqual([['東京都中央区']])
+  })
+
+  it('should join parts when transforms are off', () => {
+    expect(arrayParser(cjk, [['prefecture', glued]], false)).toEqual([
+      ['東京都中央区'],
+    ])
+  })
 })
