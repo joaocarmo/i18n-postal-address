@@ -144,6 +144,22 @@ describe('arrayParser', () => {
     ).toEqual([['104-0061', '中央区']])
   })
 
+  it('should join across an empty part that has a separator', () => {
+    expect(
+      arrayParser(
+        { ...cjk, givenName: '' },
+        [
+          [
+            'familyName',
+            { attribute: 'givenName', separator: '' },
+            { attribute: 'additionalName', separator: '' },
+          ],
+        ],
+        true,
+      ),
+    ).toEqual([['李X']])
+  })
+
   it('should drop a trailing comma from a joined part', () => {
     expect(
       arrayParser(

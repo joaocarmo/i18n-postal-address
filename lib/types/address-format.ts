@@ -42,7 +42,7 @@ export interface TransformFunction {
 export interface AddressFormatOptions {
   attribute: keyof AddressObject
   transforms?: TransformFunction[]
-  /** Printed between this part and the part before it, in place of a space, when both have a value. */
+  /** Printed in place of a space between this part and the part before it, when both have a value. An empty part with a separator is skipped. */
   separator?: string
 }
 

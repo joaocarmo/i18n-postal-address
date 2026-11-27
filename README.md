@@ -240,9 +240,11 @@ Additional formats can be added or existing ones can be replaced
       The address is read-only. A write to it throws in strict mode, which
       every ES module uses
     - A comma that a transform adds to the last part of a line is dropped, so
-      a separator prints only when another part follows
+      the comma prints only when another part follows
     - The objects may contain a separator string that replaces the space
-      between the part and the part before it, when both have a value
+      between the part and the part before it, when both have a value. An
+      empty part with a separator is skipped, so the next part with a
+      separator joins the part before it
 */
 
 const addCommaAfter = (value) => `${value},`

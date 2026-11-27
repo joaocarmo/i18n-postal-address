@@ -14,15 +14,16 @@ const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
       const subResult: string[] = []
       // A comma that a transform added after the last part has nothing to separate.
       let lastWithoutComma: string | undefined
-      // A separator joins a part only to the part right before it in the format.
+      // A separator joins a part to the part before it. An empty part with a separator keeps the join going.
       let previousPrinted = false
 
       if (Array.isArray(line)) {
         line.forEach((part: AddressFormatPart) => {
           if (typeof part === 'string') {
-            previousPrinted = Boolean(object[part])
-            if (object[part]) {
-              subResult.push(object[part])
+            const value = object[part]
+            previousPrinted = Boolean(value)
+            if (value) {
+              subResult.push(value)
               lastWithoutComma = undefined
             }
           } else if (typeof part === 'object') {
@@ -49,7 +50,9 @@ const arrayParser: ParserInterface = (object, format, useTransforms = true) => {
                     ? printed.slice(0, -1)
                     : undefined
               }
-              previousPrinted = Boolean(value)
+              previousPrinted =
+                Boolean(value) ||
+                (typeof part.separator === 'string' && previousPrinted)
             }
           }
         })
